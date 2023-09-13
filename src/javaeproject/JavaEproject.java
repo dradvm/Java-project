@@ -3,12 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package javaeproject;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
+
+import java.sql.*;
+import java.util.ArrayList;
 import javaeproject.connection.ConnectionDB;
+import javaeproject.dao.*;
+import javaeproject.model.*;
+
 /**
  *
  * @author DELL
@@ -20,7 +21,8 @@ public class JavaEproject {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Connection conn = ConnectionDB.getConnection();
+        ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
+        System.out.println("Hello + " + shiftRequestDAO.getByID("RQ01").getCurrentShiftID());
     }
-    
+
 }

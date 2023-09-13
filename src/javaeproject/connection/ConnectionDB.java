@@ -16,18 +16,29 @@ import java.sql.ResultSet;
  */
 public class ConnectionDB {
 
-    private static final String jdbcUrl = "jdbc:sqlserver://localhost:1433;databaseName=northwind;encrypt=true;trustServerCertificate=true;";
+    private static final String jdbcUrl = "jdbc:sqlserver://localhost:1433;databaseName=RemedySchedule;encrypt=true;trustServerCertificate=true;";
     private static final String username = "sa";
     private static final String password = "12345678";
 
     private static Connection connection = null;
 
-    public static Connection getConnection() {
+    static {
         try {
             connection = DriverManager.getConnection(jdbcUrl, username, password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public static Connection getConnection() {
         return connection ;
+    }
+    public static void closeConnection() {
+        try {
+            connection.close();
+        }
+        catch (SQLException e) {
+            System.out.println("Error");
+        }
     }
 }
