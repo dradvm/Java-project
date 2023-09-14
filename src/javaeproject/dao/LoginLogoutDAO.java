@@ -5,7 +5,9 @@
 package javaeproject.dao;
 
 import java.sql.*;
+import java.time.LocalDate;
 import javaeproject.connection.ConnectionDB;
+import javaeproject.model.User;
 /**
  *
  * @author Voke
@@ -37,18 +39,30 @@ public class LoginLogoutDAO {
         }
     }
     
-    public String getPositionFromDB(String username, String password) {
+    public User getUserFromDB(String username, String password) {
         try {
             Statement statement = connection.createStatement();
-            String query = "select Position "
+            String query = "select * "
                 + "from Employee "
                 + "where Username = '" + username + "' and [Password] = '" + password + "'";
             ResultSet result = statement.executeQuery(query);
-            String position = null;
+            User user = new User();
             while (result.next()) {
-                position = result.getString(1);
+                user.setEmployeeID(result.getString(1));
+                user.setDepartmentID(result.getString(2));
+                user.setEmployeeName(result.getString(3));
+                user.setGender(result.getString(4));
+                user.setPosition(result.getString(5));
+                user.setAddress(result.getString(6));
+                user.setEmployeePhone(result.getString(7));
+                String[] dateString = result.getString(8).split("-");
+                user.setEmployeeDoB(LocalDate.of(Integer.parseInt(dateString[0]), Integer.parseInt(dateString[1]), Integer.parseInt(dateString[2])));
+                user.setEmail(result.getString(9));
+                user.setEmployeeSpecialty(result.getString(10));
+                user.setUsername(result.getString(11));
+                user.setPassword(result.getString(12));
             }
-            return position;
+            return user;
         }
         catch (SQLException e) {
             e.printStackTrace();

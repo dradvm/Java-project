@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaeproject.model;
+package javaeproject.gui;
 
 import java.time.LocalDate;
-import javaeproject.dao.GenerateShiftDAO;
-import static javaeproject.model.LoginLogout.*;
+import javaeproject.dao.ShiftDAO;
+import static javaeproject.gui.LoginGUI.*;
 /**
  *
  * @author Voke
  */
-public class GenerateShift {
+public class GenerateShiftGUI {
     
     private String shiftID;
     private String departmentID;
@@ -20,15 +20,15 @@ public class GenerateShift {
     private String type;
     private int startTime;
     private int endTime;
-    private final GenerateShiftDAO dao = new GenerateShiftDAO();
+    private final ShiftDAO dao = new ShiftDAO();
     
-    public GenerateShift() {
+    public GenerateShiftGUI() {
         if (getPosition().equals("Department Head")) {
-            if (dao.generateShiftID() == null) {
+            if (dao.getNewID() == null) {
                 notifyError();
             }
             else {
-                shiftID = dao.generateShiftID();
+                shiftID = dao.getNewID();
                 departmentID = "D1";
                 roomID = "R1";
                 date = LocalDate.now();

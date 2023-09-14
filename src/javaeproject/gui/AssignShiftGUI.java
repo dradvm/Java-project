@@ -2,29 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaeproject.model;
+package javaeproject.gui;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
-import javaeproject.dao.AssignShiftDAO;
-import static javaeproject.model.LoginLogout.*;
+import javaeproject.dao.ShiftDAO;
+import static javaeproject.gui.LoginGUI.*;
+import javaeproject.model.Shift;
+import javaeproject.model.User;
 /**
  *
  * @author Voke
  */
-public class AssignShift {
+public class AssignShiftGUI {
     
-    private LocalDate start;
-    private LocalDate end;
-    private String shiftID;
-    private String EmployeeID;
-    private String name;
-    private String gender;
-    private String position;
-    private String specialty;
-    private AssignShiftDAO dao = new AssignShiftDAO();
+    private User user;
     
-    public AssignShift() {
+    private ShiftDAO dao = new ShiftDAO();
+    
+    public AssignShiftGUI(User user) {
+        this.user = user;
         if (getPosition().equals("Department Head")) {
             start = LocalDate.of(2023, 9, 14);
             end = LocalDate.of(2023, 10, 15);

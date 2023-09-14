@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
 import javaeproject.model.*;
-import static javaeproject.model.LoginLogout.*;
+import static javaeproject.gui.LoginGUI.*;
 
 /**
  *

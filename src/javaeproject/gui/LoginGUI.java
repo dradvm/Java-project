@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaeproject.model;
+package javaeproject.gui;
 import javax.swing.JFrame;
 import javaeproject.dao.LoginLogoutDAO;
 /**
  *
  * @author Voke
  */
-public class LoginLogout {
+public class LoginGUI {
     
     private static String instanceUsername = null;
     private static String instancePassword = null;
@@ -17,7 +17,7 @@ public class LoginLogout {
     private static boolean isLogin = false;
     private static final LoginLogoutDAO dao = new LoginLogoutDAO();
     
-    public LoginLogout() {
+    public LoginGUI() {
     }
     
     public static void Login() {

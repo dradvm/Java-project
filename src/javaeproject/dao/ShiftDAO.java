@@ -25,7 +25,6 @@ public class ShiftDAO {
     public Shift getByID(String shiftID) {
         String sql = "SELECT * FROM Shift where shiftID = ?";
         Shift shift = null;
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, shiftID);
@@ -42,7 +41,6 @@ public class ShiftDAO {
         return null;
     }
 
-    
     public ArrayList<Shift> getAllCurrentShift(String employeeID) {
         String sql = "select * from Shift where EmployeeID = ?";
         ArrayList shiftList = new ArrayList<Shift>();
@@ -56,7 +54,6 @@ public class ShiftDAO {
                 setShift(shift, rs);
                 shiftList.add(shift);
             }
-
         } catch (SQLException e) {
 
             System.out.println("Error");
@@ -77,7 +74,6 @@ public class ShiftDAO {
                 setShift(shift, rs);
                 shiftList.add(shift);
             }
-
         } catch (SQLException e) {
 
             System.out.println("Error");
@@ -90,28 +86,11 @@ public class ShiftDAO {
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             setStatement(statement, shift);
-
             statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error");
             e.printStackTrace();
         }
-    }
-
-    private String getNewID() {
-        String sql = "select top 1 * from ChangeRequest order by RequestID desc";
-        String newID = null;
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                String temp = rs.getString(1).split("S")[1];
-                newID = String.format("%d", Integer.parseInt(temp) + 1);
-            }
-        } catch (SQLException e) {
-
-        }
-        return newID;
     }
 
     private void setShift(Shift shift, ResultSet rs) throws SQLException{
@@ -135,5 +114,26 @@ public class ShiftDAO {
         statement.setString(6, shift.getType());
         statement.setInt(7, shift.getStartTime());
         statement.setInt(8, shift.getEndTime());
+    }
+    
+    public String getNewID() {
+        try {
+            Statement statement = connection.createStatement();
+            String query = "select top 1 ShiftID "
+                + "from [Shift] "
+                + "where (select len(ShiftID)) = (select max(len(ShiftID)) from [Shift]) "
+                + "order by ShiftID desc";
+            ResultSet result = statement.executeQuery(query);
+            int maxShiftID = -1;
+            while (result.next()) {
+                maxShiftID = Integer.parseInt(result.getString(1).split("S")[1]);
+            }
+            if (maxShiftID != -1) {
+                return "S" + (maxShiftID + 1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
