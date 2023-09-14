@@ -12,11 +12,11 @@ import javaeproject.model.User;
  *
  * @author Voke
  */
-public class LoginLogoutDAO {
+public class LoginDAO {
     
     private final Connection connection;
     
-    public LoginLogoutDAO() {
+    public LoginDAO() {
         connection = ConnectionDB.getConnection();
     }
     

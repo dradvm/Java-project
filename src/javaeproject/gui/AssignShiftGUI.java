@@ -4,35 +4,18 @@
  */
 package javaeproject.gui;
 
-import java.time.*;
-import java.time.temporal.ChronoUnit;
 import javaeproject.dao.ShiftDAO;
-import static javaeproject.gui.LoginGUI.*;
-import javaeproject.model.Shift;
 import javaeproject.model.User;
+import javax.swing.*;
 /**
  *
  * @author Voke
  */
-public class AssignShiftGUI {
-    
-    private User user;
+public class AssignShiftGUI extends JFrame {
     
     private ShiftDAO dao = new ShiftDAO();
     
     public AssignShiftGUI(User user) {
-        this.user = user;
-        if (getPosition().equals("Department Head")) {
-            start = LocalDate.of(2023, 9, 14);
-            end = LocalDate.of(2023, 10, 15);
-            if (ChronoUnit.DAYS.between(start, end) > 7) {
-                notifyError();
-            }
-            
-        }
-    }
-    
-    public void notifyError() {
-        System.out.println("Encountered Error");
+        LogoutGUI logoutButton = new LogoutGUI(this); 
     }
 }

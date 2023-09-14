@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
 import javaeproject.model.*;
-import static javaeproject.gui.LoginGUI.*;
 
 /**
  *
@@ -33,7 +32,6 @@ public class JavaEproject {
         for (Shift item : shiftDAO.getAllDesiredShift("E6")) {
             System.out.println(item.getShiftID());
         }
-
     }
 
 }
