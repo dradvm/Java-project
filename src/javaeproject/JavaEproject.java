@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
 import javaeproject.model.*;
+import static javaeproject.model.LoginLogout.*;
 
 /**
  *
@@ -21,8 +22,10 @@ public class JavaEproject {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
-        System.out.println("Hello + " + shiftRequestDAO.getByID("RQ01").getCurrentShiftID());
+        //ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
+        //System.out.println("Hello + " + shiftRequestDAO.getByID("RQ01").getCurrentShiftID());
+        String test = null;
+        System.out.println(test == null);
     }
 
 }
