@@ -7,6 +7,7 @@ package javaeproject;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
 import javaeproject.model.*;
@@ -25,15 +26,30 @@ public class JavaEproject {
         // TODO code application logic here
         ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
         ShiftDAO shiftDAO = new ShiftDAO();
+        LoginLogoutDAO userDAO = new LoginLogoutDAO();
+        User myUser = userDAO.getUserFromDB("e20username", "e20password");
+        ArrayList<Shift> currentShifts = shiftDAO.getAllCurrentShift(myUser);
+        ArrayList<Shift> desiredShifts = shiftDAO.getAllDesiredShift(myUser);
+        Scanner sc = new Scanner(System.in);
         System.out.println("All Current Shift: ");
-        for (Shift item : shiftDAO.getAllCurrentShift("E6")) {
-            System.out.println(item.getShiftID());
+        for (Shift item : currentShifts) {
+            System.out.println(item.getShiftID() + " " + item.getDate() + " " + item.getType());
         }
         System.out.println("All Desired Shift: ");
-        for (Shift item : shiftDAO.getAllDesiredShift("E6")) {
-            System.out.println(item.getShiftID());
+        for (Shift item : desiredShifts) {
+            System.out.println(item.getShiftID() + " " + item.getDate() + " " + item.getType());
         }
-
+        System.out.println("Select current shift: ");
+        String cs = sc.nextLine();
+        System.out.println("Select desired shift: ");
+        String ds = sc.nextLine();
+        
+        Shift cshift = shiftDAO.getByID(cs);
+        Shift dshift = shiftDAO.getByID(ds);
+        
+        
     }
-
+    
+    
+    
 }

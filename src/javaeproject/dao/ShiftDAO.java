@@ -17,7 +17,9 @@ import javaeproject.model.*;
 public class ShiftDAO {
 
     private Connection connection;
-
+    private final LocalDate dateNow = LocalDate.now();
+    
+    
     public ShiftDAO() {
         connection = ConnectionDB.getConnection();
     }
@@ -41,13 +43,13 @@ public class ShiftDAO {
         return null;
     }
 
-    public ArrayList<Shift> getAllCurrentShift(String employeeID) {
-        String sql = "select * from Shift where EmployeeID = ?";
+    public ArrayList<Shift> getAllCurrentShift(User user) {
+        String sql = "select * from Shift where EmployeeID = ? order by Date";
         ArrayList shiftList = new ArrayList<Shift>();
         Shift shift;
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1,employeeID);
+            statement.setString(1,user.getEmployeeID());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 shift = new Shift();
@@ -61,13 +63,16 @@ public class ShiftDAO {
         return shiftList;
     }
     
-    public ArrayList<Shift> getAllDesiredShift(String employeeID) {
-        String sql = "select * from Shift where EmployeeID != ?";
+    public ArrayList<Shift> getAllDesiredShift(User user) {
+        String sql = "select * from Shift where EmployeeID != ? and Date >= ? and Date <= ? order by Date";
         ArrayList shiftList = new ArrayList<Shift>();
         Shift shift;
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1,employeeID);
+            statement.setString(1,user.getEmployeeID());
+            statement.setString(2, dateNow.plusDays(2).toString());
+            statement.setString(3, dateNow.plusDays(9).toString());
+
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 shift = new Shift();

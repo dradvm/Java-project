@@ -114,20 +114,25 @@ public class ShiftRequestDAO {
         }
     }
 
-    private String getNewID() {
-        String sql = "select top 1 * from ChangeRequest order by RequestID desc";
-        String newID = null;
+    public String getNewID() {
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                String temp = rs.getString(1).split("RQ")[1];
-                newID = String.format("%02d", Integer.parseInt(temp) + 1);
+            Statement statement = connection.createStatement();
+            String query = "select top 1 RequestID "
+                + "from [ChangeRequest] "
+                + "where (select len(RequestID)) = (select max(len(RequestID)) from [ChangeRequest]) "
+                + "order by RequestID desc";
+            ResultSet result = statement.executeQuery(query);
+            int maxShiftID = -1;
+            while (result.next()) {
+                maxShiftID = Integer.parseInt(result.getString(1).split("RQ")[1]);
             }
-        } catch (SQLException e) {
-
+            if (maxShiftID != -1) {
+                return "RQ" + (maxShiftID + 1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return newID;
+        return null;
     }
 
     private void setShiftRequest(ShiftRequest shiftRequest, ResultSet rs) throws SQLException{
