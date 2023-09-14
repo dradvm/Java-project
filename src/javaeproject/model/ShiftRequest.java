@@ -20,8 +20,8 @@ public class ShiftRequest {
         
     }
 
-    public ShiftRequest(String employeeID, String currentShiftID, String desiredShiftID, String details, String status) {
-        this.requestID = "";
+    public ShiftRequest(String requestID, String employeeID, String currentShiftID, String desiredShiftID, String details, String status) {
+        this.requestID = requestID;
         this.employeeID = employeeID;
         this.currentShiftID = currentShiftID;
         this.desiredShiftID = desiredShiftID;
@@ -29,19 +29,6 @@ public class ShiftRequest {
         this.status = status;
     }
     
-    public void changeStatus(boolean choice) {
-        if (status.equals("Pending")) {
-            if (choice) {
-                this.status = "Rejected";
-            }
-            else {
-                this.status = "Approved";
-            }
-        }
-    }
-    
-    
-
     public String getRequestID() {
         return requestID;
     }

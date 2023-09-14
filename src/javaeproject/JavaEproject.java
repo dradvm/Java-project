@@ -5,6 +5,7 @@
 package javaeproject;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
@@ -22,7 +23,15 @@ public class JavaEproject {
     public static void main(String[] args) {
         // TODO code application logic here
         ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
-        System.out.println("Hello + " + shiftRequestDAO.getByID("RQ01").getCurrentShiftID());
+        ShiftDAO shiftDAO = new ShiftDAO();
+        System.out.println("All Current Shift: ");
+        for (Shift item : shiftDAO.getAllCurrentShift("E6")) {
+            System.out.println(item.getShiftID());
+        }
+        System.out.println("All Desired Shift: ");
+        for (Shift item : shiftDAO.getAllDesiredShift("E6")) {
+            System.out.println(item.getShiftID());
+        }
     }
 
 }
