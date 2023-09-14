@@ -11,7 +11,6 @@ import java.util.Scanner;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
 import javaeproject.model.*;
-import static javaeproject.gui.LoginGUI.*;
 
 /**
  *
@@ -26,7 +25,7 @@ public class JavaEproject {
         // TODO code application logic here
         ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
         ShiftDAO shiftDAO = new ShiftDAO();
-        LoginLogoutDAO userDAO = new LoginLogoutDAO();
+        LoginDAO userDAO = new LoginDAO();
         User myUser = userDAO.getUserFromDB("e20username", "e20password");
         ArrayList<Shift> currentShifts = shiftDAO.getAllCurrentShift(myUser);
         ArrayList<Shift> desiredShifts = shiftDAO.getAllDesiredShift(myUser);

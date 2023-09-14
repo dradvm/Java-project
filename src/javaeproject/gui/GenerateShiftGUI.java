@@ -6,50 +6,28 @@ package javaeproject.gui;
 
 import java.time.LocalDate;
 import javaeproject.dao.ShiftDAO;
-import static javaeproject.gui.LoginGUI.*;
+import javaeproject.model.Shift;
+import javax.swing.*;
 /**
  *
  * @author Voke
  */
-public class GenerateShiftGUI {
+public class GenerateShiftGUI extends JFrame {
     
-    private String shiftID;
-    private String departmentID;
-    private String roomID;
-    private LocalDate date;
-    private String type;
-    private int startTime;
-    private int endTime;
     private final ShiftDAO dao = new ShiftDAO();
+    private Shift generatedShift;
     
     public GenerateShiftGUI() {
-        if (getPosition().equals("Department Head")) {
-            if (dao.getNewID() == null) {
-                notifyError();
-            }
-            else {
-                shiftID = dao.getNewID();
-                departmentID = "D1";
-                roomID = "R1";
-                date = LocalDate.now();
-                type = "Morning";
-                startTime = 6;
-                endTime = 14;
-                if (dao.insertShift(shiftID, departmentID, roomID, date, type, startTime, endTime)) {
-                    notifySuccess();
-                }
-                else {
-                    notifyError();
-                }
-            }
-        }
-    }
-    
-    public void notifySuccess() {
-        System.out.println("Shift generated successfully");
-    }
-    
-    public void notifyError() {
-        System.out.println("Encountered error");
+        LogoutGUI logoutButton = new LogoutGUI(this);
+        generatedShift = new Shift();
+        generatedShift.setShiftID(dao.getNewID());
+        generatedShift.setEmployeeID(null);
+        generatedShift.setDepartmentID("D3");
+        generatedShift.setRoomID("R3");
+        generatedShift.setDate(LocalDate.of(2023, 9, 14));
+        generatedShift.setType("Afternoon");
+        generatedShift.setStartTime(14);
+        generatedShift.setEndTime(22);
+        dao.add(generatedShift);
     }
 }

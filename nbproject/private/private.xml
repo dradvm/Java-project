@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/Java/Java-project/src/javaeproject/JavaEproject.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/connection/ConnectionDB.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/dao/LoginLogoutDAO.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/dao/ShiftDAO.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/gui/AssignShiftGUI.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/gui/LoginGUI.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/dao/ShiftRequestDAO.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/model/Shift.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/model/User.java</file>
+        </group>
     </open-files>
 </project-private>
