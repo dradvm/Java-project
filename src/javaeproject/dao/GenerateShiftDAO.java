@@ -6,6 +6,7 @@ package javaeproject.dao;
 
 import javaeproject.connection.ConnectionDB;
 import java.sql.*;
+import java.time.LocalDate;
 /**
  *
  * @author Voke
@@ -38,5 +39,26 @@ public class GenerateShiftDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public boolean insertShift(String shiftID, String departmentID, String roomID, LocalDate date, String type, int startTime, int endTime) {
+        try {
+            String query = "insert into [Shift](ShiftID, DepartmentID, RoomID, [Date], [Type], StartTime, EndTime) " 
+                + "values (?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, shiftID);
+            statement.setString(2, departmentID);
+            statement.setString(3, roomID);
+            statement.setString(4, date.toString());
+            statement.setString(5, type);
+            statement.setInt(6, startTime);
+            statement.setInt(7, endTime);
+            statement.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

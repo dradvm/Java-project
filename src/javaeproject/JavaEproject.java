@@ -24,8 +24,6 @@ public class JavaEproject {
         // TODO code application logic here
         //ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
         //System.out.println("Hello + " + shiftRequestDAO.getByID("RQ01").getCurrentShiftID());
-        String test = null;
-        System.out.println(test == null);
     }
 
 }

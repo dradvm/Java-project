@@ -22,8 +22,8 @@ public class LoginLogout {
     
     public static void Login() {
         //Nhap luc dung giao dien
-        String username = "e02username";
-        String password = "e02password";
+        String username = "e03username";
+        String password = "e03password";
         if (dao.validAccount(username, password)) {
             instanceUsername = username;
             instancePassword = password;
