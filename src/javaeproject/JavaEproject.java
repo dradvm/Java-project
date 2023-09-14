@@ -23,7 +23,6 @@ public class JavaEproject {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-<<<<<<< HEAD
         ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
         ShiftDAO shiftDAO = new ShiftDAO();
         System.out.println("All Current Shift: ");
@@ -34,10 +33,7 @@ public class JavaEproject {
         for (Shift item : shiftDAO.getAllDesiredShift("E6")) {
             System.out.println(item.getShiftID());
         }
-=======
-        //ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
-        //System.out.println("Hello + " + shiftRequestDAO.getByID("RQ01").getCurrentShiftID());
->>>>>>> 278f0717a43eed30651170d3d9185dafd2a76d92
+
     }
 
 }
