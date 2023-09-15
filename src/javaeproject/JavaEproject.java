@@ -46,9 +46,7 @@ public class JavaEproject {
         Shift cshift = shiftDAO.getByID(cs);
         Shift dshift = shiftDAO.getByID(ds);
         
-        
+        shiftDAO.performChangeShift(cshift, dshift);
     }
-    
-    
     
 }

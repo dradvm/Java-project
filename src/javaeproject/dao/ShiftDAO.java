@@ -86,6 +86,8 @@ public class ShiftDAO {
         return shiftList;
     }
     
+    
+    
     public void add(Shift shift) {
         String sql = "INSERT INTO Shift VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -98,6 +100,44 @@ public class ShiftDAO {
         }
     }
 
+    public void performChangeShift(Shift shift1, Shift shift2) {
+        checkAvailableToChange(shift1, shift2);
+        checkAvailableToChange(shift2, shift1);
+
+    }
+    
+    private void checkAvailableToChange(Shift shift1, Shift shift2) {
+        
+        try {
+            String sql = "";
+            boolean check = false;
+            if (shift1.getType().equals("Fulltime") || shift2.getType().equals("Fulltime")) {
+                sql = "select * from shift where EmployeeID = ? and Date = ? and ShiftID != ?";
+                check = true;
+            }
+            else {
+                sql = "select * from shift where EmployeeID = ? and Date = ? and ShiftID != ? and (Type = ? or Type = 'Fulltime')";
+            }
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, shift1.getEmployeeID());
+            statement.setString(2, shift2.getDate().toString());
+            statement.setString(3, shift1.getShiftID());
+            if (!check) {
+                statement.setString(4, shift2.getType());
+            }
+            ResultSet rs = statement.executeQuery();
+            if (!rs.next()) {
+                System.out.println("True");
+            }
+            else {
+                System.out.println("False");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+    }
+    
     private void setShift(Shift shift, ResultSet rs) throws SQLException{
         shift.setShiftID(rs.getString(1));
         shift.setEmployeeID(rs.getString(2));
