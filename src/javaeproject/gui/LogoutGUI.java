@@ -17,6 +17,7 @@ public class LogoutGUI extends JButton {
     public LogoutGUI(JFrame frame) {
         this.frame = frame;
         setText("Logout");
+        setVisible(true);
         addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e) {
