@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
-import javaeproject.gui.GenerateShiftGUI;
+import javaeproject.gui.*;
 import javaeproject.model.*;
 
 /**
@@ -27,27 +27,8 @@ public class JavaEproject {
         ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
         ShiftDAO shiftDAO = new ShiftDAO();
         LoginDAO userDAO = new LoginDAO();
-        //GenerateShiftGUI test = new GenerateShiftGUI();
-        User myUser = userDAO.getUserFromDB("e20username", "e20password");
-        ArrayList<Shift> currentShifts = shiftDAO.getAllCurrentShift(myUser);
-        ArrayList<Shift> desiredShifts = shiftDAO.getAllDesiredShift(myUser);
-        Scanner sc = new Scanner(System.in);
-        System.out.println("All Current Shift: ");
-        for (Shift item : currentShifts) {
-            System.out.println(item.getShiftID() + " " + item.getDate() + " " + item.getType());
-        }
-        System.out.println("All Desired Shift: ");
-        for (Shift item : desiredShifts) {
-            System.out.println(item.getShiftID() + " " + item.getDate() + " " + item.getType());
-        }
-        System.out.println("Select current shift: ");
-        String cs = sc.nextLine();
-        
-        Shift cshift = shiftDAO.getByID(cs);
-        
-        for (Shift item : shiftDAO.getAllDesiredShiftAfterSelect(myUser, cshift)) {
-            System.out.println(item.getShiftID() + " " + item.getDate() + " " + item.getType());
-        }
+        GenerateShiftGUI test1 = new GenerateShiftGUI();
+        LoginGUI test2 = new LoginGUI();
     }
     
 }
