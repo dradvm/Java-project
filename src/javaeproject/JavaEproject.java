@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
+import javaeproject.gui.GenerateShiftGUI;
 import javaeproject.model.*;
 
 /**
@@ -26,6 +27,7 @@ public class JavaEproject {
         ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
         ShiftDAO shiftDAO = new ShiftDAO();
         LoginDAO userDAO = new LoginDAO();
+        GenerateShiftGUI test = new GenerateShiftGUI();
         User myUser = userDAO.getUserFromDB("e20username", "e20password");
         ArrayList<Shift> currentShifts = shiftDAO.getAllCurrentShift(myUser);
         ArrayList<Shift> desiredShifts = shiftDAO.getAllDesiredShift(myUser);
@@ -45,8 +47,6 @@ public class JavaEproject {
         
         Shift cshift = shiftDAO.getByID(cs);
         Shift dshift = shiftDAO.getByID(ds);
-        
-        
     }
     
     

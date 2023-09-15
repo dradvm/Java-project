@@ -5,6 +5,7 @@
 package javaeproject.gui;
 
 import java.time.LocalDate;
+import javaeproject.dao.DepartmentDAO;
 import javaeproject.dao.ShiftDAO;
 import javaeproject.model.Shift;
 import javax.swing.*;
@@ -14,20 +15,52 @@ import javax.swing.*;
  */
 public class GenerateShiftGUI extends JFrame {
     
-    private final ShiftDAO dao = new ShiftDAO();
-    private Shift generatedShift;
+    private final ShiftDAO shiftDAO = new ShiftDAO();
+    private final DepartmentDAO departmentDAO = new DepartmentDAO();
+    private Shift generatedShift = new Shift();
     
     public GenerateShiftGUI() {
+        //Tao container
+        setTitle("Generate Shift");
+        setSize(720, 1080);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        //Them nut logout
         LogoutGUI logoutButton = new LogoutGUI(this);
-        generatedShift = new Shift();
-        generatedShift.setShiftID(dao.getNewID());
-        generatedShift.setEmployeeID(null);
-        generatedShift.setDepartmentID("D3");
-        generatedShift.setRoomID("R3");
-        generatedShift.setDate(LocalDate.of(2023, 9, 14));
-        generatedShift.setType("Afternoon");
-        generatedShift.setStartTime(14);
-        generatedShift.setEndTime(22);
-        dao.add(generatedShift);
+        add(logoutButton);
+        logoutButton.setBounds(620, 0, 100, 50);
+        //ShiftID
+        JLabel shiftIDLabel = new JLabel("Shift ID: ");
+        shiftIDLabel.setVisible(true);
+        add(shiftIDLabel);
+        shiftIDLabel.setBounds(144, 108, 144, 97);
+        JLabel generatedShiftID = new JLabel(shiftDAO.getNewID());
+        generatedShiftID.setVisible(true);
+        add(generatedShiftID);
+        generatedShiftID.setBounds(288, 108, 288, 97);
+        //DepartmentID
+        JLabel departmentIDLabel = new JLabel("Department ID: ");
+        departmentIDLabel.setVisible(true);
+        add(departmentIDLabel);
+        departmentIDLabel.setBounds(144, 216, 144, 97);
+        JComboBox departmentID = new JComboBox();
+        for (String item : departmentDAO.getDepartmentNameList()) {
+            departmentID.addItem(item);
+        }
+        departmentID.setVisible(true);
+        add(departmentID);
+        departmentID.setBounds(288, 216, 288, 97);
+        //RoomID
+//        generatedShift.setShiftID(dao.getNewID());
+//        generatedShift.setEmployeeID(null);
+//        generatedShift.setDepartmentID("D3");
+//        generatedShift.setRoomID("R3");
+//        generatedShift.setDate(LocalDate.of(2023, 9, 14));
+//        generatedShift.setType("Afternoon");
+//        generatedShift.setStartTime(14);
+//        generatedShift.setEndTime(22);
+//        dao.add(generatedShift);
     }
 }
