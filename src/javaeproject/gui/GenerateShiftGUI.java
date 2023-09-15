@@ -53,6 +53,10 @@ public class GenerateShiftGUI extends JFrame {
         add(departmentID);
         departmentID.setBounds(288, 216, 288, 97);
         //RoomID
+        JLabel roomIDLabel = new JLabel("RoomID");
+        roomIDLabel.setVisible(true);
+        add(roomIDLabel);
+        roomIDLabel.setBounds(144, 324, 144, 97);
 //        generatedShift.setShiftID(dao.getNewID());
 //        generatedShift.setEmployeeID(null);
 //        generatedShift.setDepartmentID("D3");

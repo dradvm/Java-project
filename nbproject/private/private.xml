@@ -5,9 +5,9 @@
         <group>
             <file>file:/D:/Java/Java-project/src/javaeproject/JavaEproject.java</file>
             <file>file:/D:/Java/Java-project/src/javaeproject/gui/GenerateShiftGUI.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/dao/ShiftDAO.java</file>
             <file>file:/D:/Java/Java-project/src/javaeproject/gui/AssignShiftGUI.java</file>
             <file>file:/D:/Java/Java-project/src/javaeproject/model/Shift.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/dao/RoomDAO.java</file>
         </group>
     </open-files>
 </project-private>
