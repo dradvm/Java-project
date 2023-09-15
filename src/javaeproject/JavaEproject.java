@@ -27,7 +27,7 @@ public class JavaEproject {
         ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
         ShiftDAO shiftDAO = new ShiftDAO();
         LoginDAO userDAO = new LoginDAO();
-        GenerateShiftGUI test = new GenerateShiftGUI();
+        //GenerateShiftGUI test = new GenerateShiftGUI();
         User myUser = userDAO.getUserFromDB("e20username", "e20password");
         ArrayList<Shift> currentShifts = shiftDAO.getAllCurrentShift(myUser);
         ArrayList<Shift> desiredShifts = shiftDAO.getAllDesiredShift(myUser);
@@ -42,13 +42,12 @@ public class JavaEproject {
         }
         System.out.println("Select current shift: ");
         String cs = sc.nextLine();
-        System.out.println("Select desired shift: ");
-        String ds = sc.nextLine();
         
         Shift cshift = shiftDAO.getByID(cs);
-        Shift dshift = shiftDAO.getByID(ds);
         
-        shiftDAO.performChangeShift(cshift, dshift);
+        for (Shift item : shiftDAO.getAllDesiredShiftAfterSelect(myUser, cshift)) {
+            System.out.println(item.getShiftID() + " " + item.getDate() + " " + item.getType());
+        }
     }
     
 }

@@ -86,6 +86,16 @@ public class ShiftDAO {
         return shiftList;
     }
     
+    public ArrayList<Shift> getAllDesiredShiftAfterSelect(User user,Shift shift) {
+        ArrayList<Shift> shiftList = new ArrayList<Shift>();
+        ArrayList<Shift> desiredList = getAllDesiredShift(user);
+        for (Shift shiftItem : desiredList) {
+            if (checkAvailableToChange(shift, shiftItem) && checkAvailableToChange(shiftItem, shift)) {
+                shiftList.add(shiftItem);
+            }
+        }
+        return shiftList;
+    }
     
     
     public void add(Shift shift) {
@@ -106,8 +116,8 @@ public class ShiftDAO {
 
     }
     
-    private void checkAvailableToChange(Shift shift1, Shift shift2) {
-        
+    private boolean checkAvailableToChange(Shift shift1, Shift shift2) {
+        boolean varReturn = false;
         try {
             String sql = "";
             boolean check = false;
@@ -127,15 +137,16 @@ public class ShiftDAO {
             }
             ResultSet rs = statement.executeQuery();
             if (!rs.next()) {
-                System.out.println("True");
+                varReturn = true;
             }
             else {
-                System.out.println("False");
+                varReturn = false;
             }
         } catch (SQLException e) {
             System.out.println("Error");
             e.printStackTrace();
         }
+        return varReturn;
     }
     
     private void setShift(Shift shift, ResultSet rs) throws SQLException{
