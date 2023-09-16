@@ -125,6 +125,7 @@ public class ShiftDAO {
                 sql = "select * from shift where EmployeeID = ? and Date = ? and ShiftID != ?";
                 check = true;
             }
+            
             else {
                 sql = "select * from shift where EmployeeID = ? and Date = ? and ShiftID != ? and (Type = ? or Type = 'Fulltime')";
             }

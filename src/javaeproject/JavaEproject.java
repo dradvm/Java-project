@@ -24,11 +24,12 @@ public class JavaEproject {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
-        ShiftDAO shiftDAO = new ShiftDAO();
-        LoginDAO userDAO = new LoginDAO();
-        GenerateShiftGUI test1 = new GenerateShiftGUI();
-        LoginGUI test2 = new LoginGUI();
+//        ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
+//        ShiftDAO shiftDAO = new ShiftDAO();
+//        LoginDAO userDAO = new LoginDAO();
+//        GenerateShiftGUI test1 = new GenerateShiftGUI();
+//        LoginGUI test2 = new LoginGUI();
+        TestGUI test = new TestGUI();
     }
     
 }
