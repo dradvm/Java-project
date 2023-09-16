@@ -18,49 +18,6 @@ public class LoginGUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
-        usernameInput.getDocument().addDocumentListener(new DocumentListener() {
-            
-            public void changedUpdate(DocumentEvent e) {
-                username = usernameInput.getText();
-            }
-            
-            public void removeUpdate(DocumentEvent e) {
-                username = usernameInput.getText();
-            }
-            
-            public void insertUpdate(DocumentEvent e) {
-                username = usernameInput.getText();
-            }
-        });
-        passwordInput.getDocument().addDocumentListener(new DocumentListener() {
-           
-            public void changedUpdate(DocumentEvent e) {
-                password = String.valueOf(passwordInput.getPassword());
-            }
-            
-            public void removeUpdate(DocumentEvent e) {
-                password = String.valueOf(passwordInput.getPassword());
-            }
-            
-            public void insertUpdate(DocumentEvent e) {
-                password = String.valueOf(passwordInput.getPassword());
-            }
-        });
-        loginButton.addActionListener(new ActionListener() {
-            
-            public void actionPerformed(ActionEvent e) {
-                if (username.trim().length() == 0 && password.trim().length() == 0) {
-                }
-                else if (dao.validAccount(username, password)) {
-                    user = dao.getUserFromDB(username, password);
-                    MenuGUI menu = new MenuGUI(user);
-                    dispose();
-                }
-                else {
-                    notificationLabel.setText("Incorrect username or password");
-                }
-            }
-        });
     }
     
     @SuppressWarnings("unchecked")
@@ -99,9 +56,9 @@ public class LoginGUI extends javax.swing.JFrame {
 
         usernameInput.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         usernameInput.setPreferredSize(new java.awt.Dimension(120, 23));
-        usernameInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameInputActionPerformed(evt);
+        usernameInput.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                usernameInputCaretUpdate(evt);
             }
         });
 
@@ -113,6 +70,11 @@ public class LoginGUI extends javax.swing.JFrame {
         passwordInput.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         passwordInput.setToolTipText("");
         passwordInput.setPreferredSize(new java.awt.Dimension(120, 23));
+        passwordInput.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                passwordInputCaretUpdate(evt);
+            }
+        });
 
         notificationLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         notificationLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -179,13 +141,29 @@ public class LoginGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameInputActionPerformed
-
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
+        if (username.trim().length() == 0 && password.trim().length() == 0) {
+        }
+        else if (dao.validAccount(username, password)) {
+            user = dao.getUserFromDB(username, password);
+            MenuGUI menu = new MenuGUI(user);
+            dispose();
+        }
+        else {
+            notificationLabel.setText("Incorrect username or password");
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void usernameInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_usernameInputCaretUpdate
+        // TODO add your handling code here:
+        username = usernameInput.getText();
+    }//GEN-LAST:event_usernameInputCaretUpdate
+
+    private void passwordInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passwordInputCaretUpdate
+        // TODO add your handling code here:
+        password = String.valueOf(passwordInput.getPassword());
+    }//GEN-LAST:event_passwordInputCaretUpdate
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel header;

@@ -140,7 +140,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameInputActionPerformed"/>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="usernameInputCaretUpdate"/>
       </Events>
     </Component>
     <Component class="java.awt.Label" name="passwordLabel">
@@ -167,6 +167,9 @@
           <Dimension value="[120, 23]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="passwordInputCaretUpdate"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="notificationLabel">
       <Properties>

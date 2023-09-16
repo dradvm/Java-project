@@ -98,16 +98,11 @@ public class ShiftDAO {
     }
     
     
-    public void add(Shift shift) {
+    public void add(Shift shift) throws SQLException {
         String sql = "INSERT INTO Shift VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            setStatement(statement, shift);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error");
-            e.printStackTrace();
-        }
+        PreparedStatement statement = connection.prepareStatement(sql);
+        setStatement(statement, shift);
+        statement.executeUpdate();
     }
 
     public void performChangeShift(Shift shift1, Shift shift2) {

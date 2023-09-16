@@ -3,12 +3,12 @@ package javaeproject.gui;
 import javaeproject.model.User;
 
 public class MenuGUI extends javax.swing.JFrame {
-
+    
     public MenuGUI(User user) {
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
-        logoutButton.setFrame(this);
+        logoutButton.setFrame(this);;
     }
     
     @SuppressWarnings("unchecked")
@@ -31,7 +31,7 @@ public class MenuGUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 697, Short.MAX_VALUE)
+                .addContainerGap(697, Short.MAX_VALUE)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
