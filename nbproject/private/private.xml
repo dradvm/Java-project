@@ -5,8 +5,11 @@
         <group>
             <file>file:/D:/Java/Java-project/src/javaeproject/JavaEproject.java</file>
             <file>file:/D:/Java/Java-project/src/javaeproject/gui/GenerateShiftGUI.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/gui/AssignShiftGUI.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/model/Room.java</file>
             <file>file:/D:/Java/Java-project/src/javaeproject/model/Shift.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/gui/MenuGUI.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/model/User.java</file>
+            <file>file:/D:/Java/Java-project/src/javaeproject/dao/DepartmentDAO.java</file>
             <file>file:/D:/Java/Java-project/src/javaeproject/dao/RoomDAO.java</file>
         </group>
     </open-files>

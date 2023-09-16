@@ -7,26 +7,30 @@ package javaeproject.dao;
 import java.sql.*;
 import java.util.ArrayList;
 import javaeproject.connection.ConnectionDB;
+import javaeproject.model.Department;
 /**
  *
  * @author Voke
  */
 public class DepartmentDAO {
     
-    private Connection connection;
+    private final Connection connection;
     
     public DepartmentDAO() {
         connection = ConnectionDB.getConnection();
     }
     
-    public ArrayList<String> getDepartmentNameList() {
-        ArrayList<String> result = new ArrayList<>();
+    public ArrayList<Department> getDepartmentList() {
+        ArrayList<Department> result = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "select DepartmentName from Department";
+            String query = "select * from Department";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                result.add(resultSet.getString(1));
+                Department temp = new Department();
+                temp.setDepartmentID(resultSet.getString(1));
+                temp.setDepartmentName(resultSet.getString(2));
+                result.add(temp);
             }
         }
         catch (SQLException e) {

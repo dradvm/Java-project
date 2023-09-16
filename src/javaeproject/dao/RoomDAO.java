@@ -24,7 +24,7 @@ public class RoomDAO {
         ArrayList<Room> result = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            String query = "select RoomID from Room";
+            String query = "select * from Room";
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 Room temp = new Room();
