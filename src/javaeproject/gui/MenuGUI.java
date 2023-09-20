@@ -9,10 +9,6 @@ public class MenuGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         logoutButton.setFrame(this);
-        GenerateShiftGUI test = new GenerateShiftGUI();
-        test.setBounds(216, 0, 864, 720);
-        test.setVisible(true);
-        add(test);
     }
     
     @SuppressWarnings("unchecked")
@@ -35,7 +31,7 @@ public class MenuGUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(697, Short.MAX_VALUE)
+                .addContainerGap(703, Short.MAX_VALUE)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

@@ -22,11 +22,12 @@ public class LoginDAO {
     
     public boolean validAccount(String username, String password) {
         try {
-            Statement statement = connection.createStatement();
-            String query = "select count(*) "
-                + "from Employee "
-                + "where Username = '" + username + "' and [Password] = '" + password + "'";
-            ResultSet result = statement.executeQuery(query);
+            String query = "select count(*) from Employee "
+                + "where Username = ? and [Password] = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet result = statement.executeQuery();
             int count = 0;
             while (result.next()) {
                 count = result.getInt(1);
@@ -41,11 +42,12 @@ public class LoginDAO {
     
     public User getUserFromDB(String username, String password) {
         try {
-            Statement statement = connection.createStatement();
-            String query = "select * "
-                + "from Employee "
-                + "where Username = '" + username + "' and [Password] = '" + password + "'";
-            ResultSet result = statement.executeQuery(query);
+            String query = "select * from Employee "
+                + "where Username = ? and [Password] = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet result = statement.executeQuery();
             User user = new User();
             while (result.next()) {
                 user.setEmployeeID(result.getString(1));

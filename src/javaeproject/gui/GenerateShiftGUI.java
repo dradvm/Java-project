@@ -1,7 +1,6 @@
 package javaeproject.gui;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
 import javaeproject.dao.DepartmentDAO;
 import javaeproject.dao.RoomDAO;
@@ -16,32 +15,39 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
     private final DepartmentDAO departmentDAO = new DepartmentDAO();
     private final RoomDAO roomDAO = new RoomDAO();
     private Shift generatedShift = new Shift();
-    private final ArrayList<Department> departmentList = departmentDAO.getDepartmentList();
-    private final ArrayList<Room> roomList = roomDAO.getRoomList();
+    private ArrayList<Department> departmentList;
+    private ArrayList<Room> roomList;
     
     public GenerateShiftGUI() {
         initComponents();
+        initLogic();
+    }
+    
+    public void initLogic() {
+        departmentList = departmentDAO.getDepartmentList();
+        roomList = roomDAO.getRoomList();
         for (Department item : departmentList) {
             departmentInput.addItem(item.getDepartmentName());
         }
         for (Room item : roomList) {
             roomIDInput.addItem(item.getRoomID());
         }
-        initLogic();
-    }
-    
-    public void initLogic() {
         generatedShift = new Shift();
         generatedShift.setShiftID(shiftDAO.getNewID());
         shiftIDInput.setText(generatedShift.getShiftID());
         generatedShift.setEmployeeID(null);
-        departmentInput.setSelectedIndex(0);
-        generatedShift.setDepartmentID(departmentList.get(0).getDepartmentID());
-        roomIDInput.setSelectedIndex(0);
-        generatedShift.setRoomID(roomList.get(0).getRoomID());
-        roomTypeValue.setText(roomList.get(0).getRoomType());
-        roomSpecialtyValue.setText(roomList.get(0).getRoomSpecialty());
-        numberOfPatientsValue.setText(roomList.get(0).getNumberOfPatients() + "");
+        try {
+            departmentInput.setSelectedIndex(0);
+            generatedShift.setDepartmentID(departmentList.get(0).getDepartmentID());
+            roomIDInput.setSelectedIndex(0);
+            generatedShift.setRoomID(roomList.get(0).getRoomID());
+            roomTypeValue.setText(roomList.get(0).getRoomType());
+            roomSpecialtyValue.setText(roomList.get(0).getRoomSpecialty());
+            numberOfPatientsValue.setText(roomList.get(0).getNumberOfPatients() + "");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         generatedShift.setDate(null);
         dateInput.setText("");
         generatedShift.setType(null);

@@ -33,7 +33,7 @@ public class DepartmentDAO {
                 result.add(temp);
             }
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             e.printStackTrace();
         }
         return result;
