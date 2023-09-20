@@ -147,7 +147,7 @@ public class LoginGUI extends javax.swing.JFrame {
         }
         else if (dao.validAccount(username, password)) {
             user = dao.getUserFromDB(username, password);
-            MenuGUI menu = new MenuGUI(user);
+            MainGUI main = new MainGUI(user);
             dispose();
         }
         else {

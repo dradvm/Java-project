@@ -1,19 +1,15 @@
 
-package javaeproject.gui;
+package javaeproject.gui.components;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 
-public class Menu extends javax.swing.JPanel {
+public class PanelBorder extends javax.swing.JPanel {
 
-    public Menu() {
+    public PanelBorder() {
         initComponents();
         setOpaque(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -22,11 +18,11 @@ public class Menu extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 387, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -35,14 +31,10 @@ public class Menu extends javax.swing.JPanel {
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getBackground());
-        GradientPaint gradientPaint = new GradientPaint(0, 0, Color.decode("#2980b9"), 0, getHeight(), Color.decode("#2c3e50"));
-        g2.setPaint(gradientPaint);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-        g2.fillRect(getWidth()-20, 0, 20, getHeight());
-        super.paintComponent(g); 
+        super.paintComponent(g);
     }
     
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

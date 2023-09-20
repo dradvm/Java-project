@@ -8,7 +8,7 @@ public class MenuGUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
-        logoutButton.setFrame(this);;
+        logoutButton.setFrame(this);
     }
     
     @SuppressWarnings("unchecked")
