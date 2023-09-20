@@ -7,7 +7,6 @@ public class MenuGUI extends javax.swing.JFrame {
     public MenuGUI(User user) {
         initComponents();
         setLocationRelativeTo(null);
-        setVisible(true);
         logoutButton.setFrame(this);
     }
     

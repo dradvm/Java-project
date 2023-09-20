@@ -27,12 +27,12 @@ public class JavaEproject {
         ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
         ShiftDAO shiftDAO = new ShiftDAO();
         LoginDAO userDAO = new LoginDAO();
-        LoginGUI test = new LoginGUI();
+        MenuGUI test = new MenuGUI(new User());
+        //LoginGUI test = new LoginGUI();
 //        ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
 //        ShiftDAO shiftDAO = new ShiftDAO();
 //        LoginDAO userDAO = new LoginDAO();
-//        GenerateShiftGUI test1 = new GenerateShiftGUI();
-//        LoginGUI test2 = new LoginGUI();
+        //LoginGUI myApp = new LoginGUI();
     }
     
 }
