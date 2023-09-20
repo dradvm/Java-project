@@ -8,7 +8,11 @@ public class MenuGUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
-        logoutButton.setFrame(this);;
+        logoutButton.setFrame(this);
+        GenerateShiftGUI test = new GenerateShiftGUI();
+        test.setBounds(216, 0, 864, 720);
+        test.setVisible(true);
+        add(test);
     }
     
     @SuppressWarnings("unchecked")
