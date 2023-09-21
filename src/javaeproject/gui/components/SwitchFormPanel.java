@@ -2,27 +2,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package javaeproject.gui;
+package javaeproject.gui.components;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import javaeproject.gui.Form1;
+import javaeproject.gui.GenerateShiftGUI;
 
 /**
  *
  * @author DELL
  */
-public class GenerateShiftRequestGUI extends javax.swing.JPanel {
+public class SwitchFormPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form GenerateShiftRequestGUI
+     * Creates new form SwitchFormPanel
      */
-    public GenerateShiftRequestGUI() {
+    
+    public SwitchFormPanel() {
         initComponents();
         setOpaque(false);
     }
-
+    
+    public void reload() {
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,19 +41,18 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 716, Short.MAX_VALUE)
+            .addGap(0, 598, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 732, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getBackground());
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        g2.setColor(Color.decode("#FFFFFF"));
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 0, 0);
         super.paintComponent(g);
     }
 

@@ -74,7 +74,7 @@ public class MenuModal {
             list.add(new MenuModal("calendar", "View Appointments List", MenuType.MENU));
         }
         list.add(new MenuModal("", "", MenuType.EMPTY));
-        list.add(new MenuModal("", "Log Out", MenuType.LOGOUT));
+        list.add(new MenuModal("exit-door", "Log Out", MenuType.LOGOUT));
         return list;
     }
 }

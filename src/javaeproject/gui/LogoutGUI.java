@@ -25,15 +25,13 @@ public class LogoutGUI extends JButton {
         addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                LoginGUI login = new LoginGUI();
+                
+                
             }
         });
     }
     
-    public void setFrame(JFrame frame) {
-        this.frame = frame;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

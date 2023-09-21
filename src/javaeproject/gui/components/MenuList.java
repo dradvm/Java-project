@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javaeproject.events.EventMenuSelected;
 import javaeproject.model.MenuModal;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -28,7 +29,11 @@ public class MenuList<E extends Object> extends JList<E> {
     
     private final DefaultListModel model;
     private int selectedIndex = -1;
+    private EventMenuSelected event;
     
+    public void addEventMenuSelected(EventMenuSelected event) {
+        this.event = event;
+    }
     public MenuList() {
         model = new DefaultListModel();
         setModel(model);
@@ -41,6 +46,15 @@ public class MenuList<E extends Object> extends JList<E> {
                     MenuModal o = (MenuModal) model.getElementAt(index);
                     if (o.getType() == MenuModal.MenuType.MENU) {
                         selectedIndex = index;
+                        if (event != null) {
+                            event.setSeleted(o);
+                        }
+                    }
+                    else if (o.getType() == MenuModal.MenuType.LOGOUT) {
+                        selectedIndex = index;
+                        if (event != null) {
+                            event.setSeleted(o);
+                        }
                     }
                     repaint();
                 }

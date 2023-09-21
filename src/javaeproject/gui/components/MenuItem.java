@@ -29,6 +29,7 @@ public class MenuItem extends javax.swing.JPanel {
             jLabelText.setText(data.getName());
         }
         else if (data.getType() == MenuModal.MenuType.LOGOUT) {
+            jLabelIcon.setIcon(data.toIcon());
             jLabelText.setText(data.getName());
         }
         else if (data.getType() == MenuModal.MenuType.EMPTY) {
