@@ -99,7 +99,7 @@ public class ShiftDAO {
     
     
     public void add(Shift shift) throws SQLException {
-        String sql = "INSERT INTO Shift VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Shift VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         setStatement(statement, shift);
         statement.executeUpdate();
@@ -154,11 +154,9 @@ public class ShiftDAO {
         shift.setEmployeeID(rs.getString(2));
         shift.setDepartmentID(rs.getString(3));
         shift.setRoomID(rs.getString(4));
-        String[] myDate = rs.getString(5).split("-");
+        shift.setType(rs.getString(5));
+        String[] myDate = rs.getString(6).split("-");
         shift.setDate(LocalDate.of(Integer.parseInt(myDate[0]), Integer.parseInt(myDate[1]), Integer.parseInt(myDate[2])));
-        shift.setType(rs.getString(6));
-        shift.setStartTime(rs.getInt(7));
-        shift.setEndTime(rs.getInt(8));
     }
 
     private void setStatement(PreparedStatement statement, Shift shift) throws SQLException {
@@ -166,10 +164,8 @@ public class ShiftDAO {
         statement.setString(2, shift.getEmployeeID());
         statement.setString(3, shift.getDepartmentID());
         statement.setString(4, shift.getRoomID());
-        statement.setString(5, shift.getDate().toString());
-        statement.setString(6, shift.getType());
-        statement.setInt(7, shift.getStartTime());
-        statement.setInt(8, shift.getEndTime());
+        statement.setString(5, shift.getType());
+        statement.setString(6, shift.getDate().toString());
     }
     
     public String getNewID() {

@@ -11,27 +11,24 @@ import java.time.LocalDate;
  * @author DELL
  */
 public class Shift {
+    
     private String shiftID;
     private String employeeID;
     private String departmentID;
     private String roomID;
-    private LocalDate date;
     private String type;
-    private int startTime;
-    private int endTime;
-
+    private LocalDate date;
+    
     public Shift() {
     }
 
-    public Shift(String shiftID, String employeeID, String departmentID, String roomID, LocalDate date, String type, int startTime, int endTime) {
+    public Shift(String shiftID, String employeeID, String departmentID, String roomID, String type, LocalDate date) {
         this.shiftID = shiftID;
         this.employeeID = employeeID;
         this.departmentID = departmentID;
         this.roomID = roomID;
-        this.date = date;
         this.type = type;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.date = date;
     }
 
     public String getShiftID() {
@@ -58,14 +55,6 @@ public class Shift {
         return type;
     }
 
-    public int getStartTime() {
-        return startTime;
-    }
-
-    public int getEndTime() {
-        return endTime;
-    }
-
     public void setShiftID(String shiftID) {
         this.shiftID = shiftID;
     }
@@ -89,14 +78,4 @@ public class Shift {
     public void setType(String type) {
         this.type = type;
     }
-
-    public void setStartTime(int startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(int endTime) {
-        this.endTime = endTime;
-    }
-    
-    
 }

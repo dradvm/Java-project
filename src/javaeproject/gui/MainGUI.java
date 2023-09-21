@@ -14,6 +14,7 @@ public class MainGUI extends javax.swing.JFrame {
     private EventMenuSelected event;
     private GenerateShiftGUI generateShiftGUI;
     private final JFrame main = this;
+    private User user;
     
     public void addEventMenuSelected(EventMenuSelected event) {
         this.event = event;
@@ -23,6 +24,7 @@ public class MainGUI extends javax.swing.JFrame {
      * Creates new form TestGUI
      */
     public MainGUI(User user) {
+        this.user = user;
         initComponents();
         initAllForm();
         setVisible(true);
@@ -47,7 +49,7 @@ public class MainGUI extends javax.swing.JFrame {
                     case "Manage Patients" -> changePanel(new Form1());
                     case "Manage Patient Records" -> changePanel(new Form1());
                     case "View Appointments List" -> changePanel(new Form1());
-                    case "Log Out" -> setFrame(main);
+                    case "Log Out" -> logout();
                     default -> {
                     }
                 }
@@ -67,8 +69,9 @@ public class MainGUI extends javax.swing.JFrame {
         generateShiftGUI = new GenerateShiftGUI();
     }
     
-    public void setFrame(JFrame frame) {
-        frame.dispose();
+    public void logout() {
+        this.dispose();
+        user = null;
         LoginGUI login = new LoginGUI();
     }
     

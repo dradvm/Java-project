@@ -5,33 +5,38 @@ import java.util.ArrayList;
 import javaeproject.dao.DepartmentDAO;
 import javaeproject.dao.RoomDAO;
 import javaeproject.dao.ShiftDAO;
+import javaeproject.dao.ShiftTypeDAO;
 import javaeproject.model.Department;
 import javaeproject.model.Room;
 import javaeproject.model.Shift;
+import javaeproject.model.ShiftType;
 
 public class GenerateShiftGUI extends javax.swing.JPanel {
 
     private final ShiftDAO shiftDAO = new ShiftDAO();
     private final DepartmentDAO departmentDAO = new DepartmentDAO();
     private final RoomDAO roomDAO = new RoomDAO();
+    private final ShiftTypeDAO shiftTypeDAO = new ShiftTypeDAO();
     private Shift generatedShift = new Shift();
-    private ArrayList<Department> departmentList;
-    private ArrayList<Room> roomList;
+    private ArrayList<Department> departmentList = departmentDAO.getDepartmentList();
+    private ArrayList<Room> roomList = roomDAO.getRoomList();
+    private ArrayList<ShiftType> typeList = shiftTypeDAO.getTypeList();
     
     public GenerateShiftGUI() {
         initComponents();
-        initLogic();
-    }
-    
-    public void initLogic() {
-        departmentList = departmentDAO.getDepartmentList();
-        roomList = roomDAO.getRoomList();
         for (Department item : departmentList) {
             departmentInput.addItem(item.getDepartmentName());
         }
         for (Room item : roomList) {
             roomIDInput.addItem(item.getRoomID());
         }
+        for (ShiftType item : typeList) {
+            typeInput.addItem(item.getType());
+        }
+        initLogic();
+    }
+    
+    public void initLogic() {        
         generatedShift = new Shift();
         generatedShift.setShiftID(shiftDAO.getNewID());
         generatedShift.setEmployeeID(null);
@@ -43,20 +48,14 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
             roomTypeValue.setText(roomList.get(0).getRoomType());
             roomSpecialtyValue.setText(roomList.get(0).getRoomSpecialty());
             numberOfPatientsValue.setText(roomList.get(0).getNumberOfPatients() + "");
+            typeInput.setSelectedIndex(0);
+            generatedShift.setType(typeList.get(0).getType());
         }
         catch (Exception e) {
             e.printStackTrace();
         }
         generatedShift.setDate(null);
         dateInput.setText("");
-        generatedShift.setType(null);
-        typeInput.setText("");
-        generatedShift.setStartTime(0);
-        generatedShift.setEndTime(0);
-        startTimeInput.setValue(0);
-        endTimeInput.setValue(0);
-        startTimeValue.setText("0");
-        endTimeValue.setText("0");
     }
     
     private int validateShift() {
@@ -65,12 +64,6 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         }
         if (generatedShift.getDate().isEqual(LocalDate.now()) || generatedShift.getDate().isBefore(LocalDate.now())) {
             return -1;
-        }
-        if (generatedShift.getType() == null || generatedShift.getType().trim().length() == 0) {
-            return -2;
-        }
-        if (generatedShift.getEndTime() <= generatedShift.getStartTime()) {
-            return -3;
         }
         return 1;
     }
@@ -99,14 +92,8 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         dateLabel = new javax.swing.JLabel();
         dateInput = new javax.swing.JFormattedTextField();
         typeLabel = new javax.swing.JLabel();
-        typeInput = new javax.swing.JTextField();
-        startTimeLabel = new javax.swing.JLabel();
-        endTimeInput = new javax.swing.JSlider();
-        endTimeValue = new javax.swing.JLabel();
-        endTimeLabel = new javax.swing.JLabel();
+        typeInput = new javax.swing.JComboBox<>();
         submitButton = new javax.swing.JButton();
-        startTimeInput = new javax.swing.JSlider();
-        startTimeValue = new javax.swing.JLabel();
 
         errorDialog.setTitle("Error");
         errorDialog.setResizable(false);
@@ -269,38 +256,11 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
 
         typeInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         typeInput.setPreferredSize(new java.awt.Dimension(288, 55));
-        typeInput.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                typeInputCaretUpdate(evt);
+        typeInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeInputActionPerformed(evt);
             }
         });
-
-        startTimeLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        startTimeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        startTimeLabel.setText("Starting time");
-        startTimeLabel.setPreferredSize(new java.awt.Dimension(288, 55));
-
-        endTimeInput.setMajorTickSpacing(1);
-        endTimeInput.setMaximum(24);
-        endTimeInput.setMinorTickSpacing(1);
-        endTimeInput.setValue(0);
-        endTimeInput.setPreferredSize(new java.awt.Dimension(230, 55));
-        endTimeInput.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                endTimeInputStateChanged(evt);
-            }
-        });
-
-        endTimeValue.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        endTimeValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        endTimeValue.setText("0");
-        endTimeValue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        endTimeValue.setPreferredSize(new java.awt.Dimension(58, 55));
-
-        endTimeLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        endTimeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        endTimeLabel.setText("Ending time");
-        endTimeLabel.setPreferredSize(new java.awt.Dimension(288, 55));
 
         submitButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         submitButton.setText("Submit");
@@ -310,23 +270,6 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
                 submitButtonActionPerformed(evt);
             }
         });
-
-        startTimeInput.setMajorTickSpacing(1);
-        startTimeInput.setMaximum(24);
-        startTimeInput.setMinorTickSpacing(1);
-        startTimeInput.setValue(0);
-        startTimeInput.setPreferredSize(new java.awt.Dimension(230, 55));
-        startTimeInput.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                startTimeInputStateChanged(evt);
-            }
-        });
-
-        startTimeValue.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        startTimeValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        startTimeValue.setText("0");
-        startTimeValue.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        startTimeValue.setPreferredSize(new java.awt.Dimension(58, 55));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -359,23 +302,13 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(startTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(typeInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(dateInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(startTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(startTimeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(endTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(0, 0, 0)
-                            .addComponent(endTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addComponent(endTimeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(dateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,19 +341,9 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(startTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(startTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(startTimeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(endTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(endTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(endTimeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
+                .addGap(114, 114, 114)
                 .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -438,11 +361,6 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         numberOfPatientsValue.setText(selected.getNumberOfPatients() + "");
     }//GEN-LAST:event_roomIDInputActionPerformed
 
-    private void typeInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_typeInputCaretUpdate
-        // TODO add your handling code here:
-        generatedShift.setType(typeInput.getText());
-    }//GEN-LAST:event_typeInputCaretUpdate
-
     private void dateInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_dateInputCaretUpdate
         // TODO add your handling code here:
         LocalDate temp = LocalDate.now();
@@ -454,18 +372,6 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         }
         generatedShift.setDate(temp);
     }//GEN-LAST:event_dateInputCaretUpdate
-
-    private void endTimeInputStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_endTimeInputStateChanged
-        // TODO add your handling code here:
-        endTimeValue.setText(endTimeInput.getValue() + "");
-        generatedShift.setEndTime(endTimeInput.getValue());
-    }//GEN-LAST:event_endTimeInputStateChanged
-
-    private void startTimeInputStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_startTimeInputStateChanged
-        // TODO add your handling code here:
-        startTimeValue.setText(startTimeInput.getValue() + "");
-        generatedShift.setStartTime(startTimeInput.getValue());
-    }//GEN-LAST:event_startTimeInputStateChanged
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
@@ -482,18 +388,8 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
                 errorDialog.setLocationRelativeTo(null);
             }
         }
-        else {
-            switch (validateShift()) {
-                case -1:
-                    errorMessage.setText("Please check shift date!");
-                    break;
-                case -2:
-                    errorMessage.setText("Please check shift type!");
-                    break;
-                case -3:
-                    errorMessage.setText("Please check shift time!");
-                    break;
-            }
+        else if (validateShift() == -1) {
+            errorMessage.setText("Please check shift date!");
             errorDialog.setVisible(true);
             errorDialog.setLocationRelativeTo(null);
         }
@@ -509,15 +405,17 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         successDialog.setVisible(false);
     }//GEN-LAST:event_successConfirmButtonActionPerformed
 
+    private void typeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeInputActionPerformed
+        // TODO add your handling code here:
+        generatedShift.setType(typeList.get(typeInput.getSelectedIndex()).getType());
+    }//GEN-LAST:event_typeInputActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NumberOfPatientsLabel;
     private javax.swing.JFormattedTextField dateInput;
     private javax.swing.JLabel dateLabel;
     private javax.swing.JComboBox<String> departmentInput;
     private javax.swing.JLabel departmentLabel;
-    private javax.swing.JSlider endTimeInput;
-    private javax.swing.JLabel endTimeLabel;
-    private javax.swing.JLabel endTimeValue;
     private javax.swing.JButton errorConfirmButton;
     private javax.swing.JDialog errorDialog;
     private javax.swing.JLabel errorMessage;
@@ -529,14 +427,11 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
     private javax.swing.JLabel roomSpecialtyValue;
     private javax.swing.JLabel roomTypeLabel;
     private javax.swing.JLabel roomTypeValue;
-    private javax.swing.JSlider startTimeInput;
-    private javax.swing.JLabel startTimeLabel;
-    private javax.swing.JLabel startTimeValue;
     private javax.swing.JButton submitButton;
     private javax.swing.JButton successConfirmButton;
     private javax.swing.JDialog successDialog;
     private javax.swing.JLabel successMessage;
-    private javax.swing.JTextField typeInput;
+    private javax.swing.JComboBox<String> typeInput;
     private javax.swing.JLabel typeLabel;
     // End of variables declaration//GEN-END:variables
 }
