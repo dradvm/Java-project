@@ -112,18 +112,22 @@ public class ShiftDAO {
     }
     
     private boolean checkAvailableToChange(Shift shift1, Shift shift2) {
+        ShiftDAO shiftDAO = new ShiftDAO();
         boolean varReturn = false;
         try {
             String sql = "";
             boolean check = false;
-            if (shift1.getType().equals("Fulltime") || shift2.getType().equals("Fulltime")) {
-                sql = "select * from shift where EmployeeID = ? and Date = ? and ShiftID != ?";
-                check = true;
+            if (!(shiftDAO.getByID(shift1.getEmployeeID()).equals("Receptionist") ^ shiftDAO.getByID(shift2.getEmployeeID()).equals("Receptionist"))) {
+                if (shift1.getType().equals("Fulltime") || shift2.getType().equals("Fulltime")) {
+                    sql = "select * from shift where EmployeeID = ? and Date = ? and ShiftID != ?";
+                    check = true;
+                }
+
+                else {
+                    sql = "select * from shift where EmployeeID = ? and Date = ? and ShiftID != ? and (Type = ? or Type = 'Fulltime')";
+                }
             }
             
-            else {
-                sql = "select * from shift where EmployeeID = ? and Date = ? and ShiftID != ? and (Type = ? or Type = 'Fulltime')";
-            }
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, shift1.getEmployeeID());
             statement.setString(2, shift2.getDate().toString());

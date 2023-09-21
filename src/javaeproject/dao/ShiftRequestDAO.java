@@ -135,6 +135,13 @@ public class ShiftRequestDAO {
         return null;
     }
 
+    
+    
+    
+    
+    
+    
+    
     private void setShiftRequest(ShiftRequest shiftRequest, ResultSet rs) throws SQLException{
         shiftRequest.setRequestID(rs.getString(1));
         shiftRequest.setEmployeeID(rs.getString(2));
