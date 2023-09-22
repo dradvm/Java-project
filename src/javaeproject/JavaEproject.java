@@ -11,7 +11,9 @@ import java.util.Scanner;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
 import javaeproject.gui.*;
+import javaeproject.gui.components.MyDialog;
 import javaeproject.model.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,6 +35,7 @@ public class JavaEproject {
 //        ShiftDAO shiftDAO = new ShiftDAO();
 //        LoginDAO userDAO = new LoginDAO();
         LoginGUI myApp = new LoginGUI();
+
     }
     
 }

@@ -15,6 +15,8 @@ import javaeproject.events.EventSelected;
 import javaeproject.model.Shift;
 import javaeproject.model.ShiftRequest;
 import javaeproject.model.User;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,24 +50,28 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!shiftList1.isSelected()) {
-                    System.out.println("Please select current shift");
+                    JOptionPane.showMessageDialog(new JButton("Confirm"), "Please select current shift", "" ,JOptionPane.INFORMATION_MESSAGE);
                 }
                 else if (!shiftList2.isSelected()) {
-                    System.out.println("Please select desired shift");
+                    JOptionPane.showMessageDialog(new JButton("Confirm"), "Please select desired shift", "" ,JOptionPane.INFORMATION_MESSAGE);
                 }
                 else if ("".equals(jTextArea1.getText().trim())) {
-                    System.out.println("Please enter your reason");
+                    JOptionPane.showMessageDialog(new JButton("Confirm"), "Please enter your reason", "" ,JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     Shift shift1 = shiftList1.getShiftSelected();
                     Shift shift2 = shiftList2.getShiftSelected();
                     if (shiftRequestDAO.isAlreadyExist(user, shift1, shift2 )) {
-                        System.out.println("Already exist");
+                        JOptionPane.showMessageDialog(new JButton("Confirm"), "Your change request already exist", "" ,JOptionPane.INFORMATION_MESSAGE);
                     }
                     else {
                         ShiftRequest shiftRequest = new ShiftRequest(shiftRequestDAO.getNewID(), user.getEmployeeID(), shift1.getShiftID(), shift2.getShiftID(), jTextArea1.getText(), LocalDate.now());
                         shiftRequestDAO.add(shiftRequest);
-                        System.out.println("run");
+                        JOptionPane.showMessageDialog(new JButton("Confirm"), "Your change request has been successfully created", "" ,JOptionPane.INFORMATION_MESSAGE);
+                        shiftList1.resetSelected();
+                        shiftList2.resetSelected();
+                        jTextArea1.setText("");
+                        repaint();
                     }
                 }
             }

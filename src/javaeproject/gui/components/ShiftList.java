@@ -88,8 +88,12 @@ public class ShiftList<E extends Object> extends JList<E> {
     } 
     
     public void reset() {
-        selectedIndex = -1;
+        resetSelected();
         model.clear();
+    }
+    
+    public void resetSelected() {
+        selectedIndex = -1;
     }
     
     public Shift getShiftSelected() {
