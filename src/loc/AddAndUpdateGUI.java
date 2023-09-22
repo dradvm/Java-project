@@ -196,8 +196,12 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         boolean added = dao.addPatient(patient);
         if (added) {
             System.out.println("Patient added successfully.");
+            JOptionPane.showMessageDialog(this, "Patient added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
         } else {
             System.out.println("Failed to add patient.");
+            JOptionPane.showMessageDialog(this, "Failed to add patient.", "Error", JOptionPane.ERROR_MESSAGE);
+
         }
     }//GEN-LAST:event_addButtonActionPerformed
 
