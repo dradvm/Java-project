@@ -10,16 +10,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
-import javaeproject.events.EventMenuSelected;
+import javaeproject.events.EventSelected;
 import javaeproject.model.MenuModal;
 import javaeproject.model.User;
 import javax.swing.JFrame;
 
 public class Menu extends javax.swing.JPanel {
 
-    private EventMenuSelected event;
+    private EventSelected event;
     
-    public void addEventMenuSelected(EventMenuSelected event) {
+    public void addEventMenuSelected(EventSelected event) {
         this.event = event;
         menuList1.addEventMenuSelected(event);
     }

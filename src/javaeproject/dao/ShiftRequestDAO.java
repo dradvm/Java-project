@@ -5,6 +5,7 @@
 package javaeproject.dao;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javaeproject.connection.*;
 import javaeproject.model.*;
@@ -102,7 +103,7 @@ public class ShiftRequestDAO {
     }
     
     public void add(ShiftRequest shiftRequest) {
-        String sql = "INSERT INTO ChangeRequest VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ChangeRequest VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             setStatement(statement, shiftRequest);
@@ -148,7 +149,9 @@ public class ShiftRequestDAO {
         shiftRequest.setCurrentShiftID(rs.getString(3));
         shiftRequest.setDesiredShiftID(rs.getString(4));
         shiftRequest.setDetails(rs.getString(5));
-        shiftRequest.setStatus(rs.getString(6));
+        String[] myDate = rs.getString(6).split("-");
+        shiftRequest.setDate(LocalDate.of(Integer.parseInt(myDate[0]), Integer.parseInt(myDate[1]), Integer.parseInt(myDate[2])));
+        shiftRequest.setStatus(rs.getString(7));
     }
 
     private void setStatement(PreparedStatement statement, ShiftRequest shiftRequest) throws SQLException {
@@ -157,6 +160,7 @@ public class ShiftRequestDAO {
         statement.setString(3, shiftRequest.getCurrentShiftID());
         statement.setString(4, shiftRequest.getDesiredShiftID());
         statement.setString(5, shiftRequest.getDetails());
-        statement.setString(6, shiftRequest.getStatus());
+        statement.setString(6, shiftRequest.getDate().toString());
+        statement.setString(7, shiftRequest.getStatus());
     }
 }

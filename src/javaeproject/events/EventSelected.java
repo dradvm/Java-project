@@ -10,6 +10,6 @@ import javaeproject.model.MenuModal;
  *
  * @author DELL
  */
-public interface EventMenuSelected {
-    public void setSeleted(MenuModal itemMenuModal);
+public interface EventSelected {
+    public void setSeleted(Object item);
 }
