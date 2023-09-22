@@ -4,6 +4,8 @@
  */
 package javaeproject.model;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author DELL
@@ -14,20 +16,24 @@ public class ShiftRequest {
     private String currentShiftID;
     private String desiredShiftID;
     private String details;
+    private LocalDate date;
     private String status;
 
     public ShiftRequest() {
         
     }
 
-    public ShiftRequest(String requestID, String employeeID, String currentShiftID, String desiredShiftID, String details, String status) {
+    public ShiftRequest(String requestID, String employeeID, String currentShiftID, String desiredShiftID, String details, LocalDate date) {
         this.requestID = requestID;
         this.employeeID = employeeID;
         this.currentShiftID = currentShiftID;
         this.desiredShiftID = desiredShiftID;
         this.details = details;
-        this.status = status;
+        this.date = date;
+        this.status = "Pending";
     }
+
+
     
     public String getRequestID() {
         return requestID;
@@ -47,6 +53,10 @@ public class ShiftRequest {
 
     public String getDetails() {
         return details;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     public String getStatus() {
@@ -73,9 +83,21 @@ public class ShiftRequest {
         this.details = details;
     }
 
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
     
+    public void changeStatus(boolean check) {
+        if (check) {
+            this.status = "Approved";
+        }
+        else {
+            this.status = "Rejected";
+        }
+    }
     
 }

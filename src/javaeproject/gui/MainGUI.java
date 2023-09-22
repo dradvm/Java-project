@@ -2,7 +2,7 @@
 package javaeproject.gui;
 
 import java.awt.*;
-import javaeproject.events.EventMenuSelected;
+import javaeproject.events.EventSelected;
 import javaeproject.model.MenuModal;
 import javaeproject.model.User;
 import javax.swing.JComponent;
@@ -11,12 +11,12 @@ import javax.swing.JFrame;
 public class MainGUI extends javax.swing.JFrame {
     
     
-    private EventMenuSelected event;
+    private EventSelected event;
     private GenerateShiftGUI generateShiftGUI;
     private final JFrame main = this;
     private User user;
     
-    public void addEventMenuSelected(EventMenuSelected event) {
+    public void addEventMenuSelected(EventSelected event) {
         this.event = event;
         menu1.addEventMenuSelected(event);
     }
@@ -31,9 +31,10 @@ public class MainGUI extends javax.swing.JFrame {
         menu1.init(user);
         menu1.initMoving(this);
         setBackground(new Color(0,0,0,0));
-        addEventMenuSelected(new EventMenuSelected() {
+        addEventMenuSelected(new EventSelected() {
             @Override
-            public void setSeleted(MenuModal itemMenuModal) {
+            public void setSeleted(Object item) {
+                MenuModal itemMenuModal = (MenuModal) item;
                 switch (itemMenuModal.getName()) {
                     case "View Time Schedule" -> changePanel(new Form1());
                     case "Shift Request Approval" -> changePanel(new Form1());

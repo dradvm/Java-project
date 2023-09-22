@@ -13,7 +13,7 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import javaeproject.events.EventMenuSelected;
+import javaeproject.events.EventSelected;
 import javaeproject.model.MenuModal;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -32,9 +32,9 @@ public class MenuList<E extends Object> extends JList<E> {
     private int selectedIndex = -1;
     private int hoveredIndex = -1;
 
-    private EventMenuSelected event;
+    private EventSelected event;
     
-    public void addEventMenuSelected(EventMenuSelected event) {
+    public void addEventMenuSelected(EventSelected event) {
         this.event = event;
     }
     public MenuList() {

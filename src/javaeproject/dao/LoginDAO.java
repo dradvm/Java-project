@@ -23,7 +23,8 @@ public class LoginDAO {
     public boolean validAccount(String username, String password) {
         try {
             String query = "select count(*) from Employee "
-                + "where Username = ? and [Password] = ?";
+                + "where Username = ? collate SQL_Latin1_General_CP1_CS_AS "
+                    + "and [Password] = ? collate SQL_Latin1_General_CP1_CS_AS";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
             statement.setString(2, password);
