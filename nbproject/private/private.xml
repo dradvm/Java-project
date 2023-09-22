@@ -3,17 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Java/Java-project/src/javaeproject/JavaEproject.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/connection/ConnectionDB.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/gui/GenerateShiftGUI.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/dao/ShiftDAO.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/gui/Menu.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/model/Room.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/model/Shift.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/gui/MenuGUI.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/gui/LoginGUI.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/dao/DepartmentDAO.java</file>
-            <file>file:/D:/Java/Java-project/src/javaeproject/dao/RoomDAO.java</file>
+            <file>file:/D:/Code/java-project/Java-project/src/javaeproject/dao/DepartmentDAO.java</file>
+            <file>file:/D:/Code/java-project/Java-project/src/javaeproject/connection/ConnectionDB.java</file>
         </group>
     </open-files>
 </project-private>
