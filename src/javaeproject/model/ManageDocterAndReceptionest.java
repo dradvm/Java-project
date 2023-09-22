@@ -20,21 +20,21 @@ public class ManageDocterAndReceptionest {
     
     
     //AddMethod    
-    public void addPerson (String employeeID, String departmentID, String employeeName, String gender, String position, String address, String employeePhone, LocalDate employeeDoB, String email, String employeeSpecialty, String username, String password) {
+    public void addEmployee (String employeeID, String departmentID, String employeeName, String gender, String position, String address, String employeePhone, LocalDate employeeDoB, String email, String employeeSpecialty, String username, String password) {
         
         //...//
         
     }
     
     //AlterMethod    
-    public void alterPerson (String employeeID, String departmentID, String employeeName, String gender, String position, String address, String employeePhone, LocalDate employeeDoB, String email, String employeeSpecialty, String username, String password) {
+    public void alterEmployee (String employeeID, String departmentID, String employeeName, String gender, String position, String address, String employeePhone, LocalDate employeeDoB, String email, String employeeSpecialty, String username, String password) {
         
         //...//
         
     }
     
     //FindAlterPerson
-    public void findAlterPerson (String employeeID, String departmentID) {
+    public void findAlterEmployee (String employeeID, String departmentID) {
         
         //...//
         checkAlterFind(employeeID, departmentID);
@@ -50,7 +50,7 @@ public class ManageDocterAndReceptionest {
     }   
     
     //FindDeletePerson 
-    public void findDeletePerson (String employeeID, String departmentID) {
+    public void findDeleteEmployee (String employeeID, String departmentID) {
         
         //...//
         checkAlterDelete(employeeID, departmentID);
