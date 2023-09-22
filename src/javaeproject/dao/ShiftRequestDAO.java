@@ -136,7 +136,28 @@ public class ShiftRequestDAO {
         return null;
     }
 
-    
+    public boolean isAlreadyExist(User user, Shift shift1, Shift shift2) {
+        String sql = "select * from ChangeRequest where EmployeeID = ? and CurrentShiftID = ? and DesiredShiftID = ?";
+        boolean varReturn = false;
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getEmployeeID());
+            statement.setString(2, shift1.getShiftID());
+            statement.setString(3, shift2.getShiftID());
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                varReturn = true;
+            }
+            else {
+                varReturn = false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+        return varReturn;
+    }
     
     
     

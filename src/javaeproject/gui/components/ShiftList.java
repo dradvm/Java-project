@@ -91,4 +91,12 @@ public class ShiftList<E extends Object> extends JList<E> {
         selectedIndex = -1;
         model.clear();
     }
+    
+    public Shift getShiftSelected() {
+        return (Shift) model.getElementAt(selectedIndex);
+    }
+    
+    public boolean isSelected() {
+        return selectedIndex != -1;
+    }
 }

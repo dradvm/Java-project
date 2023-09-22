@@ -5,10 +5,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javaeproject.dao.ShiftDAO;
+import javaeproject.dao.ShiftRequestDAO;
 import javaeproject.events.EventSelected;
 import javaeproject.model.Shift;
+import javaeproject.model.ShiftRequest;
 import javaeproject.model.User;
 
 /**
@@ -18,6 +23,7 @@ import javaeproject.model.User;
 public class GenerateShiftRequestGUI extends javax.swing.JPanel {
 
     private final ShiftDAO shiftDAO = new ShiftDAO();
+    private final ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
     private EventSelected event;
     
     public void addEventSelected(EventSelected event) {
@@ -37,6 +43,33 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
                 Shift itemShift = (Shift) item;
                 initDesiredShiftList(user, itemShift);
             }
+        });
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!shiftList1.isSelected()) {
+                    System.out.println("Please select current shift");
+                }
+                else if (!shiftList2.isSelected()) {
+                    System.out.println("Please select desired shift");
+                }
+                else if ("".equals(jTextArea1.getText().trim())) {
+                    System.out.println("Please enter your reason");
+                }
+                else {
+                    Shift shift1 = shiftList1.getShiftSelected();
+                    Shift shift2 = shiftList2.getShiftSelected();
+                    if (shiftRequestDAO.isAlreadyExist(user, shift1, shift2 )) {
+                        System.out.println("Already exist");
+                    }
+                    else {
+                        ShiftRequest shiftRequest = new ShiftRequest(shiftRequestDAO.getNewID(), user.getEmployeeID(), shift1.getShiftID(), shift2.getShiftID(), jTextArea1.getText(), LocalDate.now());
+                        shiftRequestDAO.add(shiftRequest);
+                        System.out.println("run");
+                    }
+                }
+            }
+            
         });
         
     }
