@@ -1,19 +1,65 @@
 package javaeproject.gui;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import javaeproject.dao.DepartmentDAO;
+import javaeproject.dao.EmployeeDAO;
+import javaeproject.dao.RoomDAO;
+import javaeproject.dao.ShiftDAO;
+import javaeproject.model.Shift;
+import javaeproject.model.User;
 
 public class AssignShiftGUI extends javax.swing.JPanel {
     
+    private final ShiftDAO shiftDAO;
+    private final DepartmentDAO departmentDAO;
+    private final RoomDAO roomDAO;
+    private final EmployeeDAO employeeDAO;
     private LocalDate startDate;
     private LocalDate endDate;
+    private ArrayList<Shift> shiftList;
+    private ArrayList<User> employeeList;
+    private Shift shift;
+    private User employee;
 
     public AssignShiftGUI() {
+        shiftDAO = new ShiftDAO();
+        departmentDAO = new DepartmentDAO();
+        roomDAO = new RoomDAO();
+        employeeDAO = new EmployeeDAO();
+        shift = new Shift();
+        employee = new User();
         initComponents();
-        shiftPanel.setVisible(false);
+        initLogic();
     }
 
+    public void initLogic() {
+        shift = new Shift();
+        employee = new User();
+        shiftMessage.setVisible(false);
+        shiftPanel.setVisible(false);
+        setVisibleEmployeeInformation(false);
+        startDateInput.setText("");
+        endDateInput.setText("");
+        startDate = null;
+        endDate = null;
+    }
+    
+    private void setVisibleEmployeeInformation(boolean state) {
+        employeeLabel.setVisible(state);
+        employeeInput.setVisible(state);
+        genderLabel.setVisible(state);
+        genderValue.setVisible(state);
+        positionLabel.setVisible(state);
+        positionValue.setVisible(state);
+        dobLabel.setVisible(state);
+        dobValue.setVisible(state);
+        employeeSpecialtyLabel.setVisible(state);
+        employeeSpecialtyValue.setVisible(state);
+        submitButton.setVisible(state);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -21,6 +67,9 @@ public class AssignShiftGUI extends javax.swing.JPanel {
         errorDialog = new javax.swing.JDialog();
         errorConfirmButton = new javax.swing.JButton();
         errorMessage = new javax.swing.JLabel();
+        successDialog2 = new javax.swing.JDialog();
+        successConfirmButton2 = new javax.swing.JButton();
+        successMessage = new javax.swing.JLabel();
         startDateLabel = new javax.swing.JLabel();
         startDateInput = new javax.swing.JFormattedTextField();
         endDateLabel = new javax.swing.JLabel();
@@ -41,7 +90,6 @@ public class AssignShiftGUI extends javax.swing.JPanel {
         roomSpecialtyLabel = new javax.swing.JLabel();
         roomSpecialtyValue = new javax.swing.JLabel();
         employeeMessage = new javax.swing.JLabel();
-        employeePanel = new javax.swing.JPanel();
         employeeLabel = new javax.swing.JLabel();
         employeeInput = new javax.swing.JComboBox<>();
         genderLabel = new javax.swing.JLabel();
@@ -93,15 +141,54 @@ public class AssignShiftGUI extends javax.swing.JPanel {
                 .addGap(23, 23, 23))
         );
 
+        successDialog2.setSize(new java.awt.Dimension(360, 240));
+
+        successConfirmButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        successConfirmButton2.setText("OK");
+        successConfirmButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        successConfirmButton2.setPreferredSize(new java.awt.Dimension(108, 36));
+        successConfirmButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                successConfirmButton2ActionPerformed(evt);
+            }
+        });
+
+        successMessage.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        successMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        successMessage.setText("Shift generated successullfy!");
+        successMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        successMessage.setPreferredSize(new java.awt.Dimension(360, 160));
+
+        javax.swing.GroupLayout successDialog2Layout = new javax.swing.GroupLayout(successDialog2.getContentPane());
+        successDialog2.getContentPane().setLayout(successDialog2Layout);
+        successDialog2Layout.setHorizontalGroup(
+            successDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(successDialog2Layout.createSequentialGroup()
+                .addComponent(successMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(successDialog2Layout.createSequentialGroup()
+                .addGap(126, 126, 126)
+                .addComponent(successConfirmButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        successDialog2Layout.setVerticalGroup(
+            successDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, successDialog2Layout.createSequentialGroup()
+                .addComponent(successMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(successConfirmButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
         setPreferredSize(new java.awt.Dimension(825, 744));
 
         startDateLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        startDateLabel.setText("Starting date: ");
-        startDateLabel.setPreferredSize(new java.awt.Dimension(98, 39));
+        startDateLabel.setText("Starting date (yyyy-MM-dd):");
+        startDateLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         startDateInput.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
         startDateInput.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        startDateInput.setPreferredSize(new java.awt.Dimension(206, 39));
+        startDateInput.setPreferredSize(new java.awt.Dimension(206, 37));
         startDateInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 startDateInputCaretUpdate(evt);
@@ -109,12 +196,12 @@ public class AssignShiftGUI extends javax.swing.JPanel {
         });
 
         endDateLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        endDateLabel.setText("Ending Date: ");
-        endDateLabel.setPreferredSize(new java.awt.Dimension(93, 39));
+        endDateLabel.setText("Ending Date (yyy-MM-dd):");
+        endDateLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         endDateInput.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
         endDateInput.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        endDateInput.setPreferredSize(new java.awt.Dimension(206, 39));
+        endDateInput.setPreferredSize(new java.awt.Dimension(206, 37));
         endDateInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 endDateInputCaretUpdate(evt);
@@ -134,98 +221,111 @@ public class AssignShiftGUI extends javax.swing.JPanel {
         shiftMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         shiftMessage.setText("No shift to assign in the date range");
         shiftMessage.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        shiftMessage.setPreferredSize(new java.awt.Dimension(619, 39));
+        shiftMessage.setPreferredSize(new java.awt.Dimension(619, 37));
+
+        shiftPanel.setMinimumSize(new java.awt.Dimension(0, 592));
+        shiftPanel.setPreferredSize(new java.awt.Dimension(825, 596));
 
         shiftIDLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         shiftIDLabel.setText("Shift ID: ");
         shiftIDLabel.setPreferredSize(new java.awt.Dimension(58, 37));
 
         shiftIDInput.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        shiftIDInput.setPreferredSize(new java.awt.Dimension(206, 39));
+        shiftIDInput.setPreferredSize(new java.awt.Dimension(206, 37));
+        shiftIDInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shiftIDInputActionPerformed(evt);
+            }
+        });
 
         departmentLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         departmentLabel.setText("Department:");
-        departmentLabel.setPreferredSize(new java.awt.Dimension(206, 39));
+        departmentLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         departmentValue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         departmentValue.setText("[DepartmentName]");
-        departmentValue.setPreferredSize(new java.awt.Dimension(206, 39));
+        departmentValue.setPreferredSize(new java.awt.Dimension(206, 37));
 
         typeLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         typeLabel.setText("Type:");
-        typeLabel.setPreferredSize(new java.awt.Dimension(206, 39));
+        typeLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         typeValue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         typeValue.setText("[Type]");
-        typeValue.setPreferredSize(new java.awt.Dimension(206, 39));
+        typeValue.setPreferredSize(new java.awt.Dimension(206, 37));
 
         dateLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         dateLabel.setText("Date:");
-        dateLabel.setPreferredSize(new java.awt.Dimension(206, 39));
+        dateLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         dateValue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         dateValue.setText("[Date]");
-        dateValue.setPreferredSize(new java.awt.Dimension(206, 39));
+        dateValue.setPreferredSize(new java.awt.Dimension(206, 37));
 
         roomIDLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         roomIDLabel.setText("Room ID:");
-        roomIDLabel.setPreferredSize(new java.awt.Dimension(206, 39));
+        roomIDLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         roomIDValue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         roomIDValue.setText("[RoomID]");
-        roomIDValue.setPreferredSize(new java.awt.Dimension(206, 39));
+        roomIDValue.setPreferredSize(new java.awt.Dimension(206, 37));
 
         roomSpecialtyLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         roomSpecialtyLabel.setText("Room specialty:");
-        roomSpecialtyLabel.setPreferredSize(new java.awt.Dimension(206, 39));
+        roomSpecialtyLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         roomSpecialtyValue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         roomSpecialtyValue.setText("[RoomSpecialty]");
-        roomSpecialtyValue.setPreferredSize(new java.awt.Dimension(206, 39));
+        roomSpecialtyValue.setPreferredSize(new java.awt.Dimension(206, 37));
 
         employeeMessage.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         employeeMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         employeeMessage.setText("No employee available for this thift");
-        employeeMessage.setPreferredSize(new java.awt.Dimension(619, 39));
+        employeeMessage.setPreferredSize(new java.awt.Dimension(619, 37));
 
         employeeLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         employeeLabel.setText("Employee:");
-        employeeLabel.setPreferredSize(new java.awt.Dimension(72, 39));
+        employeeLabel.setPreferredSize(new java.awt.Dimension(72, 37));
 
         employeeInput.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        employeeInput.setPreferredSize(new java.awt.Dimension(206, 39));
+        employeeInput.setPreferredSize(new java.awt.Dimension(206, 37));
+        employeeInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                employeeInputActionPerformed(evt);
+            }
+        });
 
         genderLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         genderLabel.setText("Gender:");
-        genderLabel.setPreferredSize(new java.awt.Dimension(206, 39));
+        genderLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         genderValue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         genderValue.setText("[Gender]");
-        genderValue.setPreferredSize(new java.awt.Dimension(206, 39));
+        genderValue.setPreferredSize(new java.awt.Dimension(206, 37));
 
         positionLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         positionLabel.setText("Position:");
-        positionLabel.setPreferredSize(new java.awt.Dimension(206, 39));
+        positionLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         positionValue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         positionValue.setText("[Position]");
-        positionValue.setPreferredSize(new java.awt.Dimension(206, 39));
+        positionValue.setPreferredSize(new java.awt.Dimension(206, 37));
 
         dobLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         dobLabel.setText("Date of birth:");
-        dobLabel.setPreferredSize(new java.awt.Dimension(206, 39));
+        dobLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         dobValue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         dobValue.setText("[DoB]");
-        dobValue.setPreferredSize(new java.awt.Dimension(206, 39));
+        dobValue.setPreferredSize(new java.awt.Dimension(206, 37));
 
         employeeSpecialtyLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         employeeSpecialtyLabel.setText("Specialty:");
-        employeeSpecialtyLabel.setPreferredSize(new java.awt.Dimension(206, 39));
+        employeeSpecialtyLabel.setPreferredSize(new java.awt.Dimension(206, 37));
 
         employeeSpecialtyValue.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         employeeSpecialtyValue.setText("[Specialty]");
-        employeeSpecialtyValue.setPreferredSize(new java.awt.Dimension(206, 39));
+        employeeSpecialtyValue.setPreferredSize(new java.awt.Dimension(206, 37));
 
         submitButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         submitButton.setText("Submit");
@@ -235,68 +335,6 @@ public class AssignShiftGUI extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout employeePanelLayout = new javax.swing.GroupLayout(employeePanel);
-        employeePanel.setLayout(employeePanelLayout);
-        employeePanelLayout.setHorizontalGroup(
-            employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(employeePanelLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(employeePanelLayout.createSequentialGroup()
-                        .addGroup(employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(employeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(employeeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(employeeSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(employeePanelLayout.createSequentialGroup()
-                        .addGroup(employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(submitButton)
-                            .addGroup(employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(employeePanelLayout.createSequentialGroup()
-                                    .addGroup(employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(genderValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(0, 0, 0)
-                                    .addGroup(employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(employeePanelLayout.createSequentialGroup()
-                                            .addComponent(positionValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, 0)
-                                            .addComponent(dobValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, Short.MAX_VALUE))
-                                        .addGroup(employeePanelLayout.createSequentialGroup()
-                                            .addComponent(positionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, 0)
-                                            .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(employeePanelLayout.createSequentialGroup()
-                                    .addComponent(employeeSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        employeePanelLayout.setVerticalGroup(
-            employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(employeePanelLayout.createSequentialGroup()
-                .addComponent(employeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(employeeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addGroup(employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(positionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addGroup(employeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(genderValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(positionValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dobValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addComponent(employeeSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(employeeSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(submitButton)
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout shiftPanelLayout = new javax.swing.GroupLayout(shiftPanel);
         shiftPanel.setLayout(shiftPanelLayout);
         shiftPanelLayout.setHorizontalGroup(
@@ -304,29 +342,58 @@ public class AssignShiftGUI extends javax.swing.JPanel {
             .addGroup(shiftPanelLayout.createSequentialGroup()
                 .addGap(103, 103, 103)
                 .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(shiftIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(shiftIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(shiftPanelLayout.createSequentialGroup()
+                        .addComponent(employeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(shiftPanelLayout.createSequentialGroup()
                         .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(departmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(departmentValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(roomIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(roomIDValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, 0)
-                        .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(roomSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(roomSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(employeeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(shiftIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(shiftIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(shiftPanelLayout.createSequentialGroup()
                                 .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(typeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, 0)
+                                    .addComponent(departmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(departmentValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(roomIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dateValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(employeeMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(103, Short.MAX_VALUE))
-            .addComponent(employeePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(shiftPanelLayout.createSequentialGroup()
+                                        .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(typeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, 0)
+                                        .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(dateValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(shiftPanelLayout.createSequentialGroup()
+                                        .addGap(0, 0, 0)
+                                        .addComponent(roomSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(shiftPanelLayout.createSequentialGroup()
+                                .addComponent(roomIDValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(roomSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(employeeMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(employeeSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(employeeSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(shiftPanelLayout.createSequentialGroup()
+                                .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(shiftPanelLayout.createSequentialGroup()
+                                        .addComponent(genderValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, 0)))
+                                .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(positionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(shiftPanelLayout.createSequentialGroup()
+                                        .addComponent(positionValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, 0)))
+                                .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dobValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(103, Short.MAX_VALUE))))
+            .addGroup(shiftPanelLayout.createSequentialGroup()
+                .addGap(103, 103, 103)
+                .addComponent(submitButton)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         shiftPanelLayout.setVerticalGroup(
             shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,25 +413,41 @@ public class AssignShiftGUI extends javax.swing.JPanel {
                     .addComponent(departmentValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(typeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(37, 37, 37)
                 .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(roomIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(roomSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(roomIDValue, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(roomIDValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(roomSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
                 .addComponent(employeeMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(employeePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(employeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(employeeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(genderLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(positionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dobLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(shiftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(genderValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(positionValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dobValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(employeeSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(employeeSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(submitButton)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(shiftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(103, 103, 103)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,13 +455,14 @@ public class AssignShiftGUI extends javax.swing.JPanel {
                     .addComponent(dateRangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(startDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(startDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(startDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(startDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(103, 103, 103)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(endDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(endDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
+            .addComponent(shiftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,12 +475,12 @@ public class AssignShiftGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(startDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addGap(6, 6, 6)
                 .addComponent(dateRangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addComponent(shiftMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(shiftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(shiftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -408,20 +492,41 @@ public class AssignShiftGUI extends javax.swing.JPanel {
             return;
         }
         long range = ChronoUnit.DAYS.between(startDate, endDate);
-        if (range <= 0 || range > 7) {
-            errorMessage.setText("Date range must be greater than 0 and less than 7");
+        if (range < 0 || range > 6) {
+            errorMessage.setText("Date range must be greater than 0 and equal or less than 7");
             errorDialog.setLocationRelativeTo(null);
             errorDialog.setVisible(true);
             return;
         }
-        
+        shiftList = shiftDAO.getAssignableShiftList(startDate, endDate);
+        if (shiftList.isEmpty()) {
+            shiftMessage.setVisible(true);
+        }
+        else {
+            shiftPanel.setVisible(true);
+            shiftIDInput.removeAllItems();
+            for (Shift item : shiftList) {
+                shiftIDInput.addItem(item.getShiftID());
+            }
+            shiftIDInput.setSelectedIndex(0);
+        }
     }//GEN-LAST:event_dateRangeButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            shiftDAO.assignShift(employee.getEmployeeID(), shift.getShiftID());
+            successDialog.setVisible(true);
+            initLogic();
+        }
+        catch (Exception e) {
+            errorMessage.setText("Encountered database error");
+            errorDialog.setVisible(true);
+            errorDialog.setLocationRelativeTo(null);
+        }
     }//GEN-LAST:event_submitButtonActionPerformed
 
     private void startDateInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_startDateInputCaretUpdate
+        shiftMessage.setVisible(false);
         shiftPanel.setVisible(false);
         startDate = null;
         String[] date = startDateInput.getText().split("-");
@@ -433,6 +538,7 @@ public class AssignShiftGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_startDateInputCaretUpdate
 
     private void endDateInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_endDateInputCaretUpdate
+        shiftMessage.setVisible(false);
         shiftPanel.setVisible(false);
         endDate = null;
         String[] date = endDateInput.getText().split("-");
@@ -447,6 +553,45 @@ public class AssignShiftGUI extends javax.swing.JPanel {
         errorDialog.setVisible(false);
     }//GEN-LAST:event_errorConfirmButtonActionPerformed
 
+    private void shiftIDInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shiftIDInputActionPerformed
+        employeeMessage.setVisible(false);
+        setVisibleEmployeeInformation(false);
+        if (shiftIDInput.getSelectedIndex() >= 0) {
+            shift = shiftList.get(shiftIDInput.getSelectedIndex());
+            departmentValue.setText(departmentDAO.getNameByID(shift.getDepartmentID()));
+            typeValue.setText(shift.getType());
+            dateValue.setText(shift.getDate().toString());
+            roomIDValue.setText(shift.getRoomID());
+            roomSpecialtyValue.setText(roomDAO.getByID(shift.getRoomID()).getRoomSpecialty());
+            employeeList = employeeDAO.getAssignableEmployeeList(shift, roomDAO.getByID(shift.getRoomID()));
+            if (employeeList.isEmpty()) {
+                employeeMessage.setVisible(true);
+            }
+            else {
+                setVisibleEmployeeInformation(true);
+                employeeInput.removeAllItems();
+                for (User item : employeeList) {
+                    employeeInput.addItem(item.getEmployeeName());
+                }
+                employeeInput.setSelectedIndex(0);
+            }
+        }
+    }//GEN-LAST:event_shiftIDInputActionPerformed
+
+    private void employeeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeInputActionPerformed
+        if (employeeInput.getSelectedIndex() >= 0) {
+            employee = employeeList.get(employeeInput.getSelectedIndex());
+            genderValue.setText(employee.getGender());
+            positionValue.setText(employee.getPosition());
+            dobValue.setText(employee.getEmployeeDoB().toString());
+            employeeSpecialtyValue.setText(employee.getEmployeeSpecialty());
+        }
+    }//GEN-LAST:event_employeeInputActionPerformed
+
+    private void successConfirmButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_successConfirmButton2ActionPerformed
+        successDialog.setVisible(false);
+    }//GEN-LAST:event_successConfirmButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dateLabel;
     private javax.swing.JButton dateRangeButton;
@@ -458,7 +603,6 @@ public class AssignShiftGUI extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> employeeInput;
     private javax.swing.JLabel employeeLabel;
     private javax.swing.JLabel employeeMessage;
-    private javax.swing.JPanel employeePanel;
     private javax.swing.JLabel employeeSpecialtyLabel;
     private javax.swing.JLabel employeeSpecialtyValue;
     private javax.swing.JFormattedTextField endDateInput;
@@ -481,6 +625,13 @@ public class AssignShiftGUI extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField startDateInput;
     private javax.swing.JLabel startDateLabel;
     private javax.swing.JButton submitButton;
+    private javax.swing.JButton successConfirmButton;
+    private javax.swing.JButton successConfirmButton1;
+    private javax.swing.JButton successConfirmButton2;
+    private javax.swing.JDialog successDialog;
+    private javax.swing.JDialog successDialog1;
+    private javax.swing.JDialog successDialog2;
+    private javax.swing.JLabel successMessage;
     private javax.swing.JLabel typeLabel;
     private javax.swing.JLabel typeValue;
     // End of variables declaration//GEN-END:variables

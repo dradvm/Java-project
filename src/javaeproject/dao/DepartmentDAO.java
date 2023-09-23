@@ -38,4 +38,22 @@ public class DepartmentDAO {
         }
         return result;
     }
+    
+    public String getNameByID(String id) {
+        String result = null;
+        try {
+            String query = "select DepartmentName from Department "
+                + "where DepartmentID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                result = resultSet.getString(1);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

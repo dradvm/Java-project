@@ -190,8 +190,7 @@ public class ShiftDAO {
     public String getNewID() {
         try {
             Statement statement = connection.createStatement();
-            String query = "select top 1 ShiftID "
-                + "from [Shift] "
+            String query = "select top 1 ShiftID form [Shift] "
                 + "where (select len(ShiftID)) = (select max(len(ShiftID)) from [Shift]) "
                 + "order by ShiftID desc";
             ResultSet result = statement.executeQuery(query);
@@ -214,15 +213,15 @@ public class ShiftDAO {
             String query;
             PreparedStatement statement;
             if (shift.getType().equals("Fulltime")) {
-                query = "select count(*) from Shift where "
-                    + "RoomID = ? and Date = ?";
+                query = "select count(*) from [Shift] where "
+                    + "RoomID = ? and [Date] = ?";
                 statement = connection.prepareStatement(query);
                 statement.setString(1, shift.getRoomID());
                 statement.setString(2, shift.getDate().toString());
             }
             else {
-                query = "select count(*) from Shift where "
-                    + "(Type = ? or Type = 'Fulltime') and RoomID = ? and Date = ?";
+                query = "select count(*) from [Shift] where "
+                    + "(Type = ? or Type = 'Fulltime') and RoomID = ? and [Date] = ?";
                 statement = connection.prepareStatement(query);
                 statement.setString(1, shift.getType());
                 statement.setString(2, shift.getRoomID());
@@ -243,6 +242,32 @@ public class ShiftDAO {
     
     public ArrayList<Shift> getAssignableShiftList(LocalDate start, LocalDate end) {
         ArrayList<Shift> result = new ArrayList<>();
+        try {
+            String query = "select * from [Shift] where "
+                + "EmployeeID is null and [Date] >= ? and [Date] <= ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, start.toString());
+            statement.setString(2, end.toString());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Shift temp = new Shift();
+                setShift(temp, resultSet);
+                result.add(temp);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
+    }
+    
+    public void assignShift(String employeeID, String shiftID) throws Exception {
+        String query = "update [Shift]"
+            + " set EmployeeID = ? "
+            + "where ShiftID = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, employeeID);
+        statement.setString(2, shiftID);
+        statement.executeUpdate();
     }
 }
