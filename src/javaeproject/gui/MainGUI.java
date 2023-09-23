@@ -45,7 +45,7 @@ public class MainGUI extends javax.swing.JFrame {
                     case "View Holiday List" -> changePanel(new Form1());
                     case "Manage Departments" -> changePanel(new Form1());
                     case "Generate Shift Request" -> changePanel(new GenerateShiftRequestGUI(user));
-                    case "Check Shift Request Status" -> changePanel(new CheckStatusShiftRequestGUI());
+                    case "Check Shift Request Status" -> changePanel(new CheckStatusShiftRequestGUI(user));
                     case "Generate Shift" -> changePanel(generateShiftGUI);
                     case "Assign Shift" -> changePanel(new Form1());
                     case "Manage Patients" -> changePanel(new ManagePatientGUI());
@@ -58,7 +58,6 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
     }
-    
     private void changePanel(JComponent component) {
         switchFormPanel1.removeAll();
         switchFormPanel1.add(component);

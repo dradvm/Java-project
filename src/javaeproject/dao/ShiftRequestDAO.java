@@ -81,7 +81,7 @@ public class ShiftRequestDAO {
         }
         return shiftRequestList;
     }
-    public ArrayList<ShiftRequest> getAllCurrentRequest(String employeeID) {
+    public ArrayList<ShiftRequest> getAllUserRequest(String employeeID) {
         String sql = "select * from ChangeRequest where EmployeeID = ?";
         ArrayList shiftRequestList = new ArrayList<ShiftRequest>();
         ShiftRequest shiftRequest;
