@@ -207,4 +207,42 @@ public class ShiftDAO {
         }
         return null;
     }
+    
+    public boolean isRoomVailable(Shift shift) {
+        boolean result = false;
+        try {
+            String query;
+            PreparedStatement statement;
+            if (shift.getType().equals("Fulltime")) {
+                query = "select count(*) from Shift where "
+                    + "RoomID = ? and Date = ?";
+                statement = connection.prepareStatement(query);
+                statement.setString(1, shift.getRoomID());
+                statement.setString(2, shift.getDate().toString());
+            }
+            else {
+                query = "select count(*) from Shift where "
+                    + "(Type = ? or Type = 'Fulltime') and RoomID = ? and Date = ?";
+                statement = connection.prepareStatement(query);
+                statement.setString(1, shift.getType());
+                statement.setString(2, shift.getRoomID());
+                statement.setString(3, shift.getDate().toString());
+            }
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                if (resultSet.getInt(1) == 0) {
+                    result = true;
+                }
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    public ArrayList<Shift> getAssignableShiftList(LocalDate start, LocalDate end) {
+        ArrayList<Shift> result = new ArrayList<>();
+        return result;
+    }
 }

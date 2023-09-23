@@ -15,11 +15,7 @@ public class TestGUI extends javax.swing.JFrame {
      */
     public TestGUI() {
         initComponents();
-        GenerateShiftGUI test =  new GenerateShiftGUI();
-        add(test);
         setVisible(true);
-        test.setBounds(216,0,864,720);
-        test.setVisible(true);
     }
 
     /**
@@ -37,11 +33,11 @@ public class TestGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 837, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 756, Short.MAX_VALUE)
         );
 
         pack();

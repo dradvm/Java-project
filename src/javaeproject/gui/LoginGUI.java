@@ -9,12 +9,15 @@ import javax.swing.event.DocumentListener;
 
 public class LoginGUI extends javax.swing.JFrame {
 
-    private final LoginDAO dao = new LoginDAO();
-    private String username = "";
-    private String password = "";
+    private final LoginDAO dao;
+    private String username;
+    private String password;
     private User user;
 
     public LoginGUI() {
+        dao = new LoginDAO();
+        username = "";
+        password = "";
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -143,7 +146,8 @@ public class LoginGUI extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        if (username.trim().length() == 0 && password.trim().length() == 0) {
+        if (username.trim().length() == 0 || password.trim().length() == 0) {
+            notificationLabel.setText("Username and password cannot be empty or filled with spaces");
         }
         else if (dao.validAccount(username, password)) {
             user = dao.getUserFromDB(username, password);
@@ -158,11 +162,13 @@ public class LoginGUI extends javax.swing.JFrame {
     private void usernameInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_usernameInputCaretUpdate
         // TODO add your handling code here:
         username = usernameInput.getText();
+        notificationLabel.setText("");
     }//GEN-LAST:event_usernameInputCaretUpdate
 
     private void passwordInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passwordInputCaretUpdate
         // TODO add your handling code here:
         password = String.valueOf(passwordInput.getPassword());
+        notificationLabel.setText("");
     }//GEN-LAST:event_passwordInputCaretUpdate
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
