@@ -37,20 +37,20 @@ public class MainGUI extends javax.swing.JFrame {
             public void setSeleted(Object item) {
                 MenuModal itemMenuModal = (MenuModal) item;
                 switch (itemMenuModal.getName()) {
-                    case "View Time Schedule" -> changePanel(new Form1());
+                    case "View Time Schedule" -> changePanel(new ViewTimeSchedule());
                     case "Shift Request Approval" -> changePanel(new Form1());
                     case "Assign Doctors & Receptionists to Department" -> changePanel(new Form1());
                     case "Assign Doctor Level" -> changePanel(new Form1());
                     case "Manage Doctors & Receptionists" -> changePanel(new ManageDoctorAndReceptionestGUI());
                     case "View Holiday List" -> changePanel(new Form1());
-                    case "Manage Departments" -> changePanel(new Form1());
+                    case "Manage Departments" -> changePanel(new ManageDepartmentGUI());
                     case "Generate Shift Request" -> changePanel(new GenerateShiftRequestGUI(user));
                     case "Check Shift Request Status" -> changePanel(new CheckStatusShiftRequestGUI(user));
                     case "Generate Shift" -> changePanel(generateShiftGUI);
-                    case "Assign Shift" -> changePanel(new Form1());
+                    case "Assign Shift" -> changePanel(new AssignShiftGUI());
                     case "Manage Patients" -> changePanel(new ManagePatientGUI());
                     case "Manage Patient Records" -> changePanel(new Form1());
-                    case "View Appointments List" -> changePanel(new Form1());
+                    case "View Appointments List" -> changePanel(new ViewAppointmentList());
                     case "Log Out" -> logout();
                     default -> {
                     }
