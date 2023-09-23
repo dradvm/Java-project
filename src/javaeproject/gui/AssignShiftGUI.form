@@ -64,7 +64,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JDialog" name="successDialog2">
+    <Container class="javax.swing.JDialog" name="successDialog">
       <Properties>
         <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[360, 240]"/>
@@ -80,7 +80,7 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
-                  <Component id="successConfirmButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="successConfirmButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -90,14 +90,14 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="successMessage" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Component id="successConfirmButton2" min="-2" max="-2" attributes="0"/>
+                  <Component id="successConfirmButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="successConfirmButton2">
+        <Component class="javax.swing.JButton" name="successConfirmButton">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="1"/>
@@ -109,7 +109,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="successConfirmButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="successConfirmButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="successMessage">

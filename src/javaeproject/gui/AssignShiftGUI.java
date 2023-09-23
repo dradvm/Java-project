@@ -67,8 +67,8 @@ public class AssignShiftGUI extends javax.swing.JPanel {
         errorDialog = new javax.swing.JDialog();
         errorConfirmButton = new javax.swing.JButton();
         errorMessage = new javax.swing.JLabel();
-        successDialog2 = new javax.swing.JDialog();
-        successConfirmButton2 = new javax.swing.JButton();
+        successDialog = new javax.swing.JDialog();
+        successConfirmButton = new javax.swing.JButton();
         successMessage = new javax.swing.JLabel();
         startDateLabel = new javax.swing.JLabel();
         startDateInput = new javax.swing.JFormattedTextField();
@@ -141,15 +141,15 @@ public class AssignShiftGUI extends javax.swing.JPanel {
                 .addGap(23, 23, 23))
         );
 
-        successDialog2.setSize(new java.awt.Dimension(360, 240));
+        successDialog.setSize(new java.awt.Dimension(360, 240));
 
-        successConfirmButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        successConfirmButton2.setText("OK");
-        successConfirmButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        successConfirmButton2.setPreferredSize(new java.awt.Dimension(108, 36));
-        successConfirmButton2.addActionListener(new java.awt.event.ActionListener() {
+        successConfirmButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        successConfirmButton.setText("OK");
+        successConfirmButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        successConfirmButton.setPreferredSize(new java.awt.Dimension(108, 36));
+        successConfirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                successConfirmButton2ActionPerformed(evt);
+                successConfirmButtonActionPerformed(evt);
             }
         });
 
@@ -159,24 +159,24 @@ public class AssignShiftGUI extends javax.swing.JPanel {
         successMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         successMessage.setPreferredSize(new java.awt.Dimension(360, 160));
 
-        javax.swing.GroupLayout successDialog2Layout = new javax.swing.GroupLayout(successDialog2.getContentPane());
-        successDialog2.getContentPane().setLayout(successDialog2Layout);
-        successDialog2Layout.setHorizontalGroup(
-            successDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(successDialog2Layout.createSequentialGroup()
+        javax.swing.GroupLayout successDialogLayout = new javax.swing.GroupLayout(successDialog.getContentPane());
+        successDialog.getContentPane().setLayout(successDialogLayout);
+        successDialogLayout.setHorizontalGroup(
+            successDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(successDialogLayout.createSequentialGroup()
                 .addComponent(successMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(successDialog2Layout.createSequentialGroup()
+            .addGroup(successDialogLayout.createSequentialGroup()
                 .addGap(126, 126, 126)
-                .addComponent(successConfirmButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(successConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        successDialog2Layout.setVerticalGroup(
-            successDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, successDialog2Layout.createSequentialGroup()
+        successDialogLayout.setVerticalGroup(
+            successDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, successDialogLayout.createSequentialGroup()
                 .addComponent(successMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(successConfirmButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(successConfirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -588,9 +588,9 @@ public class AssignShiftGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_employeeInputActionPerformed
 
-    private void successConfirmButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_successConfirmButton2ActionPerformed
+    private void successConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_successConfirmButtonActionPerformed
         successDialog.setVisible(false);
-    }//GEN-LAST:event_successConfirmButton2ActionPerformed
+    }//GEN-LAST:event_successConfirmButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dateLabel;
@@ -626,11 +626,7 @@ public class AssignShiftGUI extends javax.swing.JPanel {
     private javax.swing.JLabel startDateLabel;
     private javax.swing.JButton submitButton;
     private javax.swing.JButton successConfirmButton;
-    private javax.swing.JButton successConfirmButton1;
-    private javax.swing.JButton successConfirmButton2;
     private javax.swing.JDialog successDialog;
-    private javax.swing.JDialog successDialog1;
-    private javax.swing.JDialog successDialog2;
     private javax.swing.JLabel successMessage;
     private javax.swing.JLabel typeLabel;
     private javax.swing.JLabel typeValue;

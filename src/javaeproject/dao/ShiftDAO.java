@@ -190,7 +190,7 @@ public class ShiftDAO {
     public String getNewID() {
         try {
             Statement statement = connection.createStatement();
-            String query = "select top 1 ShiftID form [Shift] "
+            String query = "select top 1 ShiftID from [Shift] "
                 + "where (select len(ShiftID)) = (select max(len(ShiftID)) from [Shift]) "
                 + "order by ShiftID desc";
             ResultSet result = statement.executeQuery(query);
@@ -262,8 +262,8 @@ public class ShiftDAO {
     }
     
     public void assignShift(String employeeID, String shiftID) throws Exception {
-        String query = "update [Shift]"
-            + " set EmployeeID = ? "
+        String query = "update [Shift] "
+            + "set EmployeeID = ? "
             + "where ShiftID = ?";
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, employeeID);
