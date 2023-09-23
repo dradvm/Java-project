@@ -155,7 +155,7 @@ public class AssignShiftGUI extends javax.swing.JPanel {
 
         successMessage.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         successMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        successMessage.setText("Shift generated successullfy!");
+        successMessage.setText("Shift assigned successullfy!");
         successMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         successMessage.setPreferredSize(new java.awt.Dimension(360, 160));
 
