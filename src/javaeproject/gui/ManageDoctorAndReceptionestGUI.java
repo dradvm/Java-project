@@ -7,6 +7,8 @@ package javaeproject.gui;
 import javaeproject.dao.*;
 import javaeproject.model.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 /**
  *
@@ -16,7 +18,7 @@ public class ManageDoctorAndReceptionestGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form ManageDoctorAndReceptionestGUI
-     */
+     */           
     public ManageDoctorAndReceptionestGUI() {
         initComponents();
     }
@@ -47,19 +49,30 @@ public class ManageDoctorAndReceptionestGUI extends javax.swing.JPanel {
         });
 
         jButton2.setText("Delete");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Search");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Alter");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(291, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(286, 286, 286))
             .addGroup(layout.createSequentialGroup()
                 .addGap(369, 369, 369)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -67,7 +80,11 @@ public class ManageDoctorAndReceptionestGUI extends javax.swing.JPanel {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(264, 264, 264))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,7 +105,95 @@ public class ManageDoctorAndReceptionestGUI extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        AddDoctorAndReceptionestGUI newAdd = new AddDoctorAndReceptionestGUI();        
+        newAdd.setVisible(true);
+        JFrame newAddFrame = new JFrame();
+        newAddFrame.setUndecorated(true);
+        newAddFrame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+        newAddFrame.setVisible(true);
+        newAddFrame.setSize(1263, 780);        
+        newAddFrame.setLocationRelativeTo(null);
+        newAddFrame.add(newAdd);
+        JButton addBackbtn = new JButton();
+        addBackbtn.setText("Back");
+        addBackbtn.setBounds(50, 50, 75, 35);
+        newAdd.add(addBackbtn);
+        addBackbtn.addActionListener(new ActionListener() {        
+            @Override
+            public void actionPerformed (ActionEvent e) {                
+                newAddFrame.dispose();
+            }
+        });        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:        
+            AlterDoctorAndReceptionest newAlter = new AlterDoctorAndReceptionest();
+            newAlter.setVisible(true);
+            JFrame newAlterFrame = new JFrame();
+            newAlterFrame.setUndecorated(true);
+            newAlterFrame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+            newAlterFrame.setVisible(true);
+            newAlterFrame.setSize(1263, 780);        
+            newAlterFrame.setLocationRelativeTo(null);
+            newAlterFrame.add(newAlter);
+            JButton alterBackbtn = new JButton();
+            alterBackbtn.setText("Back");
+            alterBackbtn.setBounds(50, 50, 75, 35);
+            newAlter.add(alterBackbtn);
+            alterBackbtn.addActionListener(new ActionListener() {        
+                @Override
+                public void actionPerformed (ActionEvent e) {                
+                    newAlterFrame.dispose();
+                }
+            });
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+            DeleteDoctorAndReceptionest newDelete = new DeleteDoctorAndReceptionest();
+            newDelete.setVisible(true);
+            JFrame newDeleteFrame = new JFrame();
+            newDeleteFrame.setUndecorated(true);
+            newDeleteFrame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+            newDeleteFrame.setVisible(true);
+            newDeleteFrame.setSize(1263, 780);        
+            newDeleteFrame.setLocationRelativeTo(null);
+            newDeleteFrame.add(newDelete);
+            JButton deleteBackbtn = new JButton();
+            deleteBackbtn.setText("Back");
+            deleteBackbtn.setBounds(50, 50, 75, 35);
+            newDelete.add(deleteBackbtn);
+            deleteBackbtn.addActionListener(new ActionListener() {        
+                @Override
+                public void actionPerformed (ActionEvent e) {                
+                    newDeleteFrame.dispose();
+                }
+            });
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+            SearchDoctorAndReceptionest newDelete = new SearchDoctorAndReceptionest();
+            newDelete.setVisible(true);
+            JFrame newDeleteFrame = new JFrame();
+            newDeleteFrame.setUndecorated(true);
+            newDeleteFrame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+            newDeleteFrame.setVisible(true);
+            newDeleteFrame.setSize(1263, 780);        
+            newDeleteFrame.setLocationRelativeTo(null);
+            newDeleteFrame.add(newDelete);
+            JButton deleteBackbtn = new JButton();
+            deleteBackbtn.setText("Back");
+            deleteBackbtn.setBounds(50, 50, 75, 35);
+            newDelete.add(deleteBackbtn);
+            deleteBackbtn.addActionListener(new ActionListener() {        
+                @Override
+                public void actionPerformed (ActionEvent e) {                
+                    newDeleteFrame.dispose();
+                }
+            });
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

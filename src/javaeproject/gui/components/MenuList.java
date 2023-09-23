@@ -47,7 +47,9 @@ public class MenuList<E extends Object> extends JList<E> {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     int index = locationToIndex(e.getPoint());
                     MenuModal o = (MenuModal) model.getElementAt(index);
-                    if ((o.getType().equals(MenuModal.MenuType.MENU)) || (o.getType().equals(MenuModal.MenuType.LOGOUT))) {
+                    if ((o.getType().equals(MenuModal.MenuType.MENU) || o.getType().equals(MenuModal.MenuType.LOGOUT)) && (index != selectedIndex)) {
+
+
                         selectedIndex = index;
                         if (event != null) {
                             event.setSeleted(o);
@@ -56,7 +58,7 @@ public class MenuList<E extends Object> extends JList<E> {
                     repaint();
                 }
             }
-            
+
         });
         
         addMouseMotionListener(new MouseMotionAdapter() {
@@ -67,9 +69,11 @@ public class MenuList<E extends Object> extends JList<E> {
                 if ((o.getType().equals(MenuModal.MenuType.MENU)) || (o.getType().equals(MenuModal.MenuType.LOGOUT))) {
                     hoveredIndex = index;
                 }
+                else {
+                    hoveredIndex = -1;
+                }
                 repaint();
             }
-            
         });
         
         

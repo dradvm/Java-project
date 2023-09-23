@@ -75,6 +75,8 @@ public class MenuModal {
         }
         list.add(new MenuModal("", "", MenuType.EMPTY));
         list.add(new MenuModal("exit-door", "Log Out", MenuType.LOGOUT));
+        list.add(new MenuModal("", "", MenuType.EMPTY));
+
         return list;
     }
 }
