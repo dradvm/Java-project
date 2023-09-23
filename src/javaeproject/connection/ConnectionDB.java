@@ -4,11 +4,13 @@
  */
 package javaeproject.connection;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.util.Scanner;
 
 /**
  *
@@ -16,7 +18,7 @@ import java.sql.ResultSet;
  */
 public class ConnectionDB {
 
-    private static final String jdbcUrl = "jdbc:sqlserver://localhost:1433;databaseName=RemedySchedule;encrypt=true;trustServerCertificate=true;";
+    private static String jdbcUrl;
     private static final String username = "sa";
     private static final String password = "12345678";
 
@@ -24,8 +26,12 @@ public class ConnectionDB {
 
     static {
         try {
+            Scanner scanner = new Scanner(new File("src/javaeproject/connection/config.txt"));
+            String serverName = scanner.nextLine().split(" ")[2];
+            String port = scanner.nextLine().split(" ")[1];
+            jdbcUrl = "jdbc:sqlserver://" + serverName + ":" + port + ";databaseName=RemedySchedule;encrypt=true;trustServerCertificate=true;";
             connection = DriverManager.getConnection(jdbcUrl, username, password);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
