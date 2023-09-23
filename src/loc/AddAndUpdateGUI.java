@@ -49,6 +49,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         noteTextfield = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
+        showButton = new javax.swing.JButton();
 
         jLabel1.setText("Add new or update patient information");
 
@@ -86,6 +87,13 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
             }
         });
 
+        showButton.setText("Show");
+        showButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,13 +122,15 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
                             .addComponent(IDtextfield)
                             .addComponent(patientName)
                             .addComponent(genderTextfield)
-                            .addComponent(phoneTextfield)))
+                            .addComponent(phoneTextfield))
+                        .addGap(18, 18, 18)
+                        .addComponent(showButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(257, 257, 257)
                         .addComponent(addButton)
                         .addGap(26, 26, 26)
                         .addComponent(updateButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +140,8 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(IDtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(IDtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(showButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -168,6 +179,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_patientNameActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        
         PatientDAO dao = new PatientDAO();
         Patient patient = new Patient();
 
@@ -204,7 +216,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_addButtonActionPerformed
-
+    
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         PatientDAO dao = new PatientDAO();
         Patient patient = new Patient();
@@ -251,6 +263,28 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_updateButtonActionPerformed
 
+    private void showButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showButtonActionPerformed
+        String patientIDToShow = IDtextfield.getText();
+    PatientDAO dao = new PatientDAO();
+    Patient patient = dao.getPatientByID(patientIDToShow);
+
+    if (patient == null) {
+        JOptionPane.showMessageDialog(this, "Patient with ID " + patientIDToShow + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        // Hiển thị thông tin bệnh nhân lên các JTextField tương ứng
+        patientName.setText(patient.getPatientName());
+        genderTextfield.setText(patient.getPatientGender());
+        phoneTextfield.setText(patient.getPatientPhone());
+        addressTextfield.setText(patient.getPatientAddress());
+
+        // Chuyển đổi ngày tháng từ kiểu Date sang kiểu String và hiển thị trên JTextField
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dobTextfield.setText(dateFormat.format(patient.getPatientDoB()));
+
+        noteTextfield.setText(patient.getNote());
+    }
+    }//GEN-LAST:event_showButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IDtextfield;
@@ -269,6 +303,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
     private javax.swing.JTextField noteTextfield;
     private javax.swing.JTextField patientName;
     private javax.swing.JTextField phoneTextfield;
+    private javax.swing.JButton showButton;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }
