@@ -190,7 +190,7 @@ public class ShiftDAO {
     public String getNewID() {
         try {
             Statement statement = connection.createStatement();
-            String query = "select top 1 ShiftID form [Shift] "
+            String query = "select top 1 ShiftID from [Shift] "
                 + "where (select len(ShiftID)) = (select max(len(ShiftID)) from [Shift]) "
                 + "order by ShiftID desc";
             ResultSet result = statement.executeQuery(query);

@@ -44,6 +44,8 @@ public class CheckStatusShiftRequestGUI extends javax.swing.JPanel {
         spTable = new javax.swing.JScrollPane();
         table = new javaeproject.gui.components.MyTable("CheckStatusShiftRequest");
         jLabel1 = new javax.swing.JLabel();
+        shiftDetailsPanel1 = new javaeproject.gui.components.ShiftDetailsPanel();
+        shiftDetailsPanel2 = new javaeproject.gui.components.ShiftDetailsPanel();
 
         setOpaque(false);
 
@@ -75,6 +77,28 @@ public class CheckStatusShiftRequestGUI extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel1.setText("LIST OF SHIFT REQUEST");
 
+        javax.swing.GroupLayout shiftDetailsPanel1Layout = new javax.swing.GroupLayout(shiftDetailsPanel1);
+        shiftDetailsPanel1.setLayout(shiftDetailsPanel1Layout);
+        shiftDetailsPanel1Layout.setHorizontalGroup(
+            shiftDetailsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 286, Short.MAX_VALUE)
+        );
+        shiftDetailsPanel1Layout.setVerticalGroup(
+            shiftDetailsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 199, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout shiftDetailsPanel2Layout = new javax.swing.GroupLayout(shiftDetailsPanel2);
+        shiftDetailsPanel2.setLayout(shiftDetailsPanel2Layout);
+        shiftDetailsPanel2Layout.setHorizontalGroup(
+            shiftDetailsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        shiftDetailsPanel2Layout.setVerticalGroup(
+            shiftDetailsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 187, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,7 +108,10 @@ public class CheckStatusShiftRequestGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
+                            .addComponent(shiftDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(shiftDetailsPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -95,13 +122,18 @@ public class CheckStatusShiftRequestGUI extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(shiftDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(shiftDetailsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javaeproject.gui.components.ShiftDetailsPanel shiftDetailsPanel1;
+    private javaeproject.gui.components.ShiftDetailsPanel shiftDetailsPanel2;
     private javax.swing.JScrollPane spTable;
     private javaeproject.gui.components.MyTable table;
     // End of variables declaration//GEN-END:variables
