@@ -8,6 +8,7 @@ import javaeproject.model.User;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import loc.ManagePatientGUI;
+import loc.ManageHealthRecordGUI;
 
 public class MainGUI extends javax.swing.JFrame {
     
@@ -47,7 +48,7 @@ public class MainGUI extends javax.swing.JFrame {
                     case "Generate Shift" -> changePanel(new GenerateShiftGUI());
                     case "Assign Shift" -> changePanel(new AssignShiftGUI());
                     case "Manage Patients" -> changePanel(new ManagePatientGUI());
-                    case "Manage Patient Records" -> changePanel(new Form1());
+                    case "Manage Patient Records" -> changePanel(new ManageHealthRecordGUI());
                     case "View Appointments List" -> changePanel(new ViewAppointmentList());
                     case "Log Out" -> logout();
                     default -> {

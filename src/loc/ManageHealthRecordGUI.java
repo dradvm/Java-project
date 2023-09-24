@@ -4,27 +4,25 @@
  */
 package loc;
 
-import javaeproject.gui.Form1;
 import javax.swing.JComponent;
 
 /**
  *
  * @author DELL
  */
-public class ManagePatientGUI extends javax.swing.JPanel {
+public class ManageHealthRecordGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form ManagePatientGUI
      */
-    public ManagePatientGUI() {
+    public ManageHealthRecordGUI() {
         initComponents();
     }
-    
     private void changePanel(JComponent component) {
-        switchFormPanel1.removeAll();
-        switchFormPanel1.add(component);
-        switchFormPanel1.repaint();
-        switchFormPanel1.revalidate();
+        switchFormPanel2.removeAll();
+        switchFormPanel2.add(component);
+        switchFormPanel2.repaint();
+        switchFormPanel2.revalidate();
     }
     
     
@@ -33,48 +31,48 @@ public class ManagePatientGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        addPerform = new javax.swing.JButton();
-        updatePerform = new javax.swing.JButton();
-        deletePerform = new javax.swing.JButton();
-        selectPerform = new javax.swing.JButton();
+        addRecord = new javax.swing.JButton();
+        updateRecord = new javax.swing.JButton();
+        deleteRecord = new javax.swing.JButton();
+        selectRecord = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        switchFormPanel1 = new javaeproject.gui.components.SwitchFormPanel();
+        switchFormPanel2 = new javaeproject.gui.components.SwitchFormPanel();
 
         setOpaque(false);
 
         jPanel1.setOpaque(false);
 
-        addPerform.setText("Add");
-        addPerform.addActionListener(new java.awt.event.ActionListener() {
+        addRecord.setText("Add");
+        addRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addPerformActionPerformed(evt);
+                addRecordActionPerformed(evt);
             }
         });
 
-        updatePerform.setText("Update");
-        updatePerform.addActionListener(new java.awt.event.ActionListener() {
+        updateRecord.setText("Update");
+        updateRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updatePerformActionPerformed(evt);
+                updateRecordActionPerformed(evt);
             }
         });
 
-        deletePerform.setText("Delete");
-        deletePerform.addActionListener(new java.awt.event.ActionListener() {
+        deleteRecord.setText("Delete");
+        deleteRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deletePerformActionPerformed(evt);
+                deleteRecordActionPerformed(evt);
             }
         });
 
-        selectPerform.setText("Select");
-        selectPerform.addActionListener(new java.awt.event.ActionListener() {
+        selectRecord.setText("Select");
+        selectRecord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectPerformActionPerformed(evt);
+                selectRecordActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Select the function you want to perform.");
 
-        switchFormPanel1.setLayout(new javax.swing.BoxLayout(switchFormPanel1, javax.swing.BoxLayout.LINE_AXIS));
+        switchFormPanel2.setLayout(new javax.swing.BoxLayout(switchFormPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,22 +80,22 @@ public class ManagePatientGUI extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(addPerform, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addComponent(addRecord, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                 .addGap(56, 56, 56)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(updatePerform, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                        .addComponent(updateRecord, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                         .addGap(57, 57, 57)
-                        .addComponent(deletePerform, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                        .addComponent(deleteRecord, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                         .addGap(43, 43, 43)
-                        .addComponent(selectPerform, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                        .addComponent(selectRecord, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                         .addGap(22, 22, 22))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(switchFormPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(switchFormPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -107,13 +105,13 @@ public class ManagePatientGUI extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addPerform)
-                    .addComponent(updatePerform)
-                    .addComponent(deletePerform)
-                    .addComponent(selectPerform))
+                    .addComponent(addRecord)
+                    .addComponent(updateRecord)
+                    .addComponent(deleteRecord)
+                    .addComponent(selectRecord))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(switchFormPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(switchFormPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -126,35 +124,35 @@ public class ManagePatientGUI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addPerformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPerformActionPerformed
+    private void addRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRecordActionPerformed
 
-        changePanel(new AddAndUpdateGUI());
-    }//GEN-LAST:event_addPerformActionPerformed
+        changePanel(new AddRecordGUI());
+    }//GEN-LAST:event_addRecordActionPerformed
 
-    private void updatePerformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePerformActionPerformed
-        changePanel(new AddAndUpdateGUI());
-    }//GEN-LAST:event_updatePerformActionPerformed
+    private void updateRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateRecordActionPerformed
+        changePanel(new UpdateRecordGUI());
+    }//GEN-LAST:event_updateRecordActionPerformed
 
-    private void deletePerformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePerformActionPerformed
-        changePanel(new DeletePatientGUI());
-    }//GEN-LAST:event_deletePerformActionPerformed
+    private void deleteRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRecordActionPerformed
+        changePanel(new DeleteRecordGUI());
+    }//GEN-LAST:event_deleteRecordActionPerformed
 
-    private void selectPerformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPerformActionPerformed
-        changePanel(new SelectPatientGUI());
-    }//GEN-LAST:event_selectPerformActionPerformed
+    private void selectRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectRecordActionPerformed
+        changePanel(new SelectRecordGUI());
+    }//GEN-LAST:event_selectRecordActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addPerform;
-    private javax.swing.JButton deletePerform;
+    private javax.swing.JButton addRecord;
+    private javax.swing.JButton deleteRecord;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton selectPerform;
-    private javaeproject.gui.components.SwitchFormPanel switchFormPanel1;
-    private javax.swing.JButton updatePerform;
+    private javax.swing.JButton selectRecord;
+    private javaeproject.gui.components.SwitchFormPanel switchFormPanel2;
+    private javax.swing.JButton updateRecord;
     // End of variables declaration//GEN-END:variables
 }

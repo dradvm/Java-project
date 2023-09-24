@@ -4,6 +4,19 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javaeproject.connection.ConnectionDB;
+import javax.swing.JOptionPane;
+import javaeproject.model.*;
+import javaeproject.dao.*;
+
 /**
  *
  * @author Admin
@@ -13,8 +26,111 @@ public class AddDoctorAndReceptionestGUI extends javax.swing.JPanel {
     /**
      * Creates new form AddDoctorAndReceptionestGUI
      */
-    public AddDoctorAndReceptionestGUI() {
+    private Connection connection;
+    private final LocalDate dateNow = LocalDate.now();
+
+    public AddDoctorAndReceptionestGUI() throws SQLException {        
         initComponents();
+        connection = ConnectionDB.getConnection();
+        updateComboboxDepartmentID();
+        updateGender();
+        updatePosition();
+    }
+       
+    public void updateComboboxDepartmentID () throws SQLException {
+        
+        String query = "Select * From Department";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet rs = statement.executeQuery();
+        while (rs.next()) {
+            
+            jComboBox2.addItem(rs.getString("DepartmentID"));
+            
+        }
+        
+    }
+    
+    public void updateGender () {
+        
+        jComboBox1.addItem("Male");
+        jComboBox1.addItem("Female");
+        
+    }
+    
+    public void updatePosition () {
+        
+        jComboBox3.addItem("Receptionist");
+        jComboBox3.addItem("Doctor");
+        jComboBox3.addItem("Manager");
+        jComboBox3.addItem("Department Head");
+        
+    }
+    
+    public void updateDatabaseAddDoc () throws SQLException {
+        
+        //NewId
+        String newId = null;        
+            Statement statement = connection.createStatement();
+            String query = "select top 1 EmployeeID from [Employee] "
+                + "where (select len(EmployeeID)) = (select max(len(EmployeeID)) from [Employee]) "
+                + "order by EmployeeID desc";
+            ResultSet result = statement.executeQuery(query);
+            int maxShiftID = -1;
+            while (result.next()) {
+                maxShiftID = Integer.parseInt(result.getString(1).split("E")[1]);
+            }
+            if (maxShiftID != -1) {
+                newId = "E" + (maxShiftID + 1);
+            }
+        
+        
+        //SettmpShif
+        User tmpS = new User();
+        String query1 = "Insert into Employee values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement1 = connection.prepareStatement(query1);  
+        
+        //Set
+        tmpS.setEmployeeID(newId);
+        tmpS.setDepartmentID(jComboBox2.getSelectedItem().toString().trim());
+        tmpS.setEmployeeName(jTextField1.getText().trim());
+        tmpS.setGender(jComboBox1.getSelectedItem().toString().trim());
+        tmpS.setPosition(jComboBox3.getSelectedItem().toString().trim());
+        tmpS.setAddress(jTextField2.getText().trim());
+        tmpS.setEmployeePhone(jTextField3.getText().trim());
+        String [] myDate = jTextField4.getText().split("-");
+        tmpS.setEmployeeDoB(LocalDate.of(Integer.parseInt(myDate[0]), Integer.parseInt(myDate[1]), Integer.parseInt(myDate[2])));
+        tmpS.setEmail(jTextField5.getText().trim());
+        tmpS.setEmployeeSpecialty(jTextField6.getText().trim());
+        tmpS.setUsername(jTextField7.getText().trim());
+        tmpS.setPassword(jTextField8.getText().trim());
+        
+        statement1.setString(1, tmpS.getEmployeeID());
+        statement1.setString(2, tmpS.getDepartmentID());
+        statement1.setString(3, tmpS.getEmployeeName());
+        statement1.setString(4, tmpS.getGender());
+        statement1.setString(5, tmpS.getPosition());
+        statement1.setString(6, tmpS.getAddress());
+        statement1.setString(7, tmpS.getEmployeePhone());
+        statement1.setString(8, tmpS.getEmployeeDoB().toString());
+        statement1.setString(9, tmpS.getEmail());
+        statement1.setString(10, tmpS.getEmployeeSpecialty());
+        statement1.setString(11, tmpS.getUsername());
+        statement1.setString(12, tmpS.getPassword());
+        
+        statement1.executeUpdate();
+    }
+    
+    public void clearAddDocAndRecForm () {
+        
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField7.setText("");
+        jTextField8.setText("");
+        
     }
 
     /**
@@ -79,11 +195,21 @@ public class AddDoctorAndReceptionestGUI extends javax.swing.JPanel {
         jLabel3.setText("Gender");
 
         jComboBox1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel4.setText("Position");
 
         jComboBox3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel5.setText("Address");
@@ -207,7 +333,7 @@ public class AddDoctorAndReceptionestGUI extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(565, 565, 565)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addContainerGap(254, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,7 +388,7 @@ public class AddDoctorAndReceptionestGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(124, 124, 124))
         );
@@ -305,8 +431,82 @@ public class AddDoctorAndReceptionestGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField8ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
+        boolean signal = true;
+        if (jTextField1.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Employee name is empty ! Confirmation canceled");
+            signal = false;
+        }
+        if (jTextField2.getText().trim().isEmpty() && signal == true) {
+            JOptionPane.showMessageDialog(null, "Address name is empty ! Confirmation canceled");    
+            signal = false;
+        }
+        if (jTextField3.getText().trim().isEmpty() && signal == true) {
+            JOptionPane.showMessageDialog(null, "Phone number is empty ! Confirmation canceled");    
+            signal = false;
+        }
+        if (jTextField4.getText().trim().isEmpty() && signal == true) {
+            JOptionPane.showMessageDialog(null, "Date of Birth is empty ! Confirmation canceled");    
+            signal = false;
+        }
+        if (jTextField5.getText().trim().isEmpty() && signal == true) {
+            JOptionPane.showMessageDialog(null, "Email is empty ! Confirmation canceled");    
+            signal = false;
+        }    
+        if (jTextField6.getText().trim().isEmpty() && signal == true) {
+            JOptionPane.showMessageDialog(null, "Speciality is empty ! Confirmation canceled");    
+            signal = false;
+        }            
+        if (jTextField7.getText().trim().isEmpty() && signal == true) {
+            JOptionPane.showMessageDialog(null, "Username is empty ! Confirmation canceled");    
+            signal = false;
+        }              
+        if (1+1 == 2 & signal == true) {
+            try {
+                String query = "Select * From Employee";
+                boolean loopSignal = true;
+                PreparedStatement statement = connection.prepareStatement(query);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next() && loopSignal == true) {
+                    if(jTextField7.getText().trim().equals(rs.getString("Username"))) {
+                        JOptionPane.showMessageDialog(null, "Username is taken, enter different Username please ! Confirmation canceled"); 
+                        signal = false;
+                        loopSignal = false;                                              
+                    }
+                    else {
+                        loopSignal = true;
+                    }
+                    if (loopSignal == false) {
+                        break;
+                    }
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(AddDoctorAndReceptionestGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (jTextField8.getText().trim().isEmpty() && signal == true) {
+            JOptionPane.showMessageDialog(null, "Password is empty ! Confirmation canceled");    
+            signal = false;
+        }       
+        if (signal == true) {
+            JOptionPane.showMessageDialog(null, "Created successfully !");    
+            try {
+                updateDatabaseAddDoc();
+            } catch (SQLException ex) {
+                Logger.getLogger(AddDoctorAndReceptionestGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            clearAddDocAndRecForm();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

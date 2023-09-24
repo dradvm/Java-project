@@ -4,6 +4,17 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javaeproject.connection.ConnectionDB;
+import javaeproject.model.Department;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Admin
@@ -13,9 +24,125 @@ public class AlterDepartment extends javax.swing.JPanel {
     /**
      * Creates new form AlterDepartment
      */
+    private Connection connection;
+    private final LocalDate dateNow = LocalDate.now();
+    private String oldusername = "";
+   
+    
     public AlterDepartment() {
-        initComponents();
+        initComponents();            
+        connection = ConnectionDB.getConnection();  
+ 
     }
+    
+    public void clearDetail () {
+        
+        jTextField1.setText("");
+        jTextField2.setText("");      
+        
+    }
+        
+   public void getEmployeeDetail(String DepartmentID) {
+        try {         
+            String query = "Select * From Department where DepartmentID = '" + DepartmentID +"'";
+            System.out.println(query);
+            PreparedStatement statement = connection.prepareStatement(query);        
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+             
+               
+                jTextField1.setText(rs.getString("DepartmentName"));
+
+                oldusername = rs.getString("DepartmentName");
+  
+            }
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(AlterDoctorAndReceptionest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+           
+    public void updateDatabase () throws SQLException {
+        
+        //NewId     
+        
+        //SettmpShif
+        Department tmpS = new Department();
+        String query1 = "Update Department Set DepartmentName = ? Where DepartmentID = '" + jTextField2.getText() + "'";
+        PreparedStatement statement1 = connection.prepareStatement(query1);  
+        
+
+        tmpS.setDepartmentName(jTextField1.getText().trim());
+        statement1.setString(1, tmpS.getDepartmentName());
+
+
+        
+        statement1.executeUpdate();
+            
+    }
+    
+    public void checkValidAlteredFields () throws SQLException {
+
+        boolean signal = true;
+        if (jTextField1.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "DepartmentName is empty ! Confirmation canceled");
+            signal = false;
+        }
+        if (1+1 == 2 && signal == true) {
+            try {
+                String query = "Select * From Department";
+                boolean loopSignal = true;
+                PreparedStatement statement = connection.prepareStatement(query);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next() && loopSignal == true) {
+                    if(jTextField1.getText().trim().equals(rs.getString("DepartmentName")) && jTextField1.getText().trim().equals(oldusername)) {
+                        
+                        signal = true;
+                        loopSignal = false;                                              
+                    }
+                    else {
+                        loopSignal = true;
+                    }
+                    if (loopSignal == false) {
+                        break;
+                    }
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(AddDoctorAndReceptionestGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (1+1 == 2 && signal == true) {
+            try {
+                String query = "Select * From Department";
+                boolean loopSignal = true;
+                PreparedStatement statement = connection.prepareStatement(query);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next() && loopSignal == true) {
+                    if(jTextField1.getText().trim().equals(rs.getString("DepartmentName")) && !(jTextField1.getText().trim().equals(oldusername))) {
+                        JOptionPane.showMessageDialog(null, "DepartmentName is taken, enter different DepartmentName please ! Confirmation canceled"); 
+                        signal = false;
+                        loopSignal = false;                                              
+                    }
+                    else {
+                        loopSignal = true;
+                    }
+                    if (loopSignal == false) {
+                        break;
+                    }
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(AddDoctorAndReceptionestGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }          
+        if (signal == true) {
+            JOptionPane.showMessageDialog(null, "Altered successfully !");    
+            updateDatabase();
+            clearDetail();
+        }          
+    }
+               
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +197,11 @@ public class AlterDepartment extends javax.swing.JPanel {
         jLabel2.setText("Department Name");
 
         jButton2.setText("Find");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -139,7 +271,55 @@ public class AlterDepartment extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            checkValidAlteredFields();
+        } catch (SQLException ex) {
+            Logger.getLogger(AlterDoctorAndReceptionest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String DepartmentID = "";
+        boolean signal = true;
+        if (jTextField2.getText().trim().isEmpty() && signal == true) {
+            JOptionPane.showMessageDialog(null, "DepartmentID is empty ! Found Nothing");    
+            signal = false;
+        }  
+        if (1+1 == 2 & signal == true) {
+            try {             
+                boolean loopSignal = true;
+                String query = "Select * From Department";
+                PreparedStatement statement = connection.prepareStatement(query);
+                ResultSet rs = statement.executeQuery();
+                while (rs.next() && loopSignal == true) {
+                    if(jTextField2.getText().trim().equals(rs.getString("DepartmentID"))) {
+                        JOptionPane.showMessageDialog(null, "DepartmentID successfully found !"); 
+                        DepartmentID = rs.getString("DepartmentID");
+                        signal = false;
+                        loopSignal = false;                                              
+                    }
+                    else {
+                        loopSignal = true;
+                    }
+                    if (loopSignal == false) {
+                        break;
+                    }
+                }                                
+            } 
+            catch (SQLException ex) {
+                Logger.getLogger(AddDoctorAndReceptionestGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (signal == true) {
+            JOptionPane.showMessageDialog(null, "Not found !"); 
+            clearDetail ();
+        }
+        else {
+            getEmployeeDetail(DepartmentID);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

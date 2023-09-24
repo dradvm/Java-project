@@ -214,13 +214,11 @@ public class ShiftDAO {
                 + "where (select len(ShiftID)) = (select max(len(ShiftID)) from [Shift]) "
                 + "order by ShiftID desc";
             ResultSet result = statement.executeQuery(query);
-            int maxShiftID = -1;
+            int maxShiftID = 0;
             while (result.next()) {
                 maxShiftID = Integer.parseInt(result.getString(1).split("S")[1]);
             }
-            if (maxShiftID != -1) {
-                return "S" + (maxShiftID + 1);
-            }
+            return "S" + (maxShiftID + 1);
         } catch (Exception e) {
             e.printStackTrace();
         }
