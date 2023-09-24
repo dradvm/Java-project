@@ -12,11 +12,17 @@ import java.util.ArrayList;
 import javaeproject.dao.ShiftDAO;
 import javaeproject.dao.ShiftRequestDAO;
 import javaeproject.events.EventSelected;
+import javaeproject.gui.components.ShiftDetailsPanel;
 import javaeproject.model.Shift;
 import javaeproject.model.ShiftRequest;
 import javaeproject.model.User;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.DocumentFilter.FilterBypass;
 
 /**
  *
@@ -26,18 +32,61 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
 
     private final ShiftDAO shiftDAO = new ShiftDAO();
     private final ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
+    private final int maxCharacters = 500;
     private EventSelected event;
+    private EventSelected event2;
     
     public void addEventSelected(EventSelected event) {
         this.event = event;
         shiftList1.addEventSelected(event);
-    } 
+    }
+    
+    public void addEventSelectedToShowInformation(EventSelected event) {
+        this.event2 = event2;
+        //shiftList1.addEventSelectedToShowInformation(event, shiftDetailsPanel1);
+        //shiftList2.addEventSelectedToShowInformation(event, shiftDetailsPanel2);
+    }
+    
     public GenerateShiftRequestGUI(User user) {
         initComponents();
         init(user);
-        setOpaque(false);
+        //setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         jScrollPane2.getViewport().setOpaque(false);
+        
+        jTextArea1.setLineWrap(true);
+        jLabel4.setText("0/" + maxCharacters);
+        ((AbstractDocument) jTextArea1.getDocument()).setDocumentFilter(new DocumentFilter() {
+                
+
+                @Override
+                public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                    int num = fb.getDocument().getLength() + text.length();
+                    System.out.println(text);
+                    System.out.println(text.length());
+                    System.out.println(length);
+
+                    if (num <= maxCharacters) {
+                        jLabel4.setText(num + "/" + maxCharacters);
+                        super.replace(fb, offset, length, text, attrs);
+                    } else {
+                        
+                    }
+                }
+
+            @Override
+            public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
+                
+                int num = fb.getDocument().getLength() - length;
+                jLabel4.setText(num + "/" + maxCharacters);
+                super.remove(fb, offset, length);
+            }
+                
+                
+            });
+        
+        
+        
         addEventSelected(new EventSelected() {
             
             @Override
@@ -46,6 +95,16 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
                 initDesiredShiftList(user, itemShift);
             }
         });
+        
+        addEventSelectedToShowInformation(new EventSelected() {
+
+            @Override
+            public void setSelected(Object item) {
+                
+            }
+        });
+        
+        
         jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -112,6 +171,9 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+
+        setOpaque(false);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jScrollPane1.setOpaque(false);
@@ -149,6 +211,8 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
         jTextArea1.setMargin(new java.awt.Insets(10, 10, 10, 10));
         jScrollPane3.setViewportView(jTextArea1);
 
+        jLabel4.setText("jLabel4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,19 +220,20 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)))
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4))
+                    .addComponent(jScrollPane3)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -179,14 +244,16 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -209,6 +276,7 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

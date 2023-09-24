@@ -50,6 +50,9 @@ public class MyTable extends JTable{
                         header.setHorizontalAlignment(JLabel.CENTER);
                     }
                 }
+                else if (typeOfTable.equals("ADShiftRequest")) {
+                
+                }
                 
                 return header;
             }
@@ -83,6 +86,9 @@ public class MyTable extends JTable{
                         }
                         return cell;
                     }
+                }
+                else if (typeOfTable.equals("ADShiftRequest")) {
+            
                 }
                 return com;
             }

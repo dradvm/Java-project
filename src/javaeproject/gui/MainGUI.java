@@ -13,7 +13,6 @@ public class MainGUI extends javax.swing.JFrame {
     
     
     private EventSelected event;
-    private GenerateShiftGUI generateShiftGUI;
     private final JFrame main = this;
     private User user;
     
@@ -27,7 +26,6 @@ public class MainGUI extends javax.swing.JFrame {
     public MainGUI(User user) {
         this.user = user;
         initComponents();
-        initAllForm();
         setVisible(true);
         menu1.init(user);
         menu1.initMoving(this);
@@ -38,7 +36,7 @@ public class MainGUI extends javax.swing.JFrame {
                 MenuModal itemMenuModal = (MenuModal) item;
                 switch (itemMenuModal.getName()) {
                     case "View Time Schedule" -> changePanel(new ViewTimeSchedule());
-                    case "Shift Request Approval" -> changePanel(new Form1());
+                    case "Shift Request Approval" -> changePanel(new ADShiftRequestGUI(user));
                     case "Assign Doctors & Receptionists to Department" -> changePanel(new Form1());
                     case "Assign Doctor Level" -> changePanel(new Form1());
                     case "Manage Doctors & Receptionists" -> changePanel(new ManageDoctorAndReceptionestGUI());
@@ -46,7 +44,7 @@ public class MainGUI extends javax.swing.JFrame {
                     case "Manage Departments" -> changePanel(new ManageDepartmentGUI());
                     case "Generate Shift Request" -> changePanel(new GenerateShiftRequestGUI(user));
                     case "Check Shift Request Status" -> changePanel(new CheckStatusShiftRequestGUI(user));
-                    case "Generate Shift" -> changePanel(generateShiftGUI);
+                    case "Generate Shift" -> changePanel(new GenerateShiftGUI());
                     case "Assign Shift" -> changePanel(new AssignShiftGUI());
                     case "Manage Patients" -> changePanel(new ManagePatientGUI());
                     case "Manage Patient Records" -> changePanel(new Form1());
@@ -65,10 +63,6 @@ public class MainGUI extends javax.swing.JFrame {
         switchFormPanel1.revalidate();
     }
     
-    
-    private void initAllForm() {
-        generateShiftGUI = new GenerateShiftGUI();
-    }
     
     public void logout() {
         this.dispose();

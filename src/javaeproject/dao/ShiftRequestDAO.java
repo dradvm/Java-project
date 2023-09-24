@@ -186,7 +186,27 @@ public class ShiftRequestDAO {
         
     }
     
-    
+    public String getEmployeeNameOfShiftRequest(String employeeID) {
+        String sql = "select EmployeeName from Employee where EmployeeID = ?";
+        String name = "";
+        boolean varReturn = false;
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, employeeID);
+
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                name = rs.getString(1);
+            }
+            else {
+                
+            }
+        } catch (SQLException e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+        return name;
+    }
     
     
     private void setShiftRequest(ShiftRequest shiftRequest, ResultSet rs) throws SQLException{
