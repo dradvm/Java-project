@@ -168,6 +168,26 @@ public class ShiftDAO {
     } 
     
     
+    
+    public String getEmployeeNameAssignToShift(Shift shift) {
+        String sql = "select EmployeeName from Employee where EmployeeID = ?";
+        String name = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, shift.getEmployeeID());
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                name = rs.getString(1);
+            }
+        } catch (SQLException e) {
+
+            System.out.println("Error");
+        }
+        return name;
+    }
+    
+    
     private void setShift(Shift shift, ResultSet rs) throws SQLException{
         shift.setShiftID(rs.getString(1));
         shift.setEmployeeID(rs.getString(2));

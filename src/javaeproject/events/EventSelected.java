@@ -11,5 +11,5 @@ import javaeproject.model.MenuModal;
  * @author DELL
  */
 public interface EventSelected {
-    public void setSeleted(Object item);
+    public void setSelected(Object item);
 }

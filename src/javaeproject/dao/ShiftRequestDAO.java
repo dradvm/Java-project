@@ -6,6 +6,7 @@ package javaeproject.dao;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import javaeproject.connection.*;
 import javaeproject.model.*;
@@ -123,13 +124,11 @@ public class ShiftRequestDAO {
                 + "where (select len(RequestID)) = (select max(len(RequestID)) from [ChangeRequest]) "
                 + "order by RequestID desc";
             ResultSet result = statement.executeQuery(query);
-            int maxShiftID = -1;
+            int maxShiftRequestID = 0;
             while (result.next()) {
-                maxShiftID = Integer.parseInt(result.getString(1).split("RQ")[1]);
+                maxShiftRequestID = Integer.parseInt(result.getString(1).split("RQ")[1]);
             }
-            if (maxShiftID != -1) {
-                return "RQ" + (maxShiftID + 1);
-            }
+            return "RQ" + (maxShiftRequestID + 1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,7 +158,33 @@ public class ShiftRequestDAO {
         return varReturn;
     }
     
-    
+    public boolean isReachedLimit(User user) {
+    LocalDate currentDate = LocalDate.now();
+    LocalDate startOfMonth = currentDate.withDayOfMonth(1);
+    LocalDate endOfMonth = currentDate.with(TemporalAdjusters.lastDayOfMonth());
+    String sql = "select count(*) as [Count] from ChangeRequest where EmployeeID = ? and Status = 'Approved' and (RequestDate >= ? and RequestDate <= ?)";
+        boolean varReturn = false;
+        int limit = 1;
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, user.getEmployeeID());
+            statement.setString(2, startOfMonth.toString());
+            statement.setString(3, endOfMonth.toString());
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            if (rs.getInt(1) == limit) {
+                varReturn = true;
+            }
+            else {
+                varReturn = false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+        return varReturn;
+        
+    }
     
     
     

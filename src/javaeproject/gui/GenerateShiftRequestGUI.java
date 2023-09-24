@@ -41,7 +41,7 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
         addEventSelected(new EventSelected() {
             
             @Override
-            public void setSeleted(Object item) {
+            public void setSelected(Object item) {
                 Shift itemShift = (Shift) item;
                 initDesiredShiftList(user, itemShift);
             }
@@ -57,6 +57,9 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
                 }
                 else if ("".equals(jTextArea1.getText().trim())) {
                     JOptionPane.showMessageDialog(new JButton("Confirm"), "Please enter your reason", "" ,JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if (shiftRequestDAO.isReachedLimit(user)) {
+                    JOptionPane.showMessageDialog(new JButton("Confirm"), "You have reached limit of month", "" ,JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     Shift shift1 = shiftList1.getShiftSelected();
@@ -114,7 +117,6 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
         jScrollPane1.setOpaque(false);
 
         shiftList1.setBorder(null);
-        shiftList1.setOpaque(false);
         jScrollPane1.setViewportView(shiftList1);
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -122,7 +124,6 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
 
         shiftList2.setBorder(null);
         shiftList2.setName(""); // NOI18N
-        shiftList2.setOpaque(false);
         jScrollPane2.setViewportView(shiftList2);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N

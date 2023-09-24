@@ -52,7 +52,7 @@ public class ShiftList<E extends Object> extends JList<E> {
                     if (selectedIndex != index) {
                         selectedIndex = index;
                         if (event != null) {
-                            event.setSeleted(o);
+                            event.setSelected(o);
                         }
                     }
                     
