@@ -6,7 +6,9 @@ package javaeproject.gui;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import javaeproject.dao.ShiftDAO;
 import javaeproject.dao.ShiftRequestDAO;
+import javaeproject.events.EventSelected;
 import javaeproject.model.ShiftRequest;
 import javaeproject.model.User;
 import javax.swing.JPanel;
@@ -19,16 +21,39 @@ import javax.swing.JScrollPane;
 public class CheckStatusShiftRequestGUI extends javax.swing.JPanel {
 
     private final ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
+    private final ShiftDAO shiftDAO = new ShiftDAO();
+    private ArrayList<ShiftRequest> shiftRequests;
+    private EventSelected event;
+    
+    public void addEventSelected(EventSelected event) {
+        this.event = event;
+        table.addEventSelected(event);
+    }
+    
     public CheckStatusShiftRequestGUI(User user) {
         initComponents();
         init(user);
         spTable.getViewport().setOpaque(false);
+        table.setTypeOfTable("CheckStatusShiftRequest");
+        shiftDetailsPanel1.setVisible(false);
+        shiftDetailsPanel2.setVisible(false);
+        addEventSelected(new EventSelected() {
+            @Override
+            public void setSelected(Object item) {
+                shiftDetailsPanel1.setVisible(true);
+                shiftDetailsPanel2.setVisible(true);
+                shiftDetailsPanel1.setShift(shiftDAO.getByID(shiftRequests.get((int) item).getCurrentShiftID()));
+                shiftDetailsPanel2.setShift(shiftDAO.getByID(shiftRequests.get((int) item).getDesiredShiftID()));
+            }
+            
+        });
+        
     }
 
     
     private void init(User user) {
-        ArrayList<ShiftRequest> shiftRequestList = shiftRequestDAO.getAllUserRequest(user.getEmployeeID());
-        for (ShiftRequest item : shiftRequestList) {
+        this.shiftRequests = shiftRequestDAO.getAllUserRequest(user.getEmployeeID());
+        for (ShiftRequest item : shiftRequests) {
             table.addRow(new Object[] {item.getCurrentShiftID(), item.getDesiredShiftID(), item.getDetails(), item.getDate(), item.getStatus()});
         }
     }
@@ -41,25 +66,33 @@ public class CheckStatusShiftRequestGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        spTable = new javax.swing.JScrollPane();
-        table = new javaeproject.gui.components.MyTable("CheckStatusShiftRequest");
         jLabel1 = new javax.swing.JLabel();
         shiftDetailsPanel1 = new javaeproject.gui.components.ShiftDetailsPanel();
         shiftDetailsPanel2 = new javaeproject.gui.components.ShiftDetailsPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        spTable = new javax.swing.JScrollPane();
+        table = new javaeproject.gui.components.MyTable();
 
         setOpaque(false);
 
-        spTable.setBackground(new java.awt.Color(255, 255, 255));
-        spTable.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        spTable.setViewportView(table);
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel1.setText("LIST OF SHIFT REQUEST");
 
-        table.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel2.setText("CURRENT SHIFT");
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel3.setText("DESIRED SHIFT");
+
+        spTable.setOpaque(false);
+
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Current Shift", "Desired Shift", "Reason", "Request Date", "Status"
+                "Current Shift", "DesireShift", "Reason", "Request Date", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -70,34 +103,8 @@ public class CheckStatusShiftRequestGUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        table.setGridColor(new java.awt.Color(255, 255, 255));
-        table.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        table.setOpaque(false);
         spTable.setViewportView(table);
-
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel1.setText("LIST OF SHIFT REQUEST");
-
-        javax.swing.GroupLayout shiftDetailsPanel1Layout = new javax.swing.GroupLayout(shiftDetailsPanel1);
-        shiftDetailsPanel1.setLayout(shiftDetailsPanel1Layout);
-        shiftDetailsPanel1Layout.setHorizontalGroup(
-            shiftDetailsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 286, Short.MAX_VALUE)
-        );
-        shiftDetailsPanel1Layout.setVerticalGroup(
-            shiftDetailsPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 199, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout shiftDetailsPanel2Layout = new javax.swing.GroupLayout(shiftDetailsPanel2);
-        shiftDetailsPanel2.setLayout(shiftDetailsPanel2Layout);
-        shiftDetailsPanel2Layout.setHorizontalGroup(
-            shiftDetailsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        shiftDetailsPanel2Layout.setVerticalGroup(
-            shiftDetailsPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 187, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -106,32 +113,42 @@ public class CheckStatusShiftRequestGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 738, Short.MAX_VALUE)
+                    .addComponent(spTable)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(shiftDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(shiftDetailsPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(shiftDetailsPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(shiftDetailsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(shiftDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(shiftDetailsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(shiftDetailsPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shiftDetailsPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javaeproject.gui.components.ShiftDetailsPanel shiftDetailsPanel1;
     private javaeproject.gui.components.ShiftDetailsPanel shiftDetailsPanel2;
     private javax.swing.JScrollPane spTable;

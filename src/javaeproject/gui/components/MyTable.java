@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import javaeproject.dao.ShiftRequestDAO;
+import javaeproject.events.EventSelected;
 import javaeproject.model.ShiftRequest;
 import javaeproject.model.User;
 import javax.swing.JLabel;
@@ -24,8 +25,17 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MyTable extends JTable{
     
+    private EventSelected event;
+    private int selectedIndex = -1;
+    private String typeOfTable; 
     
-    public MyTable(String str) {
+    public void addEventSelected(EventSelected event) {
+        this.event = event;
+    }
+    
+    
+    public MyTable() {
+        typeOfTable = "";
         setShowHorizontalLines(true);
         setGridColor(new Color(230, 230, 230));
         setRowHeight(40);
@@ -35,7 +45,7 @@ public class MyTable extends JTable{
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
                 MyTableHeader header = new MyTableHeader(o + "");
                 
-                if (str.equals("CheckStatusShiftRequest")) {
+                if (typeOfTable.equals("CheckStatusShiftRequest")) {
                     if (i1 == 4) {
                         header.setHorizontalAlignment(JLabel.CENTER);
                     }
@@ -54,11 +64,15 @@ public class MyTable extends JTable{
                 setIntercellSpacing(new Dimension(0, 0));
                 setShowGrid(false);
                 if (selected) {
-                            com.setBackground(Color.decode("#eeeeee"));
+                    com.setBackground(Color.decode("#eeeeee"));
+                    if (selectedIndex != i) {
+                        selectedIndex = i;
+                        event.setSelected(i);
+                    }
                 } else {
                         
                 }
-                if (str.equals("CheckStatusShiftRequest")) {
+                if (typeOfTable.equals("CheckStatusShiftRequest")) {
                     if (i1 == 4) {
                         CellStatus cell = new CellStatus((String) o);
                         if (selected) {
@@ -80,5 +94,10 @@ public class MyTable extends JTable{
     public void addRow(Object[] row) {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.addRow(row);
+    }
+    
+    public void setTypeOfTable(String str) {
+        this.typeOfTable = str;
+        repaint();
     }
 }

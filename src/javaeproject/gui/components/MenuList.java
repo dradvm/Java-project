@@ -52,7 +52,7 @@ public class MenuList<E extends Object> extends JList<E> {
 
                         selectedIndex = index;
                         if (event != null) {
-                            event.setSeleted(o);
+                            event.setSelected(o);
                         }
                     }
                     repaint();

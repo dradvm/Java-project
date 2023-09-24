@@ -4,6 +4,19 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javaeproject.connection.ConnectionDB;
+import javaeproject.model.Department;
+import javaeproject.model.User;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Admin
@@ -13,10 +26,40 @@ public class AddDepartment extends javax.swing.JPanel {
     /**
      * Creates new form AddDepartment
      */
-    public AddDepartment() {
-        initComponents();
-    }
+    private Connection connection;
+    private final LocalDate dateNow = LocalDate.now();
 
+    public AddDepartment() throws SQLException {        
+        initComponents();
+        connection = ConnectionDB.getConnection();
+    }
+    
+    public void clearAddDocAndRecForm () {
+        
+        jTextField1.setText("");
+        jTextField2.setText("");
+        
+    }           
+
+    public void updateDatabaseAddDoc () throws SQLException {
+        
+        //NewId
+        
+        
+        //SettmpShif
+        Department tmpS = new Department();
+        String query1 = "Insert into Department values (?, ?)";
+        PreparedStatement statement1 = connection.prepareStatement(query1);  
+        
+        //Set        
+        tmpS.setDepartmentID(jTextField2.getText().trim());
+        tmpS.setDepartmentName(jTextField1.getText().trim());
+        
+        statement1.setString(1, tmpS.getDepartmentID());
+        statement1.setString(2, tmpS.getDepartmentName());
+
+        statement1.executeUpdate();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,6 +155,51 @@ public class AddDepartment extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+                boolean signal = true;
+        if (jTextField2.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "DepartmentID is empty ! Confirmation canceled");
+            signal = false;
+        }
+        if (jTextField1.getText().trim().isEmpty() && signal == true) {
+            JOptionPane.showMessageDialog(null, "Department Name is empty ! Confirmation canceled");    
+            signal = false;
+        }                              
+        if (1+1 == 2 & signal == true) {
+            
+                    try {
+                        String query = "Select * From Department";
+                        boolean loopSignal = true;
+                        PreparedStatement statement = connection.prepareStatement(query);
+                        ResultSet rs = statement.executeQuery();
+                        while (rs.next() && loopSignal == true) {
+                            if(jTextField2.getText().trim().equals(rs.getString("DepartmentID"))) {
+                                JOptionPane.showMessageDialog(null, "DepartmentID is taken, enter different DepartmentID please ! Confirmation canceled");
+                                signal = false;                                              
+                                loopSignal = false;
+                            }
+                            else {
+                                loopSignal = true;
+                            }
+                            if (loopSignal == false) {
+                                break;
+                            }
+                        }   } catch (SQLException ex) {
+                        Logger.getLogger(AddDepartment.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+            
+        }     
+        if (signal == true) {
+            JOptionPane.showMessageDialog(null, "Created successfully !");    
+            
+                    try {
+                        updateDatabaseAddDoc();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AddDepartment.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            
+            clearAddDocAndRecForm();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

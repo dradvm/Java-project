@@ -35,7 +35,7 @@ public class MainGUI extends javax.swing.JFrame {
         setBackground(new Color(0,0,0,0));
         addEventMenuSelected(new EventSelected() {
             @Override
-            public void setSeleted(Object item) {
+            public void setSelected(Object item) {
                 MenuModal itemMenuModal = (MenuModal) item;
                 switch (itemMenuModal.getName()) {
                     case "View Time Schedule" -> changePanel(new ViewTimeSchedule());

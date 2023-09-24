@@ -32,15 +32,6 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         typeList = shiftTypeDAO.getTypeList();
         generatedShift = new Shift();
         initComponents();
-        for (Department item : departmentList) {
-            departmentInput.addItem(item.getDepartmentName());
-        }
-        for (Room item : roomList) {
-            roomIDInput.addItem(item.getRoomID());
-        }
-        for (ShiftType item : typeList) {
-            typeInput.addItem(item.getType());
-        }
         initLogic();
     }
     
@@ -48,13 +39,17 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         generatedShift = new Shift();
         generatedShift.setShiftID(shiftDAO.getNewID());
         generatedShift.setEmployeeID(null);
-        try {
-            departmentInput.setSelectedIndex(0);
-            roomIDInput.setSelectedIndex(0);
-            typeInput.setSelectedIndex(0);
+        departmentInput.removeAllItems();
+        for (Department item : departmentList) {
+            departmentInput.addItem(item.getDepartmentName());
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        roomIDInput.removeAllItems();
+        for (Room item : roomList) {
+            roomIDInput.addItem(item.getRoomID());
+        }
+        typeInput.removeAllItems();
+        for (ShiftType item : typeList) {
+            typeInput.addItem(item.getType());
         }
         generatedShift.setDate(null);
         dateInput.setText("");
@@ -178,15 +173,14 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         );
 
         setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        setPreferredSize(new java.awt.Dimension(864, 720));
+        setPreferredSize(new java.awt.Dimension(825, 744));
 
         departmentLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        departmentLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        departmentLabel.setText("Department");
-        departmentLabel.setPreferredSize(new java.awt.Dimension(288, 55));
+        departmentLabel.setText("Department:");
+        departmentLabel.setPreferredSize(new java.awt.Dimension(206, 57));
 
         departmentInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        departmentInput.setPreferredSize(new java.awt.Dimension(288, 55));
+        departmentInput.setPreferredSize(new java.awt.Dimension(206, 57));
         departmentInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 departmentInputActionPerformed(evt);
@@ -194,12 +188,11 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         });
 
         roomIDLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        roomIDLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        roomIDLabel.setText("Room ID");
-        roomIDLabel.setPreferredSize(new java.awt.Dimension(288, 55));
+        roomIDLabel.setText("Room ID:");
+        roomIDLabel.setPreferredSize(new java.awt.Dimension(206, 57));
 
         roomIDInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        roomIDInput.setPreferredSize(new java.awt.Dimension(288, 55));
+        roomIDInput.setPreferredSize(new java.awt.Dimension(206, 57));
         roomIDInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 roomIDInputActionPerformed(evt);
@@ -207,40 +200,37 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         });
 
         roomTypeLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        roomTypeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        roomTypeLabel.setText("Room type");
-        roomTypeLabel.setPreferredSize(new java.awt.Dimension(288, 55));
+        roomTypeLabel.setText("Room type:");
+        roomTypeLabel.setPreferredSize(new java.awt.Dimension(206, 57));
 
         roomTypeValue.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        roomTypeValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        roomTypeValue.setPreferredSize(new java.awt.Dimension(288, 55));
+        roomTypeValue.setText("[RoomType]");
+        roomTypeValue.setPreferredSize(new java.awt.Dimension(206, 57));
 
         roomSpecialtyLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        roomSpecialtyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        roomSpecialtyLabel.setText("Room specialty");
-        roomSpecialtyLabel.setPreferredSize(new java.awt.Dimension(288, 55));
+        roomSpecialtyLabel.setText("Room specialty:");
+        roomSpecialtyLabel.setPreferredSize(new java.awt.Dimension(206, 57));
 
         roomSpecialtyValue.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        roomSpecialtyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        roomSpecialtyValue.setPreferredSize(new java.awt.Dimension(288, 55));
+        roomSpecialtyValue.setText("[RoomSpecialty]");
+        roomSpecialtyValue.setPreferredSize(new java.awt.Dimension(206, 57));
 
         NumberOfPatientsLabel.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        NumberOfPatientsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        NumberOfPatientsLabel.setText("Number of patients");
-        NumberOfPatientsLabel.setPreferredSize(new java.awt.Dimension(288, 55));
+        NumberOfPatientsLabel.setText("Number of patients:");
+        NumberOfPatientsLabel.setPreferredSize(new java.awt.Dimension(206, 57));
 
         numberOfPatientsValue.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        numberOfPatientsValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        numberOfPatientsValue.setPreferredSize(new java.awt.Dimension(288, 55));
+        numberOfPatientsValue.setText("[NumberOfPatients]");
+        numberOfPatientsValue.setName(""); // NOI18N
+        numberOfPatientsValue.setPreferredSize(new java.awt.Dimension(206, 57));
 
         dateLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        dateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        dateLabel.setText("Date (yyyy-MM-dd)");
-        dateLabel.setPreferredSize(new java.awt.Dimension(288, 55));
+        dateLabel.setText("Date (yyyy-MM-dd):");
+        dateLabel.setPreferredSize(new java.awt.Dimension(206, 57));
 
         dateInput.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
         dateInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        dateInput.setPreferredSize(new java.awt.Dimension(288, 55));
+        dateInput.setPreferredSize(new java.awt.Dimension(206, 57));
         dateInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 dateInputCaretUpdate(evt);
@@ -248,12 +238,11 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
         });
 
         typeLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        typeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        typeLabel.setText("Type");
-        typeLabel.setPreferredSize(new java.awt.Dimension(288, 55));
+        typeLabel.setText("Type:");
+        typeLabel.setPreferredSize(new java.awt.Dimension(206, 57));
 
         typeInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        typeInput.setPreferredSize(new java.awt.Dimension(288, 55));
+        typeInput.setPreferredSize(new java.awt.Dimension(206, 57));
         typeInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 typeInputActionPerformed(evt);
@@ -276,82 +265,94 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(NumberOfPatientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(numberOfPatientsValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(roomSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(roomSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(roomTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(roomTypeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(103, 103, 103)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(departmentLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(roomIDLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(roomIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(departmentInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(roomIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(roomIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(departmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(departmentInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(roomTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(roomTypeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, 0)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(0, 0, 0)
+                                                .addComponent(roomSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(roomSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(NumberOfPatientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(0, 0, 0)
+                                                .addComponent(numberOfPatientsValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, 0)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(282, Short.MAX_VALUE))
+                        .addGap(103, 103, 103)
+                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(departmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(departmentInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(departmentInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(departmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(roomIDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(roomIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(roomTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roomTypeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(roomSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(roomSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NumberOfPatientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numberOfPatientsValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(dateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, 0)
+                        .addComponent(roomTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(roomTypeValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(roomSpecialtyValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(roomSpecialtyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NumberOfPatientsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, 0)
+                        .addComponent(numberOfPatientsValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(typeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(114, 114, 114)
+                .addGap(68, 68, 68)
                 .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void departmentInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_departmentInputActionPerformed
-        generatedShift.setDepartmentID(departmentList.get(departmentInput.getSelectedIndex()).getDepartmentID());
+        if (departmentInput.getSelectedIndex() >= 0) {
+            generatedShift.setDepartmentID(departmentList.get(departmentInput.getSelectedIndex()).getDepartmentID());
+        }
     }//GEN-LAST:event_departmentInputActionPerformed
 
     private void roomIDInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomIDInputActionPerformed
-        Room selected = roomList.get(roomIDInput.getSelectedIndex());
-        generatedShift.setRoomID(selected.getRoomID());
-        roomSpecialtyValue.setText(selected.getRoomSpecialty());
-        roomTypeValue.setText(selected.getRoomType());
-        numberOfPatientsValue.setText(selected.getNumberOfPatients() + "");
+        if (roomIDInput.getSelectedIndex() >= 0) {
+            Room selected = roomList.get(roomIDInput.getSelectedIndex());
+            generatedShift.setRoomID(selected.getRoomID());
+            roomSpecialtyValue.setText(selected.getRoomSpecialty());
+            roomTypeValue.setText(selected.getRoomType());
+            numberOfPatientsValue.setText(selected.getNumberOfPatients() + "");
+        }
     }//GEN-LAST:event_roomIDInputActionPerformed
 
     private void dateInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_dateInputCaretUpdate
@@ -400,7 +401,9 @@ public class GenerateShiftGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_successConfirmButtonActionPerformed
 
     private void typeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeInputActionPerformed
-        generatedShift.setType(typeList.get(typeInput.getSelectedIndex()).getType());
+        if (typeInput.getSelectedIndex() >= 0) {
+            generatedShift.setType(typeList.get(typeInput.getSelectedIndex()).getType());
+        }
     }//GEN-LAST:event_typeInputActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

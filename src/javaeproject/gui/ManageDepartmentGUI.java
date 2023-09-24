@@ -6,6 +6,9 @@ package javaeproject.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
@@ -94,26 +97,30 @@ public class ManageDepartmentGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        AddDepartment newAdd = new AddDepartment();
-        newAdd.setVisible(true);
-        JFrame newAddFrame = new JFrame();
-        newAddFrame.setUndecorated(true);
-        newAddFrame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-        newAddFrame.setVisible(true);
-        newAddFrame.setSize(1263, 780);        
-        newAddFrame.setLocationRelativeTo(null);
-        newAddFrame.add(newAdd);
-        JButton addBackbtn = new JButton();
-        addBackbtn.setText("Back");
-        addBackbtn.setBounds(50, 50, 75, 35);
-        newAdd.add(addBackbtn);
-        addBackbtn.addActionListener(new ActionListener() {        
-            @Override
-            public void actionPerformed (ActionEvent e) {                
-                newAddFrame.dispose();
-            }
-        });  
+        try {
+            // TODO add your handling code here:
+            AddDepartment newAdd = new AddDepartment();
+            newAdd.setVisible(true);
+            JFrame newAddFrame = new JFrame();
+            newAddFrame.setUndecorated(true);
+            newAddFrame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+            newAddFrame.setVisible(true);
+            newAddFrame.setSize(1263, 780);
+            newAddFrame.setLocationRelativeTo(null);
+            newAddFrame.add(newAdd);
+            JButton addBackbtn = new JButton();
+            addBackbtn.setText("Back");
+            addBackbtn.setBounds(50, 50, 75, 35);
+            newAdd.add(addBackbtn);
+            addBackbtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed (ActionEvent e) {
+                    newAddFrame.dispose();
+                }
+            });
+        } catch (SQLException ex) {
+            Logger.getLogger(ManageDepartmentGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
