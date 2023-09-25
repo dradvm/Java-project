@@ -41,7 +41,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        patientName = new javax.swing.JTextField();
+        patientNameTextfield = new javax.swing.JTextField();
         genderTextfield = new javax.swing.JTextField();
         phoneTextfield = new javax.swing.JTextField();
         addressTextfield = new javax.swing.JTextField();
@@ -67,9 +67,9 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
 
         jLabel8.setText("Note");
 
-        patientName.addActionListener(new java.awt.event.ActionListener() {
+        patientNameTextfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                patientNameActionPerformed(evt);
+                patientNameTextfieldActionPerformed(evt);
             }
         });
 
@@ -120,7 +120,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
                             .addComponent(dobTextfield)
                             .addComponent(noteTextfield, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                             .addComponent(IDtextfield)
-                            .addComponent(patientName)
+                            .addComponent(patientNameTextfield)
                             .addComponent(genderTextfield)
                             .addComponent(phoneTextfield))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -145,7 +145,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(patientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(patientNameTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -174,73 +174,94 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void patientNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientNameActionPerformed
+    private void patientNameTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientNameTextfieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_patientNameActionPerformed
+    }//GEN-LAST:event_patientNameTextfieldActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        PatientDAO dao = new PatientDAO();
-        Patient patient = new Patient();
+    PatientDAO dao = new PatientDAO();
+    Patient patient = new Patient();
 
-        patient.setPatientID(IDtextfield.getText());
-        patient.setPatientName(patientName.getText());
-        patient.setpatientGender(genderTextfield.getText());
-        patient.setpatientPhone(phoneTextfield.getText());
-        patient.setpatientAddress(addressTextfield.getText());
-        // Lấy giá trị từ JTextField dưới dạng chuỗi
-        String dobString = dobTextfield.getText();
+    String patientID = IDtextfield.getText();
+    String patientName = patientNameTextfield.getText();
+    String gender = genderTextfield.getText();
+    String phone = phoneTextfield.getText();
+    String address = addressTextfield.getText();
+    String dobString = dobTextfield.getText();
 
-        // Chuyển đổi chuỗi thành kiểu dữ liệu Date
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng ngày tháng
-            Date dob = dateFormat.parse(dobString);
+    // Kiểm tra xem các trường bắt buộc đã được điền hay chưa
+    if (patientID.isEmpty() || patientName.isEmpty() || gender.isEmpty() || phone.isEmpty() || address.isEmpty() || dobString.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-            // Gán giá trị Date vào thuộc tính của đối tượng Patient
-            patient.setPatientDoB(dob);
-        } catch (ParseException e) {
-            // Xử lý lỗi nếu chuỗi không hợp lệ hoặc không thể chuyển đổi thành Date
-            e.printStackTrace();
-        }
+    // Lấy giá trị từ JTextField dưới dạng chuỗi
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    try {
+        Date dob = dateFormat.parse(dobString);
 
+        // Gán giá trị vào thuộc tính của đối tượng Patient
+        patient.setPatientID(patientID);
+        patient.setPatientName(patientName);
+        patient.setpatientGender(gender);
+        patient.setpatientPhone(phone);
+        patient.setpatientAddress(address);
+        patient.setPatientDoB(dob);
         patient.setNote(noteTextfield.getText());
 
-        boolean added = dao.addPatient(patient);
-        if (added) {
-            System.out.println("Patient added successfully.");
-            JOptionPane.showMessageDialog(this, "Patient added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            
-        } else {
-            System.out.println("Failed to add patient.");
-            JOptionPane.showMessageDialog(this, "Failed to add patient.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Kiểm tra xem bệnh nhân đã tồn tại hay chưa
+        boolean patientExists = dao.isPatientExist(patient.getPatientID());
 
+        if (patientExists) {
+            System.out.println("Patient with ID " + patient.getPatientID() + " already exists.");
+            JOptionPane.showMessageDialog(this, "Patient with ID " + patient.getPatientID() + " already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Thực hiện thêm bệnh nhân bằng cách gọi phương thức addPatient trong dao
+            boolean added = dao.addPatient(patient);
+            if (added) {
+                System.out.println("Patient added successfully.");
+                JOptionPane.showMessageDialog(this, "Patient added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("Failed to add patient.");
+                JOptionPane.showMessageDialog(this, "Failed to add patient.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
+    } catch (ParseException e) {
+        // Xử lý lỗi nếu chuỗi không hợp lệ hoặc không thể chuyển đổi thành Date
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Invalid date format. Please use yyyy-MM-dd.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        PatientDAO dao = new PatientDAO();
-        Patient patient = new Patient();
+    PatientDAO dao = new PatientDAO();
+    Patient patient = new Patient();
 
-        patient.setPatientID(IDtextfield.getText());
-        patient.setPatientName(patientName.getText());
-        patient.setpatientGender(genderTextfield.getText());
-        patient.setpatientPhone(phoneTextfield.getText());
-        patient.setpatientAddress(addressTextfield.getText());
+    String patientID = IDtextfield.getText();
+    String patientName = patientNameTextfield.getText();
+    String gender = genderTextfield.getText();
+    String phone = phoneTextfield.getText();
+    String address = addressTextfield.getText();
+    String dobString = dobTextfield.getText();
 
-        // Lấy giá trị từ JTextField dưới dạng chuỗi
-        String dobString = dobTextfield.getText();
+    // Kiểm tra xem các trường bắt buộc đã được điền hay chưa
+    if (patientID.isEmpty() || patientName.isEmpty() || gender.isEmpty() || phone.isEmpty() || address.isEmpty() || dobString.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Dừng việc thực hiện phương thức nếu có trường bắt buộc trống
+    }
 
-        // Chuyển đổi chuỗi thành kiểu dữ liệu Date
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng ngày tháng
-            Date dob = dateFormat.parse(dobString);
+    // Lấy giá trị từ JTextField dưới dạng chuỗi
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    try {
+        Date dob = dateFormat.parse(dobString);
 
-            // Gán giá trị Date vào thuộc tính của đối tượng Patient
-            patient.setPatientDoB(dob);
-        } catch (ParseException e) {
-            // Xử lý lỗi nếu chuỗi không hợp lệ hoặc không thể chuyển đổi thành Date
-            e.printStackTrace();
-        }
-
+        // Gán giá trị vào thuộc tính của đối tượng Patient
+        patient.setPatientID(patientID);
+        patient.setPatientName(patientName);
+        patient.setpatientGender(gender);
+        patient.setpatientPhone(phone);
+        patient.setpatientAddress(address);
+        patient.setPatientDoB(dob);
         patient.setNote(noteTextfield.getText());
 
         // Kiểm tra xem bệnh nhân đã tồn tại hay chưa
@@ -260,6 +281,12 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
             System.out.println("Patient with ID " + patient.getPatientID() + " does not exist.");
             JOptionPane.showMessageDialog(this, "Patient with ID " + patient.getPatientID() + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (ParseException e) {
+        // Xử lý lỗi nếu chuỗi không hợp lệ hoặc không thể chuyển đổi thành Date
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Invalid date format. Please use yyyy-MM-dd.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void showbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showbuttonActionPerformed
@@ -271,7 +298,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Patient with ID " + patientIDToShow + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
     } else {
         // Hiển thị thông tin bệnh nhân lên các JTextField tương ứng
-        patientName.setText(patient.getPatientName());
+        patientNameTextfield.setText(patient.getPatientName());
         genderTextfield.setText(patient.getPatientGender());
         phoneTextfield.setText(patient.getPatientPhone());
         addressTextfield.setText(patient.getPatientAddress());
@@ -300,7 +327,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField noteTextfield;
-    private javax.swing.JTextField patientName;
+    private javax.swing.JTextField patientNameTextfield;
     private javax.swing.JTextField phoneTextfield;
     private javax.swing.JButton showbutton;
     private javax.swing.JButton updateButton;

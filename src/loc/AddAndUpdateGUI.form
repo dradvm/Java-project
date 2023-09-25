@@ -40,7 +40,7 @@
                           <Component id="dobTextfield" alignment="0" max="32767" attributes="0"/>
                           <Component id="noteTextfield" alignment="0" pref="256" max="32767" attributes="0"/>
                           <Component id="IDtextfield" alignment="0" max="32767" attributes="0"/>
-                          <Component id="patientName" alignment="0" max="32767" attributes="0"/>
+                          <Component id="patientNameTextfield" alignment="0" max="32767" attributes="0"/>
                           <Component id="genderTextfield" alignment="0" max="32767" attributes="0"/>
                           <Component id="phoneTextfield" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -72,7 +72,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="patientName" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="patientNameTextfield" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -152,9 +152,9 @@
         <Property name="text" type="java.lang.String" value="Note"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="patientName">
+    <Component class="javax.swing.JTextField" name="patientNameTextfield">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="patientNameActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="patientNameTextfieldActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="genderTextfield">

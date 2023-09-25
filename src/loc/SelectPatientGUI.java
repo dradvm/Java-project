@@ -4,6 +4,7 @@
  */
 package loc;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +21,7 @@ public class SelectPatientGUI extends javax.swing.JPanel {
         initComponents();
     }
 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +36,9 @@ public class SelectPatientGUI extends javax.swing.JPanel {
         selectIDtextfield = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        selectall = new javax.swing.JButton();
 
+        selectButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         selectButton.setText("Select");
         selectButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -42,26 +46,29 @@ public class SelectPatientGUI extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel1.setText("Enter Patient ID want to view information");
 
-        selectIDtextfield.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectIDtextfieldActionPerformed(evt);
-            }
-        });
+        selectIDtextfield.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
+        table.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "PatientID", "PatientName", "Gender", "PatientPhone", "PatientAddress", "PatientDoB", "Note"
             }
         ));
         jScrollPane1.setViewportView(table);
+
+        selectall.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        selectall.setText("Select All");
+        selectall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectallActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -73,26 +80,29 @@ public class SelectPatientGUI extends javax.swing.JPanel {
                         .addGap(58, 58, 58)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(selectIDtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
-                        .addComponent(selectButton)))
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(selectIDtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(selectall)
+                            .addComponent(selectButton))))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
                     .addComponent(selectIDtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(selectButton))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(selectall)
+                .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -120,9 +130,29 @@ public class SelectPatientGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_selectButtonActionPerformed
 
-    private void selectIDtextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectIDtextfieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_selectIDtextfieldActionPerformed
+    private void selectallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectallActionPerformed
+        PatientDAO dao = new PatientDAO();
+    List<Patient> patients = dao.getAllPatients();
+    
+    // Tạo mô hình dữ liệu cho bảng
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    
+    // Xóa tất cả các hàng hiện có trong bảng
+    model.setRowCount(0);
+    
+    // Thêm tất cả các bệnh nhân vào mô hình dữ liệu và cập nhật bảng
+    for (Patient patient : patients) {
+        model.addRow(new Object[]{
+            patient.getPatientID(),
+            patient.getPatientName(),
+            patient.getPatientGender(),
+            patient.getPatientPhone(),
+            patient.getPatientAddress(),
+            patient.getPatientDoB(),
+            patient.getNote()
+        });
+    }
+    }//GEN-LAST:event_selectallActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -130,6 +160,7 @@ public class SelectPatientGUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton selectButton;
     private javax.swing.JTextField selectIDtextfield;
+    private javax.swing.JButton selectall;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }
