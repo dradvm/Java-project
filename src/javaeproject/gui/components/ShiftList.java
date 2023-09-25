@@ -32,18 +32,10 @@ public class ShiftList<E extends Object> extends JList<E> {
     
     private int selectedIndex = -1;
     private EventSelected event;
-    private EventSelected event2;
-    private ShiftDetailsPanel panel;
     
     public void addEventSelected(EventSelected event) {
         this.event = event;
-    } 
-    
-    public void addEventSelectedToShowInformation(EventSelected event, ShiftDetailsPanel panel) {
-        this.event2 = event;
-        this.panel = panel;
     }
-    
     private final DefaultListModel model;
     public ShiftList() {
         model = new DefaultListModel();
@@ -60,10 +52,6 @@ public class ShiftList<E extends Object> extends JList<E> {
                         selectedIndex = index;
                         if (event != null) {
                             event.setSelected(o);
-                            System.out.println("E");
-                        }
-                        if (event2 != null) {
-                            panel.setShift(o);
                         }
                     }
                     
@@ -95,11 +83,6 @@ public class ShiftList<E extends Object> extends JList<E> {
     
     
     public void addItem(Shift item) {
-        model.addElement(item);
-        model.addElement(item);
-        model.addElement(item);
-        model.addElement(item);
-        model.addElement(item);
         model.addElement(item);
     } 
     

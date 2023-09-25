@@ -44,12 +44,13 @@ public class ShiftDAO {
     }
 
     public ArrayList<Shift> getAllCurrentShift(User user) {
-        String sql = "select * from Shift where EmployeeID = ? order by Date";
+        String sql = "select * from Shift where EmployeeID = ? and Date >= ? order by Date";
         ArrayList shiftList = new ArrayList<Shift>();
         Shift shift;
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1,user.getEmployeeID());
+            statement.setString(2, LocalDate.now().toString());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 shift = new Shift();
@@ -126,6 +127,9 @@ public class ShiftDAO {
                 else {
                     sql = "select * from shift where EmployeeID = ? and Date = ? and ShiftID != ? and (Type = ? or Type = 'Fulltime')";
                 }
+            }
+            else {
+                return varReturn;
             }
             
             PreparedStatement statement = connection.prepareStatement(sql);

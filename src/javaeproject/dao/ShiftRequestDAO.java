@@ -43,8 +43,14 @@ public class ShiftRequestDAO {
         return null;
     }
 
-    public ArrayList<ShiftRequest> getAllRequestPending() {
-        String sql = "select * from ChangeRequest where Status = 'Pending'";
+    public ArrayList<ShiftRequest> getAllRequestPending(User user) {
+        String sql = "select RequestID, ChangeRequest.EmployeeID, CurrentShiftID, DesiredShiftID, Details, RequestDate, Status from ChangeRequest join Employee on ChangeRequest.EmployeeID = Employee.EmployeeID where Status = 'Pending' and Position ";
+        if (user.getPosition().equals("Manager")) {
+            sql+= "= 'Department Head'";
+        }
+        else {
+            sql+= "!= 'Department Head'";
+        }
         ArrayList shiftRequestList = new ArrayList<ShiftRequest>();
         ShiftRequest shiftRequest;
         try {
