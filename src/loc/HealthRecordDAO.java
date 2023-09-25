@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import javax.swing.JOptionPane;
 /**
  *
@@ -23,42 +24,42 @@ public class HealthRecordDAO {
         connection = ConnectionDB.getConnection();
     }
 
-    public boolean addHealthRecord(String patientID, String problem) {
-        if (connection != null) {
-            try {
-                if (!isPatientExist(patientID)) {
-                    System.err.println("Patient with ID " + patientID + " does not exist.");
-                    return false;
-                }
-
-                String query = "INSERT INTO HealthRecord (PatientID, Problem) VALUES (?, ?)";
-                PreparedStatement pstmt = connection.prepareStatement(query);
-                pstmt.setString(1, patientID);
-                pstmt.setString(2, problem);
-
-                int rowsInserted = pstmt.executeUpdate();
-                pstmt.close();
-
-                return rowsInserted > 0;
-            } catch (SQLException e) {
-                e.printStackTrace();
+    public boolean addHealthRecord(String recordID, String patientID, String problem) {
+    if (connection != null) {
+        PreparedStatement pstmt = null;
+        try {
+            if (!CheckExist(patientID)) {
+                System.err.println("Patient with ID " + patientID + " does not exist.");
+                return false;
             }
+
+            // Thêm bản ghi mới vào cơ sở dữ liệu với `recordID`
+            String insertQuery = "INSERT INTO HealthRecord (RecordID, PatientID, Problem, CreateDate) VALUES (?, ?, ?, GETDATE())";
+            pstmt = connection.prepareStatement(insertQuery);
+            pstmt.setString(1, recordID);
+            pstmt.setString(2, patientID);
+            pstmt.setString(3, problem);
+
+            int rowsInserted = pstmt.executeUpdate();
+            pstmt.close();
+
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return false;
     }
+    return false;
+}
+
+
 
     public boolean updateHealthRecord(String patientID, String problem) {
         if (connection != null) {
+            PreparedStatement pstmt = null;
             try {
-                // Kiểm tra xem bệnh nhân có tồn tại hay không
-                if (!isPatientExist(patientID)) {
-                    // Hiển thị dialog lỗi nếu bệnh nhân không tồn tại
-                    System.err.println("Patient with ID " + patientID + " does not exist.");
-                    return false;
-                }
-
+                
                 String query = "UPDATE HealthRecord SET Problem=? WHERE PatientID=?";
-                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt = connection.prepareStatement(query);
                 pstmt.setString(1, problem);
                 pstmt.setString(2, patientID);
 
@@ -91,61 +92,84 @@ public class HealthRecordDAO {
         return false;
     }
 
-    public boolean isPatientExist(String patientID) {
+    public boolean CheckExist(String patientID) throws SQLException {
         if (connection != null) {
+            System.out.println("Checking connection status before executing isPatientExist: " + !connection.isClosed());
+            PreparedStatement pstmt = null;
+            ResultSet resultSet = null;
             try {
                 String query = "SELECT COUNT(*) FROM Patient WHERE PatientID=?";
-                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt = connection.prepareStatement(query);
                 pstmt.setString(1, patientID);
 
-                ResultSet resultSet = pstmt.executeQuery();
+                resultSet = pstmt.executeQuery();
                 if (resultSet.next()) {
                     int count = resultSet.getInt(1);
-                    resultSet.close();
-                    pstmt.close();
-
                     return count > 0;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
+            } 
         }
         return false;
     }
-    public String getProblemByPatientID(String patientID) {
-        if (connection != null) {
-            try {
-                // Kiểm tra xem bệnh nhân có tồn tại hay không
-                if (!isPatientExist(patientID)) {
-                    // Hiển thị dialog lỗi nếu bệnh nhân không tồn tại
-                    JOptionPane.showMessageDialog(null, "Patient with ID " + patientID + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return null;
-                }
-
-                String query = "SELECT Problem FROM HealthRecord WHERE PatientID=?";
-                PreparedStatement pstmt = connection.prepareStatement(query);
-                pstmt.setString(1, patientID);
-
-                ResultSet resultSet = pstmt.executeQuery();
-                if (resultSet.next()) {
-                    String problem = resultSet.getString("Problem");
-                    resultSet.close();
-                    pstmt.close();
-
-                    // Hiển thị thông tin Problem trên giao diện
-                    JOptionPane.showMessageDialog(null, "Problem: " + problem, "Health Record", JOptionPane.INFORMATION_MESSAGE);
-
-                    return problem;
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+    public String getHealthRecordByRecordID(String recordID) {
+    if (connection != null) {
+        try {
+            // Check if the record exists
+            if (!CheckExist(recordID)) {
+                JOptionPane.showMessageDialog(null, "Health record with RecordID " + recordID + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+                return null;
             }
+
+            String query = "SELECT Problem FROM HealthRecord WHERE RecordID=?";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, recordID);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                String healthRecord = resultSet.getString("Problem");
+                resultSet.close();
+                pstmt.close();
+                return healthRecord;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null;
     }
+    return null;
+}
+
+public String getCreateDateByRecordID(String recordID) {
+    if (connection != null) {
+        try {
+            // Check if the record exists
+            if (!CheckExist(recordID)) {
+                JOptionPane.showMessageDialog(null, "Health record with RecordID " + recordID + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
+
+            String query = "SELECT CreateDate FROM HealthRecord WHERE RecordID=?";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, recordID);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                String createDate = resultSet.getString("CreateDate");
+                resultSet.close();
+                pstmt.close();
+                return createDate;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    return null;
+}
+
+
     public int countOldRecordsByPatientID(String patientID) {
     int count = 0;
-    Connection connection = ConnectionDB.getConnection();
     if (connection != null) {
         try {
             String query = "SELECT COUNT(*) FROM HealthRecord WHERE PatientID=?";
@@ -159,13 +183,44 @@ public class HealthRecordDAO {
 
             resultSet.close();
             pstmt.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     return count;
 }
+    public String getPatientIDByRecordID(String recordID) {
+    if (connection != null) {
+        try {
+            // Kiểm tra xem bản ghi tồn tại hay không
+            if (!CheckExist(recordID)) {
+                JOptionPane.showMessageDialog(null, "Health record with RecordID " + recordID + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
 
+            String query = "SELECT PatientID FROM HealthRecord WHERE RecordID=?";
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, recordID);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                String patientID = resultSet.getString("PatientID");
+                resultSet.close();
+                pstmt.close();
+                return patientID;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    return null;
 }
+
+   
+ 
+
+    
+}
+
+
 

@@ -4,6 +4,7 @@
  */
 package loc;
 
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -44,7 +45,7 @@ public class AddRecordGUI extends javax.swing.JPanel {
         recordArea = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         addNew = new javax.swing.JButton();
-        recordID = new javax.swing.JTextField();
+        recordid = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         old = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -122,7 +123,7 @@ public class AddRecordGUI extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(recordID, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(recordid, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel2)
@@ -172,9 +173,9 @@ public class AddRecordGUI extends javax.swing.JPanel {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(recordID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(recordid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,33 +222,24 @@ if (patientID != null && !patientID.isEmpty()) {
     }//GEN-LAST:event_showButtonActionPerformed
 
     private void addNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewActionPerformed
-        String patientID = id.getText();
-    String problemDescription = recordArea.getText().trim(); // Lấy nội dung và loại bỏ khoảng trắng đầu và cuối
-
-    if (patientID != null && !patientID.isEmpty()) {
-        if (!problemDescription.isEmpty()) {
-            // Sử dụng HealthRecordDAO để thêm bản ghi mới vào bảng HealthRecord
-            HealthRecordDAO healthRecordDAO = new HealthRecordDAO();
-
-            // Sử dụng một luồng khác để thực hiện thêm bản ghi
-            SwingUtilities.invokeLater(() -> {
-                boolean added = healthRecordDAO.addHealthRecord(patientID, problemDescription);
-
-                if (added) {
-                    // Hiển thị thông báo thành công
-                    JOptionPane.showMessageDialog(this, "HealthRecord added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    // Hiển thị thông báo lỗi nếu không thể thêm bản ghi
-                    JOptionPane.showMessageDialog(this, "Failed to add HealthRecord.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            });
-        } else {
-            // Hiển thị thông báo lỗi nếu JTextArea trống
-            JOptionPane.showMessageDialog(this, "Problem description cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    String recordID = recordid.getText(); 
+    String patientID = id.getText();
+    String problem = recordArea.getText(); 
+    
+    // Kiểm tra tính hợp lệ của recordID, patientID và problem (ví dụ: không để trống)
+    if (recordID.isEmpty() || patientID.isEmpty() || problem.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please complete all information.");
+        return; // Không thực hiện thêm mới nếu thông tin bị thiếu
+    }
+    
+    // Gọi phương thức addHealthRecord từ HealthRecordDAO
+    HealthRecordDAO healthRecordDAO = new HealthRecordDAO();
+    boolean add = healthRecordDAO.addHealthRecord(recordID, patientID, problem);
+    
+    if (add) {
+        JOptionPane.showMessageDialog(null, "New record added successfully");
     } else {
-        // Xử lý trường hợp patientID không hợp lệ (rỗng hoặc null)
-        JOptionPane.showMessageDialog(this, "Invalid Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Add new record failed");
     }
     }//GEN-LAST:event_addNewActionPerformed
 
@@ -268,7 +260,7 @@ if (patientID != null && !patientID.isEmpty()) {
     private javax.swing.JTextField name;
     private javax.swing.JTextField old;
     private javax.swing.JTextArea recordArea;
-    private javax.swing.JTextField recordID;
+    private javax.swing.JTextField recordid;
     private javax.swing.JButton showButton;
     // End of variables declaration//GEN-END:variables
 }

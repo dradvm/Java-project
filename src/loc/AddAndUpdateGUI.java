@@ -49,7 +49,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         noteTextfield = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
-        showButton = new javax.swing.JButton();
+        showbutton = new javax.swing.JButton();
 
         jLabel1.setText("Add new or update patient information");
 
@@ -87,10 +87,10 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
             }
         });
 
-        showButton.setText("Show");
-        showButton.addActionListener(new java.awt.event.ActionListener() {
+        showbutton.setText("Show");
+        showbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showButtonActionPerformed(evt);
+                showbuttonActionPerformed(evt);
             }
         });
 
@@ -100,7 +100,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(153, 153, 153)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addGap(160, 160, 160))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,14 +123,14 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
                             .addComponent(patientName)
                             .addComponent(genderTextfield)
                             .addComponent(phoneTextfield))
-                        .addGap(18, 18, 18)
-                        .addComponent(showButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(showbutton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(257, 257, 257)
                         .addComponent(addButton)
                         .addGap(26, 26, 26)
                         .addComponent(updateButton)))
-                .addGap(11, 11, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,7 +141,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(IDtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(showButton))
+                    .addComponent(showbutton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -166,7 +166,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(noteTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateButton)
                     .addComponent(addButton))
@@ -179,7 +179,6 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_patientNameActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        
         PatientDAO dao = new PatientDAO();
         Patient patient = new Patient();
 
@@ -216,7 +215,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_addButtonActionPerformed
-    
+
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         PatientDAO dao = new PatientDAO();
         Patient patient = new Patient();
@@ -263,8 +262,8 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void showButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showButtonActionPerformed
-        String patientIDToShow = IDtextfield.getText();
+    private void showbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showbuttonActionPerformed
+    String patientIDToShow = IDtextfield.getText();
     PatientDAO dao = new PatientDAO();
     Patient patient = dao.getPatientByID(patientIDToShow);
 
@@ -283,7 +282,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
 
         noteTextfield.setText(patient.getNote());
     }
-    }//GEN-LAST:event_showButtonActionPerformed
+    }//GEN-LAST:event_showbuttonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -303,7 +302,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
     private javax.swing.JTextField noteTextfield;
     private javax.swing.JTextField patientName;
     private javax.swing.JTextField phoneTextfield;
-    private javax.swing.JButton showButton;
+    private javax.swing.JButton showbutton;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }

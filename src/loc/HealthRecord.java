@@ -16,10 +16,11 @@ public class HealthRecord {
     private Patient patient;
     private Date createDate;
 
-    public HealthRecord(String recordID, String problem, Patient patient) {
+    public HealthRecord(String recordID, String problem, Patient patient, Date createDate) {
         this.recordID = recordID;
         this.problem = problem;
-        this.patient = patient; 
+        this.patient = patient;
+        this.createDate = createDate;
     }
 
 
