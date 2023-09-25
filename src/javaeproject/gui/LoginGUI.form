@@ -141,6 +141,7 @@
       </Properties>
       <Events>
         <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="usernameInputCaretUpdate"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="usernameInputKeyPressed"/>
       </Events>
     </Component>
     <Component class="java.awt.Label" name="passwordLabel">
@@ -169,6 +170,7 @@
       </Properties>
       <Events>
         <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="passwordInputCaretUpdate"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="passwordInputKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="notificationLabel">

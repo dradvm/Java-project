@@ -64,6 +64,11 @@ public class LoginGUI extends javax.swing.JFrame {
                 usernameInputCaretUpdate(evt);
             }
         });
+        usernameInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                usernameInputKeyPressed(evt);
+            }
+        });
 
         passwordLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         passwordLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -76,6 +81,11 @@ public class LoginGUI extends javax.swing.JFrame {
         passwordInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 passwordInputCaretUpdate(evt);
+            }
+        });
+        passwordInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordInputKeyPressed(evt);
             }
         });
 
@@ -170,6 +180,18 @@ public class LoginGUI extends javax.swing.JFrame {
         password = String.valueOf(passwordInput.getPassword());
         notificationLabel.setText("");
     }//GEN-LAST:event_passwordInputCaretUpdate
+
+    private void usernameInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameInputKeyPressed
+        if (evt.getKeyCode() == 10) {
+            passwordInput.requestFocus();
+        }
+    }//GEN-LAST:event_usernameInputKeyPressed
+
+    private void passwordInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordInputKeyPressed
+        if (evt.getKeyCode() == 10) {
+            loginButton.doClick();
+        }
+    }//GEN-LAST:event_passwordInputKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel header;

@@ -507,7 +507,7 @@ public class AssignShiftGUI extends javax.swing.JPanel {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         try {
-            shiftDAO.assignShift(employee.getEmployeeID(), shift.getShiftID());
+            shiftDAO.assignShift(shift);
             successDialog.setVisible(true);
             successDialog.setLocationRelativeTo(null);
             initLogic();
@@ -573,12 +573,14 @@ public class AssignShiftGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_shiftIDInputActionPerformed
 
     private void employeeInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeInputActionPerformed
+        shift.setEmployeeID(null);
         if (employeeInput.getSelectedIndex() >= 0) {
             employee = employeeList.get(employeeInput.getSelectedIndex());
             genderValue.setText(employee.getGender());
             positionValue.setText(employee.getPosition());
             dobValue.setText(employee.getEmployeeDoB().toString());
             employeeSpecialtyValue.setText(employee.getEmployeeSpecialty());
+            shift.setEmployeeID(employee.getEmployeeID());
         }
     }//GEN-LAST:event_employeeInputActionPerformed
 

@@ -283,13 +283,13 @@ public class ShiftDAO {
         return result;
     }
     
-    public void assignShift(String employeeID, String shiftID) throws Exception {
+    public void assignShift(Shift shift) throws Exception {
         String query = "update [Shift] "
             + "set EmployeeID = ? "
             + "where ShiftID = ?";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, employeeID);
-        statement.setString(2, shiftID);
+        statement.setString(1, shift.getEmployeeID());
+        statement.setString(2, shift.getShiftID());
         statement.executeUpdate();
     }
 }
