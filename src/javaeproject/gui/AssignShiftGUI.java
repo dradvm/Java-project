@@ -509,6 +509,7 @@ public class AssignShiftGUI extends javax.swing.JPanel {
         try {
             shiftDAO.assignShift(employee.getEmployeeID(), shift.getShiftID());
             successDialog.setVisible(true);
+            successDialog.setLocationRelativeTo(null);
             initLogic();
         }
         catch (Exception e) {
