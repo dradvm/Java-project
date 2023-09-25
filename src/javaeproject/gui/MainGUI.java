@@ -41,7 +41,7 @@ public class MainGUI extends javax.swing.JFrame {
                     case "Assign Doctors & Receptionists to Department" -> changePanel(new Form1());
                     case "Assign Doctor Level" -> changePanel(new Form1());
                     case "Manage Doctors & Receptionists" -> changePanel(new ManageDoctorAndReceptionestGUI());
-                    case "View Holiday List" -> changePanel(new Form1());
+                    case "View Holiday List" -> changePanel(new ViewListTheHolidaysGUI());
                     case "Manage Departments" -> changePanel(new ManageDepartmentGUI());
                     case "Generate Shift Request" -> changePanel(new GenerateShiftRequestGUI(user));
                     case "Check Shift Request Status" -> changePanel(new CheckStatusShiftRequestGUI(user));

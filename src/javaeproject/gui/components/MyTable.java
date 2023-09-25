@@ -7,6 +7,7 @@ package javaeproject.gui.components;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import javaeproject.dao.ShiftRequestDAO;
 import javaeproject.events.EventSelected;
@@ -38,6 +39,7 @@ public class MyTable extends JTable{
         typeOfTable = "";
         setShowHorizontalLines(true);
         setGridColor(new Color(230, 230, 230));
+        setFont(new Font("sansserif", Font.PLAIN, 12));
         setRowHeight(40);
         getTableHeader().setReorderingAllowed(false);
         getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
