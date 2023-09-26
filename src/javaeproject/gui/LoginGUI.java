@@ -43,7 +43,7 @@ public class LoginGUI extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(480, 360));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
-        header.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        header.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         header.setForeground(new java.awt.Color(255, 0, 51));
         header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         header.setText("Remedy Scheduler");
@@ -53,11 +53,11 @@ public class LoginGUI extends javax.swing.JFrame {
         header.setPreferredSize(new java.awt.Dimension(480, 90));
 
         usernameLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        usernameLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         usernameLabel.setPreferredSize(new java.awt.Dimension(120, 90));
         usernameLabel.setText("Username: ");
 
-        usernameInput.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        usernameInput.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         usernameInput.setPreferredSize(new java.awt.Dimension(120, 23));
         usernameInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -65,17 +65,17 @@ public class LoginGUI extends javax.swing.JFrame {
             }
         });
         usernameInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                usernameInputKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                usernameInputKeyReleased(evt);
             }
         });
 
         passwordLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        passwordLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        passwordLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         passwordLabel.setPreferredSize(new java.awt.Dimension(120, 90));
         passwordLabel.setText("Password: ");
 
-        passwordInput.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        passwordInput.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         passwordInput.setToolTipText("");
         passwordInput.setPreferredSize(new java.awt.Dimension(120, 23));
         passwordInput.addCaretListener(new javax.swing.event.CaretListener() {
@@ -84,8 +84,8 @@ public class LoginGUI extends javax.swing.JFrame {
             }
         });
         passwordInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                passwordInputKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordInputKeyReleased(evt);
             }
         });
 
@@ -94,7 +94,7 @@ public class LoginGUI extends javax.swing.JFrame {
         notificationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         notificationLabel.setPreferredSize(new java.awt.Dimension(480, 30));
 
-        loginButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        loginButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         loginButton.setText("Login");
         loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginButton.setPreferredSize(new java.awt.Dimension(90, 30));
@@ -170,28 +170,26 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void usernameInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_usernameInputCaretUpdate
-        // TODO add your handling code here:
         username = usernameInput.getText();
         notificationLabel.setText("");
     }//GEN-LAST:event_usernameInputCaretUpdate
 
     private void passwordInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passwordInputCaretUpdate
-        // TODO add your handling code here:
         password = String.valueOf(passwordInput.getPassword());
         notificationLabel.setText("");
     }//GEN-LAST:event_passwordInputCaretUpdate
 
-    private void usernameInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameInputKeyPressed
+    private void usernameInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameInputKeyReleased
         if (evt.getKeyCode() == 10) {
             passwordInput.requestFocus();
-        }
-    }//GEN-LAST:event_usernameInputKeyPressed
+        } 
+    }//GEN-LAST:event_usernameInputKeyReleased
 
-    private void passwordInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordInputKeyPressed
+    private void passwordInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordInputKeyReleased
         if (evt.getKeyCode() == 10) {
             loginButton.doClick();
         }
-    }//GEN-LAST:event_passwordInputKeyPressed
+    }//GEN-LAST:event_passwordInputKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel header;

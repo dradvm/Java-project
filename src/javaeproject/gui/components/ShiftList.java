@@ -47,13 +47,16 @@ public class ShiftList<E extends Object> extends JList<E> {
             public void mousePressed(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     int index = locationToIndex(e.getPoint());
-                    Shift o = (Shift) model.getElementAt(index);
-                    if (selectedIndex != index) {
-                        selectedIndex = index;
-                        if (event != null) {
-                            event.setSelected(o);
+                    if (!model.getElementAt(index).equals("")) {
+                        Shift o = (Shift) model.getElementAt(index);
+                        if (selectedIndex != index) {
+                            selectedIndex = index;
+                            if (event != null) {
+                                event.setSelected(o);
+                            }
                         }
                     }
+                    
                     
                     repaint();
                 }
@@ -68,9 +71,16 @@ public class ShiftList<E extends Object> extends JList<E> {
         return new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> jlist, Object o, int i, boolean selected, boolean focus) {
-                ShiftItem item = new ShiftItem((Shift) o);
-                item.setSelected(selectedIndex == i);
-                return item;
+                
+                if (o instanceof Shift) {
+                    ShiftItem item = new ShiftItem((Shift) o);
+
+                    item.setSelected(selectedIndex == i);
+                    return item;
+                }
+                else {
+                    return new JLabel();
+                }
             }
         };
     }
@@ -85,7 +95,9 @@ public class ShiftList<E extends Object> extends JList<E> {
     public void addItem(Shift item) {
         model.addElement(item);
     } 
-    
+    public void addItem() {
+        model.addElement("");
+    }
     
     public void reset() {
         resetSelected();

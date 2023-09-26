@@ -131,6 +131,7 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
         for (Shift item : currentShiftList) {
             shiftList1.addItem(item);
         }
+        shiftList1.addItem();
     }
     
     private void initDesiredShiftList(User user,Shift shift) {
@@ -139,6 +140,7 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
         for (Shift item : derisedShiftList) {
             shiftList2.addItem(item);
         }
+        shiftList2.addItem();
     }
     
     @SuppressWarnings("unchecked")

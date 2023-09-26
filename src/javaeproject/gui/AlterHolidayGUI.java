@@ -268,7 +268,7 @@ public class AlterHolidayGUI extends javax.swing.JPanel {
             "Are you sure to update this holiday?", // message
             "Confirm", // title
             JOptionPane.YES_NO_OPTION  // options
-        );
+            );
         
             if (choice == JOptionPane.YES_OPTION) {
                 holidayDAO.update(new Holiday(holidayAlter.getHolidayID(), jTextField1.getText(), startDate, endDate, jTextArea1.getText()));

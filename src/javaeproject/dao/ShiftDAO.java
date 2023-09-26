@@ -292,4 +292,26 @@ public class ShiftDAO {
         statement.setString(2, shift.getShiftID());
         statement.executeUpdate();
     }
+    
+    public void switchShift(String shiftID1, String shiftID2) {
+        Shift shift1 = getByID(shiftID1);
+        Shift shift2 = getByID(shiftID2);
+        
+        String sql = "Update Shift set EmployeeID = ? where ShiftID = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, shift2.getEmployeeID());
+            statement.setString(2, shift1.getShiftID());
+            statement.executeUpdate();
+            statement.setString(1, shift1.getEmployeeID());
+            statement.setString(2, shift2.getShiftID());
+            statement.executeUpdate();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
+    
+    
 }

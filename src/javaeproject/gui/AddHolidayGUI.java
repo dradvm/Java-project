@@ -111,7 +111,7 @@ public class AddHolidayGUI extends javax.swing.JPanel {
         jLabel4.setText("Description");
 
         endDateInput.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-        endDateInput.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        endDateInput.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         endDateInput.setPreferredSize(new java.awt.Dimension(206, 37));
         endDateInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {

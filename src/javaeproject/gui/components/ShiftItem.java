@@ -29,8 +29,6 @@ public class ShiftItem extends javax.swing.JPanel {
             case "Morning" -> jLabel1.setIcon(new ImageIcon(getClass().getResource("/javaeproject/gui/assests/sun.png")));
             case "Afternoon" -> jLabel1.setIcon(new ImageIcon(getClass().getResource("/javaeproject/gui/assests/moon.png")));
             case "Fulltime" -> jLabel1.setIcon(new ImageIcon(getClass().getResource("/javaeproject/gui/assests/24-hours.png")));
-
-            default -> throw new AssertionError();
         }
         
         jLabel2.setText(shift.getDate().toString());

@@ -110,7 +110,7 @@ public class MyTable extends JTable{
     }
     
     public void reset() {
-        selectedIndex = -1;
+        this.selectedIndex = -1;
         repaint();
     }
 }
