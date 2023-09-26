@@ -213,7 +213,27 @@ public class AssignLevelDoctorGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void changeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeButtonActionPerformed
-        // TODO add your handling code here:
+        String doctorID = iddoctor.getText();
+
+    // Kiểm tra xem doctorID có dữ liệu không
+    if (doctorID.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter Doctor ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Lấy giá trị được chọn từ JComboBox
+    String selectedPosition = (String) jComboBox1.getSelectedItem();
+
+    // Sử dụng đối tượng DoctorDAO (hoặc AssignLevelDoctorDAO) để cập nhật trường "Position" của bác sĩ
+    DoctorDAO doctorDAO = new DoctorDAO();
+    boolean success = doctorDAO.updateDoctorPosition(doctorID, selectedPosition);
+
+    // Kiểm tra kết quả cập nhật và hiển thị thông báo tương ứng
+    if (success) {
+        JOptionPane.showMessageDialog(this, "Position updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, "Failed to update position.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_changeButtonActionPerformed
 
 

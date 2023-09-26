@@ -42,4 +42,26 @@ public class DoctorDAO {
 
         return doctorInfo;
     }
+    public boolean updateDoctorPosition(String doctorID, String newPosition) {
+    try {
+        String sql = "UPDATE Employee SET Position = ? WHERE EmployeeID = ?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setString(1, newPosition);
+        pstmt.setString(2, doctorID);
+
+        int rowsAffected = pstmt.executeUpdate();
+        // Đóng tài nguyên PreparedStatement
+        pstmt.close();
+        // Kiểm tra số dòng bị ảnh hưởng sau khi thực hiện cập nhật
+        if (rowsAffected > 0) {
+            return true; // Cập nhật thành công
+        } else {
+            return false; // Không có bản ghi nào được cập nhật
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false; // Có lỗi xảy ra trong quá trình cập nhật
+    }
+}
+
 }
