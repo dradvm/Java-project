@@ -43,7 +43,7 @@ public class LoginGUI extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(480, 360));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
-        header.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        header.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         header.setForeground(new java.awt.Color(255, 0, 51));
         header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         header.setText("Remedy Scheduler");
@@ -53,11 +53,11 @@ public class LoginGUI extends javax.swing.JFrame {
         header.setPreferredSize(new java.awt.Dimension(480, 90));
 
         usernameLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        usernameLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         usernameLabel.setPreferredSize(new java.awt.Dimension(120, 90));
         usernameLabel.setText("Username: ");
 
-        usernameInput.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        usernameInput.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         usernameInput.setPreferredSize(new java.awt.Dimension(120, 23));
         usernameInput.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -71,11 +71,11 @@ public class LoginGUI extends javax.swing.JFrame {
         });
 
         passwordLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        passwordLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        passwordLabel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         passwordLabel.setPreferredSize(new java.awt.Dimension(120, 90));
         passwordLabel.setText("Password: ");
 
-        passwordInput.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        passwordInput.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         passwordInput.setToolTipText("");
         passwordInput.setPreferredSize(new java.awt.Dimension(120, 23));
         passwordInput.addCaretListener(new javax.swing.event.CaretListener() {
@@ -94,7 +94,7 @@ public class LoginGUI extends javax.swing.JFrame {
         notificationLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         notificationLabel.setPreferredSize(new java.awt.Dimension(480, 30));
 
-        loginButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        loginButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         loginButton.setText("Login");
         loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginButton.setPreferredSize(new java.awt.Dimension(90, 30));
