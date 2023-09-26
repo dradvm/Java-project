@@ -65,8 +65,8 @@ public class LoginGUI extends javax.swing.JFrame {
             }
         });
         usernameInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                usernameInputKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                usernameInputKeyReleased(evt);
             }
         });
 
@@ -84,8 +84,8 @@ public class LoginGUI extends javax.swing.JFrame {
             }
         });
         passwordInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                passwordInputKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordInputKeyReleased(evt);
             }
         });
 
@@ -170,28 +170,26 @@ public class LoginGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void usernameInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_usernameInputCaretUpdate
-        // TODO add your handling code here:
         username = usernameInput.getText();
         notificationLabel.setText("");
     }//GEN-LAST:event_usernameInputCaretUpdate
 
     private void passwordInputCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_passwordInputCaretUpdate
-        // TODO add your handling code here:
         password = String.valueOf(passwordInput.getPassword());
         notificationLabel.setText("");
     }//GEN-LAST:event_passwordInputCaretUpdate
 
-    private void usernameInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameInputKeyPressed
+    private void usernameInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameInputKeyReleased
         if (evt.getKeyCode() == 10) {
             passwordInput.requestFocus();
-        }
-    }//GEN-LAST:event_usernameInputKeyPressed
+        } 
+    }//GEN-LAST:event_usernameInputKeyReleased
 
-    private void passwordInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordInputKeyPressed
+    private void passwordInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordInputKeyReleased
         if (evt.getKeyCode() == 10) {
             loginButton.doClick();
         }
-    }//GEN-LAST:event_passwordInputKeyPressed
+    }//GEN-LAST:event_passwordInputKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel header;
