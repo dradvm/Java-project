@@ -1,4 +1,4 @@
-package loc;
+package javaeproject.model;
 
 
 public class Doctor {
