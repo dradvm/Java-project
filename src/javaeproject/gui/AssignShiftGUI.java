@@ -143,7 +143,7 @@ public class AssignShiftGUI extends javax.swing.JPanel {
 
         successDialog.setSize(new java.awt.Dimension(360, 240));
 
-        successConfirmButton.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        successConfirmButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         successConfirmButton.setText("OK");
         successConfirmButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         successConfirmButton.setPreferredSize(new java.awt.Dimension(108, 36));
@@ -153,7 +153,7 @@ public class AssignShiftGUI extends javax.swing.JPanel {
             }
         });
 
-        successMessage.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        successMessage.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         successMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         successMessage.setText("Shift assigned successullfy!");
         successMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
