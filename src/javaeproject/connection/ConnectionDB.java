@@ -26,7 +26,7 @@ public class ConnectionDB {
 
     static {
         try {
-            Scanner scanner = new Scanner(new File("src/javaeproject/connection/config.txt"));
+            Scanner scanner = new Scanner(new File("config.txt"));
             String serverName = scanner.nextLine().split(" ")[2];
             String port = scanner.nextLine().split(" ")[1];
             jdbcUrl = "jdbc:sqlserver://" + serverName + ":" + port + ";databaseName=RemedySchedule;encrypt=true;trustServerCertificate=true;";
