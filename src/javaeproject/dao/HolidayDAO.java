@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javaeproject.connection.ConnectionDB;
@@ -46,6 +47,65 @@ public class HolidayDAO {
         }
         return listHoliday;
     }
+    public void add(Holiday holiday){
+        String sql = "INSERT INTO Holiday VALUES (?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            setStatement(statement, holiday);
+            statement.executeUpdate();
+        }
+        catch(Exception e) {
+            System.out.println("Error");
+        }
+        
+    }
+    
+    public void update(Holiday holiday) {
+        String sql = "Update Holiday set HolidayName = ?, StartDate = ?, EndDate = ?, Description = ? where HolidayID = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, holiday.getHolidayName());
+            statement.setString(2, holiday.getStartDate().toString());
+            statement.setString(3, holiday.getEndDate().toString());
+            statement.setString(4, holiday.getDescription());
+            statement.setString(5, holiday.getHolidayID());
+            statement.executeUpdate();
+        }
+        catch(Exception e) {
+            System.out.println("Error");
+        }
+    }
+    
+    public void delete(Holiday holiday) {
+        String sql = "delete from holiday where HolidayID = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, holiday.getHolidayID());
+            
+            statement.executeUpdate();
+        }
+        catch(Exception e) {
+            System.out.println("Error");
+        }
+    }
+    
+    public String getNewID() {
+        try {
+            Statement statement = connection.createStatement();
+            String query = "select top 1 HolidayID from [Holiday] "
+                + "where (select len(HolidayID)) = (select max(len(HolidayID)) from [Holiday]) "
+                + "order by HolidayID desc";
+            ResultSet result = statement.executeQuery(query);
+            int maxHolidayID = 0;
+            while (result.next()) {
+                maxHolidayID = Integer.parseInt(result.getString(1).split("H")[1]);
+            }
+            return "H" + (maxHolidayID + 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     
     
     private void setHoliday(Holiday holiday, ResultSet rs) throws SQLException{
@@ -58,4 +118,12 @@ public class HolidayDAO {
         holiday.setDescription(rs.getString(5));
     }
 
+    private void setStatement(PreparedStatement statement, Holiday holiday) throws SQLException{
+        statement.setString(1, holiday.getHolidayID());
+        statement.setString(2, holiday.getHolidayName());
+        statement.setString(3, holiday.getStartDate().toString());
+        statement.setString(4, holiday.getEndDate().toString());
+        statement.setString(5, holiday.getDescription());
+    }
+    
 }

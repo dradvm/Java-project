@@ -8,16 +8,21 @@ import java.util.ArrayList;
 import javaeproject.dao.HolidayDAO;
 import javaeproject.events.EventSelected;
 import javaeproject.model.Holiday;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author DELL
  */
-public class ViewListTheHolidaysGUI extends javax.swing.JPanel {
+public class DeleteHolidayGUI extends javax.swing.JPanel {
 
     private final HolidayDAO holidayDAO = new HolidayDAO();
     private ArrayList<Holiday> listHoliday;
     private EventSelected event;
+    private Holiday holidayDelete;
+    private int holidayDeleteIndex;
     
     public void addEventSelected(EventSelected event) {
         this.event = event;
@@ -25,19 +30,14 @@ public class ViewListTheHolidaysGUI extends javax.swing.JPanel {
         myTable1.addEventSelected(event);
     }
     
-    public ViewListTheHolidaysGUI() {
+    public DeleteHolidayGUI() {
         initComponents();
         init();
-        
-        jLabel2.setVisible(false);
-        reasonPanel1.setVisible(false);
         addEventSelected(new EventSelected() {
             @Override
             public void setSelected(Object item) {
-                jLabel2.setVisible(true);
-                reasonPanel1.setVisible(true);
-                
-                reasonPanel1.setReason(listHoliday.get((int) item).getDescription());
+                holidayDelete = listHoliday.get((int) item);
+                holidayDeleteIndex = (int) item;
             }
         });
     }
@@ -56,8 +56,7 @@ public class ViewListTheHolidaysGUI extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         myTable1 = new javaeproject.gui.components.MyTable();
         jLabel1 = new javax.swing.JLabel();
-        reasonPanel1 = new javaeproject.gui.components.ReasonPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setOpaque(false);
 
@@ -68,27 +67,39 @@ public class ViewListTheHolidaysGUI extends javax.swing.JPanel {
             new String [] {
                 "Holiday Name", "Start Date", "End Date", "Description"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(myTable1);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel1.setText("LIST HOLIDAYS");
+        jLabel1.setText("SELECT HOLIDAY TO DELETE");
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel2.setText("DESCRIPTION");
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jButton1.setText("DELETE");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(566, Short.MAX_VALUE))
-            .addComponent(reasonPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,20 +108,38 @@ public class ViewListTheHolidaysGUI extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(reasonPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(151, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int choice = JOptionPane.showConfirmDialog(
+            null,  // parentComponent (null cho hộp thoại trung tâm)
+            "Are you sure to delete this holiday?", // message
+            "Confirm", // title
+            JOptionPane.YES_NO_OPTION  // options
+        );
+        
+        if (choice == JOptionPane.YES_OPTION) {
+            holidayDAO.delete(holidayDelete);
+            DefaultTableModel model = (DefaultTableModel) myTable1.getModel();
+            model.removeRow(holidayDeleteIndex);
+            model.fireTableDataChanged();
+            this.listHoliday.remove(holidayDeleteIndex);
+            JOptionPane.showMessageDialog(new JButton("Confirm"), "Delete holiday successfully", "" ,JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javaeproject.gui.components.MyTable myTable1;
-    private javaeproject.gui.components.ReasonPanel reasonPanel1;
     // End of variables declaration//GEN-END:variables
 }
