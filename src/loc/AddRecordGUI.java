@@ -222,25 +222,34 @@ if (patientID != null && !patientID.isEmpty()) {
     }//GEN-LAST:event_showButtonActionPerformed
 
     private void addNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewActionPerformed
-    String recordID = recordid.getText(); 
-    String patientID = id.getText();
-    String problem = recordArea.getText(); 
-    
-    // Kiểm tra tính hợp lệ của recordID, patientID và problem (ví dụ: không để trống)
-    if (recordID.isEmpty() || patientID.isEmpty() || problem.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please complete all information.");
-        return; // Không thực hiện thêm mới nếu thông tin bị thiếu
-    }
-    
-    // Gọi phương thức addHealthRecord từ HealthRecordDAO
-    HealthRecordDAO healthRecordDAO = new HealthRecordDAO();
-    boolean add = healthRecordDAO.addHealthRecord(recordID, patientID, problem);
-    
-    if (add) {
-        JOptionPane.showMessageDialog(null, "New record added successfully");
-    } else {
-        JOptionPane.showMessageDialog(null, "Add new record failed");
-    }
+        String patientID = id.getText(); // Lấy PatientID từ trường nhập liệu ở bước 1
+        String recordID = recordid.getText(); // Lấy RecordID từ trường nhập liệu
+        String problem = recordArea.getText(); // Lấy Problem từ trường nhập liệu
+
+        // Kiểm tra xem các trường đã được nhập đầy đủ chưa
+        if (patientID.isEmpty() || recordID.isEmpty() || problem.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Kiểm tra xem recordID đã tồn tại hay chưa
+        HealthRecordDAO healthRecordDAO = new HealthRecordDAO();
+        if (healthRecordDAO.checkRecordIDExists(recordID)) {
+            JOptionPane.showMessageDialog(this, "Record with RecordID " + recordID + " already exists.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Thực hiện thêm mới bản ghi vào bảng HealthRecord
+        boolean success = healthRecordDAO.addHealthRecord(recordID, patientID, problem);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Record added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            // Xóa dữ liệu trường nhập liệu để chuẩn bị cho thêm mới tiếp theo (nếu cần)
+            recordid.setText("");
+            recordArea.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to add record.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_addNewActionPerformed
 
 

@@ -4,6 +4,8 @@
  */
 package loc;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DELL
@@ -15,6 +17,7 @@ public class DeleteRecordGUI extends javax.swing.JPanel {
      */
     public DeleteRecordGUI() {
         initComponents();
+        setOpaque(false);
     }
 
     /**
@@ -27,41 +30,84 @@ public class DeleteRecordGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        deleteID = new javax.swing.JTextField();
+        deleteButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(620, 420));
 
-        jLabel1.setText("jLabel1");
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel1.setText("Delete Health Record by RecordID");
 
-        jLabel2.setText("jLabel2");
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel3.setText("Enter RecordID");
+
+        deleteButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(249, 249, 249)
-                .addComponent(jLabel1)
-                .addContainerGap(334, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(172, 172, 172))
+                .addGap(102, 102, 102)
+                .addComponent(jLabel3)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deleteID))
+                .addGap(38, 38, 38)
+                .addComponent(deleteButton)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(deleteID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(335, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+       String patientIDToDelete = deleteID.getText();
+
+    // Kiểm tra xem đã nhập ID bệnh nhân hay chưa
+    if (patientIDToDelete.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Tạo đối tượng của HealthRecordDAO để thực hiện xóa hồ sơ sức khỏe
+    HealthRecordDAO dao = new HealthRecordDAO();
+
+    // Kiểm tra xóa hồ sơ sức khỏe thành công hay không
+    boolean deleted = dao.deleteHealthRecord(patientIDToDelete);
+    if (deleted) {
+        System.out.println("Health record deleted successfully.");
+        JOptionPane.showMessageDialog(this, "Health record deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        System.out.println("Failed to delete health record.");
+        JOptionPane.showMessageDialog(this, "Failed to delete health record.", "Error", JOptionPane.ERROR_MESSAGE);
+    } 
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JTextField deleteID;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,6 +17,7 @@ public class DeletePatientGUI extends javax.swing.JPanel {
      */
     public DeletePatientGUI() {
         initComponents();
+        setOpaque(false);
     }
 
     /**

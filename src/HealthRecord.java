@@ -1,20 +1,20 @@
-package loc;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import loc.Patient;
 
 public class HealthRecord {
     private String recordID;
-    private String patientID; // Thêm trường PatientID
     private String problem;
+    private Patient patient;
     private Date createDate;
 
     public HealthRecord() {}
 
-    public HealthRecord(String recordID, String patientID, String problem, String createDateStr) {
+    public HealthRecord(String recordID, String problem, Patient patient, String createDateStr) {
         this.recordID = recordID;
-        this.patientID = patientID; // Khởi tạo trường PatientID
         this.problem = problem;
+        this.patient = patient;
         
         // Chuyển đổi chuỗi createDateStr sang kiểu Date
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng ngày tháng
@@ -22,9 +22,7 @@ public class HealthRecord {
             Date createDate = dateFormat.parse(createDateStr);
             this.createDate = createDate;
         } catch (ParseException e) {
-            // Xử lý ngoại lệ nếu có lỗi chuyển đổi
             e.printStackTrace();
-            // Có thể thêm thông báo hoặc xử lý khác tùy vào yêu cầu của bạn
         }
     }
 
@@ -35,10 +33,6 @@ public class HealthRecord {
     public void setRecordID(String recordID) {
         this.recordID = recordID;
     }
-    
-    public String getPatientID() {
-        return patientID;
-    }
 
     public String getProblem() {
         return problem;
@@ -46,6 +40,14 @@ public class HealthRecord {
 
     public void setProblem(String problem) {
         this.problem = problem;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public Date getCreateDate() {

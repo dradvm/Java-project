@@ -19,6 +19,7 @@ public class SelectPatientGUI extends javax.swing.JPanel {
      */
     public SelectPatientGUI() {
         initComponents();
+        setOpaque(false);
     }
 
 
@@ -88,7 +89,7 @@ public class SelectPatientGUI extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(selectall)
                             .addComponent(selectButton))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +103,7 @@ public class SelectPatientGUI extends javax.swing.JPanel {
                 .addComponent(selectall)
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
