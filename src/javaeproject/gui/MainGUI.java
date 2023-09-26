@@ -38,7 +38,6 @@ public class MainGUI extends javax.swing.JFrame {
                 switch (itemMenuModal.getName()) {
                     case "View Time Schedule" -> changePanel(new ViewTimeSchedule());
                     case "Shift Request Approval" -> changePanel(new ADShiftRequestGUI(user));
-                    case "Assign Doctors & Receptionists to Department" -> changePanel(new Form1());
                     case "Assign Doctor Level" -> changePanel(new Form1());
                     case "Manage Doctors & Receptionists" -> changePanel(new ManageDoctorAndReceptionestGUI());
                     case "View Holiday List" -> changePanel(new ManageHolidayGUI());
