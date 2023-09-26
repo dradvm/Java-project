@@ -19,6 +19,11 @@ public class ShiftRequestDAO {
 
     private Connection connection;
     private final ShiftDAO shiftDAO = new ShiftDAO();
+    
+    
+    private final LocalDate currentDate = LocalDate.now();
+    private final LocalDate startOfMonth = currentDate.withDayOfMonth(1);
+    private final LocalDate endOfMonth = currentDate.with(TemporalAdjusters.lastDayOfMonth());
     public ShiftRequestDAO(Connection connection) {
         this.connection = connection;
     }
@@ -149,13 +154,15 @@ public class ShiftRequestDAO {
     }
 
     public boolean isAlreadyExist(User user, Shift shift1, Shift shift2) {
-        String sql = "select * from ChangeRequest where EmployeeID = ? and CurrentShiftID = ? and DesiredShiftID = ?";
+        String sql = "select * from ChangeRequest where EmployeeID = ? and CurrentShiftID = ? and DesiredShiftID = ? and (RequestDate >= ? and RequestDate <= ?) ";
         boolean varReturn = false;
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, user.getEmployeeID());
             statement.setString(2, shift1.getShiftID());
             statement.setString(3, shift2.getShiftID());
+            statement.setString(4, startOfMonth.toString());
+            statement.setString(5, endOfMonth.toString());
 
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
@@ -172,9 +179,6 @@ public class ShiftRequestDAO {
     }
     
     public boolean isReachedLimit(User user) {
-    LocalDate currentDate = LocalDate.now();
-    LocalDate startOfMonth = currentDate.withDayOfMonth(1);
-    LocalDate endOfMonth = currentDate.with(TemporalAdjusters.lastDayOfMonth());
     String sql = "select count(*) as [Count] from ChangeRequest where EmployeeID = ? and Status = 'Approved' and (RequestDate >= ? and RequestDate <= ?)";
         boolean varReturn = false;
         int limit = 1;
@@ -243,22 +247,25 @@ public class ShiftRequestDAO {
 //    }
     
     public void ApproveRequest(ShiftRequest shiftRequest) {
-        String sql = "Update ChangeRequest set Status = 'Approved' where (RequestID = ?) or (CurrentShiftID = ? and DesiredShiftID = ?) and Status = 'Pending'";
-        String sql2 = "Update ChangeRequest set Status = 'Rejected' where ((CurrentShiftID = ?) or (CurrentShiftID = ?)) and RequestID != ? and Status = 'Pending'";
+        String sql = "Update ChangeRequest set Status = 'Approved' where (RequestID = ?) or (CurrentShiftID = ? and DesiredShiftID = ?) and Status = 'Pending' and (RequestDate >= ? and RequestDate <= ?)";
+        String sql2 = "Update ChangeRequest set Status = 'Rejected' where ((CurrentShiftID = ?) or (CurrentShiftID = ?)) and RequestID != ? and Status = 'Pending' and (RequestDate >= ? and RequestDate <= ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, shiftRequest.getRequestID());
             statement.setString(2, shiftRequest.getDesiredShiftID());
             statement.setString(3, shiftRequest.getCurrentShiftID());
+            statement.setString(4, startOfMonth.toString());
+            statement.setString(5, endOfMonth.toString());
             statement.executeUpdate();
-            
             
             PreparedStatement statement2 = connection.prepareStatement(sql2);
             statement2.setString(1, shiftRequest.getCurrentShiftID());
             statement2.setString(2, shiftRequest.getDesiredShiftID());
             statement2.setString(3, shiftRequest.getRequestID());
+            statement2.setString(4, startOfMonth.toString());
+            statement2.setString(5, endOfMonth.toString());
             statement2.executeUpdate();
-            
+            shiftDAO.switchShift(shiftRequest.getCurrentShiftID(), shiftRequest.getDesiredShiftID());
         } catch (SQLException e) {
             System.out.println("Error");
             e.printStackTrace();

@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import javaeproject.dao.ShiftDAO;
 import javaeproject.dao.ShiftRequestDAO;
 import javaeproject.events.EventSelected;
+import javaeproject.model.Holiday;
 import javaeproject.model.ShiftRequest;
 import javaeproject.model.User;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,21 +27,46 @@ public class ADShiftRequestGUI extends javax.swing.JPanel {
     private int shiftRequestsSelectedIndex;
     private ShiftRequest shiftRequestSelected;
     private User user;
-    
+
     private EventSelected event;
-    
+
     public void addEventSelected(EventSelected event) {
         this.event = event;
         table.addEventSelected(event);
     }
-    
+
     public ADShiftRequestGUI(User user) {
         initComponents();
         this.user = user;
         init(user);
         spTable.getViewport().setOpaque(false);
         table.setTypeOfTable("ADShiftRequest");
-        
+
+        hide();
+
+        addEventSelected(new EventSelected() {
+            @Override
+            public void setSelected(Object item) {
+                shiftRequestsSelectedIndex = ((int) item);
+                shiftRequestSelected = shiftRequests.get(shiftRequestsSelectedIndex);
+                show();
+                shiftDetailsPanel1.setShift(shiftDAO.getByID(shiftRequestSelected.getCurrentShiftID()));
+                shiftDetailsPanel2.setShift(shiftDAO.getByID(shiftRequestSelected.getDesiredShiftID()));
+                reasonPanel1.setReason(shiftRequestSelected.getDetails());
+            }
+
+        });
+
+    }
+
+    private void init(User user) {
+        this.shiftRequests = shiftRequestDAO.getAllRequestPending(user);
+        for (ShiftRequest item : shiftRequests) {
+            table.addRow(new Object[]{shiftRequestDAO.getEmployeeNameOfShiftRequest(item.getEmployeeID()), item.getCurrentShiftID(), item.getDesiredShiftID(), item.getDetails(), item.getDate()});
+        }
+    }
+
+    public void hide() {
         shiftDetailsPanel1.setVisible(false);
         shiftDetailsPanel2.setVisible(false);
         jLabel2.setVisible(false);
@@ -47,36 +75,19 @@ public class ADShiftRequestGUI extends javax.swing.JPanel {
         reasonPanel1.setVisible(false);
         jButton1.setVisible(false);
         jButton3.setVisible(false);
-
-        
-        addEventSelected(new EventSelected() {
-            @Override
-            public void setSelected(Object item) {
-                shiftRequestsSelectedIndex = ((int) item);
-                shiftRequestSelected = shiftRequests.get(shiftRequestsSelectedIndex);
-                shiftDetailsPanel1.setVisible(true);
-                shiftDetailsPanel2.setVisible(true);
-                reasonPanel1.setVisible(true);
-                jLabel2.setVisible(true);
-                jLabel3.setVisible(true);
-                jLabel4.setVisible(true);
-                jButton1.setVisible(true);
-                jButton3.setVisible(true);
-                shiftDetailsPanel1.setShift(shiftDAO.getByID(shiftRequestSelected.getCurrentShiftID()));
-                shiftDetailsPanel2.setShift(shiftDAO.getByID(shiftRequestSelected.getDesiredShiftID()));
-                reasonPanel1.setReason(shiftRequestSelected.getDetails());
-            }
-            
-        });
-        
     }
 
-    private void init(User user) {
-        this.shiftRequests = shiftRequestDAO.getAllRequestPending(user);
-        for (ShiftRequest item : shiftRequests) {
-            table.addRow(new Object[] {shiftRequestDAO.getEmployeeNameOfShiftRequest(item.getEmployeeID()), item.getCurrentShiftID(), item.getDesiredShiftID(), item.getDetails(), item.getDate()});
-        }
+    public void show() {
+        shiftDetailsPanel1.setVisible(true);
+        shiftDetailsPanel2.setVisible(true);
+        reasonPanel1.setVisible(true);
+        jLabel2.setVisible(true);
+        jLabel3.setVisible(true);
+        jLabel4.setVisible(true);
+        jButton1.setVisible(true);
+        jButton3.setVisible(true);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -207,29 +218,60 @@ public class ADShiftRequestGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        shiftRequestDAO.ApproveRequest(shiftRequestSelected);
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int choice = JOptionPane.showConfirmDialog(
+                null, // parentComponent (null cho hộp thoại trung tâm)
+                "Are you sure to approve this request?", // message
+                "Confirm", // title
+                JOptionPane.YES_NO_OPTION // options
+        );
 
-        // Lặp qua từng hàng và xóa chúng
-        while (model.getRowCount() > 0) {
-            model.removeRow(0);
+        if (choice == JOptionPane.YES_OPTION) {
+
+            shiftRequestDAO.ApproveRequest(shiftRequestSelected);
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+            // Lặp qua từng hàng và xóa chúng
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+
+            model.fireTableDataChanged();
+            init(user);
+            table.reset();
+            hide();
+        } else {
+
         }
 
-        model.fireTableDataChanged();
-        init(user);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        shiftRequestDAO.RejectRequest(shiftRequestSelected);
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int choice = JOptionPane.showConfirmDialog(
+                null, // parentComponent (null cho hộp thoại trung tâm)
+                "Are you sure to reject this request?", // message
+                "Confirm", // title
+                JOptionPane.YES_NO_OPTION // options
+        );
 
-        // Lặp qua từng hàng và xóa chúng
-        while (model.getRowCount() > 0) {
-            model.removeRow(0);
+        if (choice == JOptionPane.YES_OPTION) {
+
+            shiftRequestDAO.RejectRequest(shiftRequestSelected);
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+            // Lặp qua từng hàng và xóa chúng
+            while (model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+
+            model.fireTableDataChanged();
+            init(user);
+            table.reset();
+            hide();
+        } else {
+
         }
 
-        model.fireTableDataChanged();
-        init(user);
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
