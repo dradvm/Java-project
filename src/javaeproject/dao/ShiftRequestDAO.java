@@ -18,7 +18,13 @@ import javaeproject.model.*;
 public class ShiftRequestDAO {
 
     private Connection connection;
+    private final ShiftDAO shiftDAO = new ShiftDAO();
+    public ShiftRequestDAO(Connection connection) {
+        this.connection = connection;
+    }
 
+    
+    
     public ShiftRequestDAO() {
         connection = ConnectionDB.getConnection();
     }
@@ -51,6 +57,7 @@ public class ShiftRequestDAO {
         else {
             sql+= "!= 'Department Head'";
         }
+        sql+=" order by RequestDate";
         ArrayList shiftRequestList = new ArrayList<ShiftRequest>();
         ShiftRequest shiftRequest;
         try {
@@ -89,7 +96,7 @@ public class ShiftRequestDAO {
         return shiftRequestList;
     }
     public ArrayList<ShiftRequest> getAllUserRequest(String employeeID) {
-        String sql = "select * from ChangeRequest where EmployeeID = ?";
+        String sql = "select * from ChangeRequest where EmployeeID = ? order by RequestDate";
         ArrayList shiftRequestList = new ArrayList<ShiftRequest>();
         ShiftRequest shiftRequest;
         try {
@@ -212,6 +219,64 @@ public class ShiftRequestDAO {
             e.printStackTrace();
         }
         return name;
+    }
+    
+//    public boolean checkIfThereAreTwoWayRequests(ShiftRequest shiftRequest) {
+//        String sql = "select * from ChangeRequest where CurrentShiftID = ? and DesiredShiftID = ?";
+//        boolean varReturn = false;
+//        try {
+//            PreparedStatement statement = connection.prepareStatement(sql);
+//            statement.setString(1, shiftRequest.getDesiredShiftID());
+//            statement.setString(2, shiftRequest.getCurrentShiftID());
+//            ResultSet rs = statement.executeQuery();
+//            if (rs.next()) {
+//                varReturn = true;
+//            }
+//            else {
+//                
+//            }
+//        } catch (SQLException e) {
+//            System.out.println("Error");
+//            e.printStackTrace();
+//        }
+//        return varReturn;
+//    }
+    
+    public void ApproveRequest(ShiftRequest shiftRequest) {
+        String sql = "Update ChangeRequest set Status = 'Approved' where (RequestID = ?) or (CurrentShiftID = ? and DesiredShiftID = ?) and Status = 'Pending'";
+        String sql2 = "Update ChangeRequest set Status = 'Rejected' where ((CurrentShiftID = ?) or (CurrentShiftID = ?)) and RequestID != ? and Status = 'Pending'";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, shiftRequest.getRequestID());
+            statement.setString(2, shiftRequest.getDesiredShiftID());
+            statement.setString(3, shiftRequest.getCurrentShiftID());
+            statement.executeUpdate();
+            
+            
+            PreparedStatement statement2 = connection.prepareStatement(sql2);
+            statement2.setString(1, shiftRequest.getCurrentShiftID());
+            statement2.setString(2, shiftRequest.getDesiredShiftID());
+            statement2.setString(3, shiftRequest.getRequestID());
+            statement2.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+    };
+    
+    public void RejectRequest(ShiftRequest shiftRequest) {
+        String sql = "Update ChangeRequest set Status = 'Rejected' where RequestID = ?";
+        
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, shiftRequest.getRequestID());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
+        
     }
     
     

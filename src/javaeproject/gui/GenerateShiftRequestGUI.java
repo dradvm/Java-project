@@ -44,7 +44,7 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
     public GenerateShiftRequestGUI(User user) {
         initComponents();
         init(user);
-        //setOpaque(false);
+        setOpaque(false);
         jScrollPane1.getViewport().setOpaque(false);
         jScrollPane2.getViewport().setOpaque(false);
         

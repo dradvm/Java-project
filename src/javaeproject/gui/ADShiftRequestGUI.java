@@ -10,6 +10,7 @@ import javaeproject.dao.ShiftRequestDAO;
 import javaeproject.events.EventSelected;
 import javaeproject.model.ShiftRequest;
 import javaeproject.model.User;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,6 +21,9 @@ public class ADShiftRequestGUI extends javax.swing.JPanel {
     private final ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
     private final ShiftDAO shiftDAO = new ShiftDAO();
     private ArrayList<ShiftRequest> shiftRequests;
+    private int shiftRequestsSelectedIndex;
+    private ShiftRequest shiftRequestSelected;
+    private User user;
     
     private EventSelected event;
     
@@ -30,6 +34,7 @@ public class ADShiftRequestGUI extends javax.swing.JPanel {
     
     public ADShiftRequestGUI(User user) {
         initComponents();
+        this.user = user;
         init(user);
         spTable.getViewport().setOpaque(false);
         table.setTypeOfTable("ADShiftRequest");
@@ -47,6 +52,8 @@ public class ADShiftRequestGUI extends javax.swing.JPanel {
         addEventSelected(new EventSelected() {
             @Override
             public void setSelected(Object item) {
+                shiftRequestsSelectedIndex = ((int) item);
+                shiftRequestSelected = shiftRequests.get(shiftRequestsSelectedIndex);
                 shiftDetailsPanel1.setVisible(true);
                 shiftDetailsPanel2.setVisible(true);
                 reasonPanel1.setVisible(true);
@@ -55,9 +62,9 @@ public class ADShiftRequestGUI extends javax.swing.JPanel {
                 jLabel4.setVisible(true);
                 jButton1.setVisible(true);
                 jButton3.setVisible(true);
-                shiftDetailsPanel1.setShift(shiftDAO.getByID(shiftRequests.get((int) item).getCurrentShiftID()));
-                shiftDetailsPanel2.setShift(shiftDAO.getByID(shiftRequests.get((int) item).getDesiredShiftID()));
-                reasonPanel1.setReason(shiftRequests.get((int) item).getDetails());
+                shiftDetailsPanel1.setShift(shiftDAO.getByID(shiftRequestSelected.getCurrentShiftID()));
+                shiftDetailsPanel2.setShift(shiftDAO.getByID(shiftRequestSelected.getDesiredShiftID()));
+                reasonPanel1.setReason(shiftRequestSelected.getDetails());
             }
             
         });
@@ -200,11 +207,29 @@ public class ADShiftRequestGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        shiftRequestDAO.ApproveRequest(shiftRequestSelected);
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        // Lặp qua từng hàng và xóa chúng
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+
+        model.fireTableDataChanged();
+        init(user);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        shiftRequestDAO.RejectRequest(shiftRequestSelected);
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        // Lặp qua từng hàng và xóa chúng
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+
+        model.fireTableDataChanged();
+        init(user);
     }//GEN-LAST:event_jButton3ActionPerformed
 
 
