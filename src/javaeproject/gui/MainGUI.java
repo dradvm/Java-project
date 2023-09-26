@@ -7,6 +7,7 @@ import javaeproject.model.MenuModal;
 import javaeproject.model.User;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import loc.AssignLevelDoctorGUI;
 import loc.ManagePatientGUI;
 import loc.ManageHealthRecordGUI;
 
@@ -39,7 +40,7 @@ public class MainGUI extends javax.swing.JFrame {
                     case "View Time Schedule" -> changePanel(new ViewTimeSchedule());
                     case "Shift Request Approval" -> changePanel(new ADShiftRequestGUI(user));
                     case "Assign Doctors & Receptionists to Department" -> changePanel(new Form1());
-                    case "Assign Doctor Level" -> changePanel(new Form1());
+                    case "Assign Doctor Level" -> changePanel(new AssignLevelDoctorGUI());
                     case "Manage Doctors & Receptionists" -> changePanel(new ManageDoctorAndReceptionestGUI());
                     case "View Holiday List" -> changePanel(new ManageHolidayGUI());
                     case "Manage Departments" -> changePanel(new ManageDepartmentGUI());
