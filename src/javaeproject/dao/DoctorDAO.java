@@ -1,10 +1,11 @@
-package loc;
+package javaeproject.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import loc.Doctor;
+import javaeproject.model.Doctor;
+import loc.ConnectionDB;
 public class DoctorDAO {
     private final Connection connection;
 

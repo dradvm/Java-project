@@ -34,7 +34,8 @@ public class SearchDoctorAndReceptionest extends javax.swing.JPanel {
         updateComboboxDepartmentID();
         updateGender();
         updatePosition();    
-        setEditableOfall();        
+        setEditableOfall();   
+        showAll();
     }
 
     public void updateGender () {
@@ -48,8 +49,6 @@ public class SearchDoctorAndReceptionest extends javax.swing.JPanel {
         
         jComboBox3.addItem("Receptionist");
         jComboBox3.addItem("Doctor");
-        jComboBox3.addItem("Manager");
-        jComboBox3.addItem("Department Head");
         
     }
 
@@ -66,6 +65,18 @@ public class SearchDoctorAndReceptionest extends javax.swing.JPanel {
         
     }
     
+    public void showAll () throws SQLException {
+        String query = "Select * From Employee Order by EmployeeID desc";
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet rs = statement.executeQuery();        
+        DefaultTableModel modeltable1 = (DefaultTableModel)jTable1.getModel();
+        while (rs.next()) {
+            
+            modeltable1.addRow(new Object[]{rs.getString("EmployeeID"), rs.getString("EmployeeName"), rs.getString("Username"), rs.getString("Password")});
+            
+        }
+    }     
+    
     public void setEditableOfall () {
         jTextField1.setEditable(false);
         jTextField2.setEditable(false);
@@ -75,9 +86,9 @@ public class SearchDoctorAndReceptionest extends javax.swing.JPanel {
         jTextField6.setEditable(false);
         jTextField7.setEditable(false);
         jTextField8.setEditable(false);
-        jComboBox1.setEditable(false);
-        jComboBox3.setEditable(false);
-        jComboBox2.setEditable(false);        
+        jComboBox1.setEnabled(false);
+        jComboBox3.setEnabled(false);
+        jComboBox2.setEnabled(false);       
         
     }   
 
@@ -197,14 +208,14 @@ public class SearchDoctorAndReceptionest extends javax.swing.JPanel {
 
         jLabel16.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setText("Shift Schedule");
+        jLabel16.setText("All Doctor And Receptionist List");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ShiftID", "RoomID", "Type", "Date"
+                "EmployeeID", "EmployeeName", "Position", "Email"
             }
         ));
         jScrollPane1.setViewportView(jTable1);

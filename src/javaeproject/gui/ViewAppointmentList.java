@@ -27,7 +27,7 @@ public class ViewAppointmentList extends javax.swing.JPanel {
     private Connection connection;
         private LocalDate today = LocalDate.now();
     private String todayStr = String.valueOf(today);
-    
+       private String oldJtextfield;
     public ViewAppointmentList() {
         initComponents();
                 connection = ConnectionDB.getConnection();
@@ -38,13 +38,13 @@ public class ViewAppointmentList extends javax.swing.JPanel {
     
         public void showToday () throws SQLException {
         
-        String query = "Select * From Shift where Date = '" + todayStr + "'";
+        String query = "Select * From Appointment where AppointmentTime = '" + todayStr + "'";
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet rs = statement.executeQuery();   
         DefaultTableModel modeltable2 = (DefaultTableModel)jTable2.getModel();
         while (rs.next()) {
             
-            modeltable2.addRow(new Object[]{rs.getString("ShiftID"), rs.getString("RoomID"), rs.getString("Type"), rs.getString("Date")});
+            modeltable2.addRow(new Object[]{rs.getString("AppointmentID"), rs.getString("EmployeeID"), rs.getString("AppointmentTime"), rs.getString("Status")});
             
         }
         
@@ -59,13 +59,13 @@ public class ViewAppointmentList extends javax.swing.JPanel {
     }
         
     public void showAll () throws SQLException {
-        String query = "Select * From Shift where EmployeeID = '" + jTextField1.getText() + "'";
+        String query = "Select * From Appointment where EmployeeID = '" + jTextField1.getText() + "'";
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet rs = statement.executeQuery();        
         DefaultTableModel modeltable2 = (DefaultTableModel)jTable1.getModel();
         while (rs.next()) {
             
-            modeltable2.addRow(new Object[]{rs.getString("ShiftID"), rs.getString("RoomID"), rs.getString("Type"), rs.getString("Date")});
+            modeltable2.addRow(new Object[]{rs.getString("AppointmentID"), rs.getString("EmployeeID"), rs.getString("AppointmentTime"), rs.getString("Status")});
             
         }
     }
@@ -99,7 +99,7 @@ public class ViewAppointmentList extends javax.swing.JPanel {
 
             },
             new String [] {
-                "AppointmentID", "RecordID", "Time", "Status"
+                "AppointmentID", "EmployeeID", "AppointmentTime", "Status"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -112,7 +112,7 @@ public class ViewAppointmentList extends javax.swing.JPanel {
             new Object [][] {
             },
             new String [] {
-                "AppointmentID", "RecordID", "Time", "Status"
+                "AppointmentID", "EmployeeID", "AppointmentTime", "Status"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -144,23 +144,18 @@ public class ViewAppointmentList extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(305, 305, 305)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton3)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(590, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(475, 475, 475)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton3)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(31, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(121, 121, 121)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -168,32 +163,38 @@ public class ViewAppointmentList extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addGap(6, 6, 6)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(86, 86, 86)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,6 +208,7 @@ public class ViewAppointmentList extends javax.swing.JPanel {
         boolean signal = true;
         if (jTextField1.getText().trim().isEmpty() && signal == true) {
             JOptionPane.showMessageDialog(null, "EmployeeID is empty ! No Apointment Shown");
+                       jTextField1.setText(oldJtextfield);
             signal = false;
         }
         if (1+1 == 2 & signal == true) {
@@ -218,7 +220,7 @@ public class ViewAppointmentList extends javax.swing.JPanel {
                 while (rs.next() && loopSignal == true) {
                     if(jTextField1.getText().trim().equals(rs.getString("EmployeeID"))) {
                         JOptionPane.showMessageDialog(null, "Employee successfully found !");
-                       
+                       oldJtextfield = jTextField1.getText().trim();
                         employeeID = rs.getString("EmployeeID");
                         signal = false;
                         loopSignal = false;
@@ -237,7 +239,7 @@ public class ViewAppointmentList extends javax.swing.JPanel {
         }
         if (signal == true) {
             JOptionPane.showMessageDialog(null, "Not found !");
-            
+            jTextField1.setText(oldJtextfield);
         }
         else {
             try {

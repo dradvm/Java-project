@@ -1,7 +1,7 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import loc.Patient;
+import javaeproject.model.Patient;
 
 public class HealthRecord {
     private String recordID;

@@ -27,6 +27,7 @@ public class ViewTimeSchedule extends javax.swing.JPanel {
     private Connection connection;
     private LocalDate today = LocalDate.now();
     private String todayStr = String.valueOf(today);
+    private String oldJtextfield;
     
     public ViewTimeSchedule() {
         initComponents();
@@ -34,6 +35,7 @@ public class ViewTimeSchedule extends javax.swing.JPanel {
     }
     
     public void showToday () throws SQLException {
+        
         
         String query = "Select * From Shift where Date = '" + todayStr + "'";
         PreparedStatement statement = connection.prepareStatement(query);
@@ -59,13 +61,6 @@ public class ViewTimeSchedule extends javax.swing.JPanel {
         }
     }
     
-    public void deleteAll () throws SQLException {
-
-            DefaultTableModel modeltable2 = (DefaultTableModel)jTable1.getModel();
-            modeltable2.getDataVector().removeAllElements();
-            
-        
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -174,8 +169,8 @@ public class ViewTimeSchedule extends javax.swing.JPanel {
                 .addContainerGap(36, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -200,27 +195,27 @@ public class ViewTimeSchedule extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-                try {
-            deleteAll();
-        } catch (SQLException ex) {
-            Logger.getLogger(ViewAppointmentList.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DefaultTableModel modeltable1 = (DefaultTableModel)jTable1.getModel();
         String employeeID = "";
         boolean signal = true;
         if (jTextField1.getText().trim().isEmpty() && signal == true) {
+            
+            modeltable1.getDataVector().removeAllElements();
             JOptionPane.showMessageDialog(null, "EmployeeID is empty ! No Schedule Shown");
+            jTextField1.setText(oldJtextfield);
             signal = false;
         }
         if (1+1 == 2 & signal == true) {
             try {
+                modeltable1.getDataVector().removeAllElements();                
                 boolean loopSignal = true;
                 String query = "Select * From Shift";
                 PreparedStatement statement = connection.prepareStatement(query);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next() && loopSignal == true) {
                     if(jTextField1.getText().trim().equals(rs.getString("EmployeeID"))) {
-                        JOptionPane.showMessageDialog(null, "Employee successfully found !");
-                       
+                        JOptionPane.showMessageDialog(null, "Employee successfully found !");      
+                        oldJtextfield = jTextField1.getText().trim();
                         employeeID = rs.getString("EmployeeID");
                         signal = false;
                         loopSignal = false;
@@ -238,11 +233,15 @@ public class ViewTimeSchedule extends javax.swing.JPanel {
             }
         }
         if (signal == true) {
-            JOptionPane.showMessageDialog(null, "Not found !");
-            
+            modeltable1.getDataVector().removeAllElements();            
+            JOptionPane.showMessageDialog(null, "Not found !"); 
+            jTextField1.setText(oldJtextfield);            
         }
         else {
             try {
+                DefaultTableModel modeltable2 = (DefaultTableModel)jTable2.getModel();
+                modeltable2.getDataVector().removeAllElements();
+                modeltable1.getDataVector().removeAllElements();
                 showToday();
                 showAll();
             } catch (SQLException ex) {

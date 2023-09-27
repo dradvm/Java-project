@@ -7,9 +7,6 @@ import javaeproject.model.MenuModal;
 import javaeproject.model.User;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import loc.AssignLevelDoctorGUI;
-import loc.ManagePatientGUI;
-import loc.ManageHealthRecordGUI;
 
 public class MainGUI extends javax.swing.JFrame {
     
