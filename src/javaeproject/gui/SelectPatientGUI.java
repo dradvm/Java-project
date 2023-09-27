@@ -4,6 +4,7 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,9 +17,7 @@ import javaeproject.dao.PatientDAO;
  */
 public class SelectPatientGUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form SelectPatientGUI
-     */
+    private Connection connection;
     public SelectPatientGUI() {
         initComponents();
         setOpaque(false);
