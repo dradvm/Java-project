@@ -106,7 +106,7 @@
               <Table columnCount="5" rowCount="0">
                 <Column editable="false" title="Employee Name" type="java.lang.Object"/>
                 <Column editable="false" title="Current Shift" type="java.lang.Object"/>
-                <Column editable="true" title="Desired Shift" type="java.lang.Object"/>
+                <Column editable="false" title="Desired Shift" type="java.lang.Object"/>
                 <Column editable="false" title="Reason" type="java.lang.Object"/>
                 <Column editable="false" title="Request Date" type="java.lang.Object"/>
               </Table>

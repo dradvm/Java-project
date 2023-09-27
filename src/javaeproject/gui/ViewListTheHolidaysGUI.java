@@ -68,7 +68,15 @@ public class ViewListTheHolidaysGUI extends javax.swing.JPanel {
             new String [] {
                 "Holiday Name", "Start Date", "End Date", "Description"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(myTable1);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N

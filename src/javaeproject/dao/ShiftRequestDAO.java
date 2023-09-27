@@ -131,6 +131,7 @@ public class ShiftRequestDAO {
 
             statement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
         }
     }
