@@ -49,6 +49,8 @@ public class SearchDoctorAndReceptionest extends javax.swing.JPanel {
         
         jComboBox3.addItem("Receptionist");
         jComboBox3.addItem("Doctor");
+        jComboBox3.addItem("DepartmentHead");
+        jComboBox3.addItem("Manager");
         
     }
 

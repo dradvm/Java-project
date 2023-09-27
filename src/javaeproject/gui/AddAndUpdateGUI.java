@@ -4,6 +4,7 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,9 +18,7 @@ import javaeproject.dao.PatientDAO;
  */
 public class AddAndUpdateGUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form AddAndUpdateGUI
-     */
+    private Connection connection;
     public AddAndUpdateGUI() {
         initComponents();
         setOpaque(false);

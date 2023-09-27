@@ -4,7 +4,7 @@
  */
 package javaeproject.gui;
 
-import javaeproject.gui.Form1;
+import java.sql.Connection;
 import javax.swing.JComponent;
 
 /**
@@ -13,9 +13,7 @@ import javax.swing.JComponent;
  */
 public class ManagePatientGUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ManagePatientGUI
-     */
+    private Connection connection;
     public ManagePatientGUI() {
         initComponents();
     }
