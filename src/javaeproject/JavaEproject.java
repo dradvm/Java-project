@@ -12,6 +12,7 @@ import javaeproject.connection.ConnectionDB;
 import javaeproject.dao.*;
 import javaeproject.gui.*;
 import javaeproject.model.*;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,8 +34,8 @@ public class JavaEproject {
 //        ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
 //        ShiftDAO shiftDAO = new ShiftDAO();
 //        LoginDAO userDAO = new LoginDAO();
-        LoginGUI myApp = new LoginGUI();;
-
+        LoginGUI myApp = new LoginGUI();
+        
     }
     
 }

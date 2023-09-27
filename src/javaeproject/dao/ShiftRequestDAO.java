@@ -10,6 +10,8 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import javaeproject.connection.*;
 import javaeproject.model.*;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -129,8 +131,7 @@ public class ShiftRequestDAO {
 
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error");
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -267,8 +268,7 @@ public class ShiftRequestDAO {
             statement2.executeUpdate();
             shiftDAO.switchShift(shiftRequest.getCurrentShiftID(), shiftRequest.getDesiredShiftID());
         } catch (SQLException e) {
-            System.out.println("Error");
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
         }
     };
     
@@ -280,8 +280,7 @@ public class ShiftRequestDAO {
             statement.setString(1, shiftRequest.getRequestID());
             statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error");
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
         }
         
     }

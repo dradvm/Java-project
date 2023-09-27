@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javaeproject.connection.*;
 import javaeproject.model.*;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -308,7 +310,7 @@ public class ShiftDAO {
             statement.executeUpdate();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
         }
         
     }

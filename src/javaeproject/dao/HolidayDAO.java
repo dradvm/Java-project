@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import javaeproject.connection.ConnectionDB;
 import javaeproject.model.Holiday;
 import javaeproject.model.ShiftRequest;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -55,7 +57,7 @@ public class HolidayDAO {
             statement.executeUpdate();
         }
         catch(Exception e) {
-            System.out.println("Error");
+           JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
         }
         
     }
@@ -72,7 +74,7 @@ public class HolidayDAO {
             statement.executeUpdate();
         }
         catch(Exception e) {
-            System.out.println("Error");
+            JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
         }
     }
     
@@ -85,7 +87,7 @@ public class HolidayDAO {
             statement.executeUpdate();
         }
         catch(Exception e) {
-            System.out.println("Error");
+            JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
         }
     }
     
