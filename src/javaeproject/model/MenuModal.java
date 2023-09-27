@@ -57,6 +57,7 @@ public class MenuModal {
         if (user.getPosition().equals("Manager")) {
             
             list.add(new MenuModal("doctor", "Assign Doctor Level", MenuType.MENU));
+            list.add(new MenuModal("delegate", "Assign Doctors & Receptionists to Department", MenuType.MENU));
             list.add(new MenuModal("medical-team", "Manage Doctors & Receptionists", MenuType.MENU));
             list.add(new MenuModal("holiday", "View Holiday List", MenuType.MENU));
             list.add(new MenuModal("department", "Manage Departments", MenuType.MENU));
