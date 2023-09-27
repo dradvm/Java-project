@@ -67,7 +67,7 @@ public class ShiftDAO {
     }
     
     public ArrayList<Shift> getAllDesiredShift(User user) {
-        String sql = "select * from Shift where EmployeeID != ? and Date >= ? and Date <= ? order by Date";
+        String sql = "select  ShiftID, EmployeeID, DepartmentID, shift.RoomID, Type, Date from shift join room on shift.RoomID = room.RoomID where EmployeeID != ? and Date >= ? and Date <= ? and RoomSpecialty = ? order by Date";
         ArrayList shiftList = new ArrayList<Shift>();
         Shift shift;
         try {
@@ -75,7 +75,7 @@ public class ShiftDAO {
             statement.setString(1,user.getEmployeeID());
             statement.setString(2, dateNow.plusDays(2).toString());
             statement.setString(3, dateNow.plusDays(9).toString());
-
+            statement.setString(4, user.getEmployeeSpecialty());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 shift = new Shift();
