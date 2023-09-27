@@ -4,8 +4,10 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javaeproject.connection.ConnectionDB;
 import javax.swing.JOptionPane;
 import javaeproject.dao.HealthRecordDAO;
 import javaeproject.model.Patient;
@@ -16,13 +18,14 @@ import javaeproject.dao.PatientDAO;
  * @author DELL
  */
 public class UpdateRecordGUI extends javax.swing.JPanel {
-
+    private Connection connection;
     /**
      * Creates new form UpdateRecord
      */
     public UpdateRecordGUI() {
         initComponents();
         setOpaque(false);
+        connection = ConnectionDB.getConnection();
     }
 
     /**

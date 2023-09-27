@@ -3,11 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/UpdateRecordGUI.java</file>
             <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/SelectPatientGUI.java</file>
+            <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/AddRecordGUI.java</file>
+            <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/DeleteRecordGUI.java</file>
+            <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/AssignToDepartmentGUI.java</file>
             <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/AssignLevelDoctorGUI.java</file>
             <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/AddAndUpdateGUI.java</file>
-            <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/SearchDoctorAndReceptionest.java</file>
             <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/ManagePatientGUI.java</file>
+            <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/DeletePatientGUI.java</file>
+            <file>file:/D:/Code/java-project/Java-project/src/javaeproject/gui/ManageHealthRecordGUI.java</file>
         </group>
     </open-files>
 </project-private>

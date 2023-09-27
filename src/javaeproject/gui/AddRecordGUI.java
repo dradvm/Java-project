@@ -4,7 +4,9 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
 import java.util.Date;
+import javaeproject.connection.ConnectionDB;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javaeproject.dao.HealthRecordDAO;
@@ -16,13 +18,14 @@ import javaeproject.dao.PatientDAO;
  * @author DELL
  */
 public class AddRecordGUI extends javax.swing.JPanel {
-
+    private Connection connection;
     /**
      * Creates new form AddRecord
      */
     public AddRecordGUI() {
         initComponents();
         setOpaque(false);
+        connection = ConnectionDB.getConnection();
     }
     
 

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import loc.ConnectionDB;
+import javaeproject.connection.ConnectionDB;
 
 
 public class PatientDAO {

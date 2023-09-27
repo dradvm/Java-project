@@ -4,6 +4,8 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
+import javaeproject.connection.ConnectionDB;
 import javax.swing.JComponent;
 
 /**
@@ -11,12 +13,13 @@ import javax.swing.JComponent;
  * @author DELL
  */
 public class ManageHealthRecordGUI extends javax.swing.JPanel {
-
+    private Connection connection;
     /**
      * Creates new form ManagePatientGUI
      */
     public ManageHealthRecordGUI() {
         initComponents();
+        connection = ConnectionDB.getConnection();
     }
     private void changePanel(JComponent component) {
         switchFormPanel2.removeAll();

@@ -4,6 +4,8 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
+import javaeproject.connection.ConnectionDB;
 import javax.swing.JOptionPane;
 import javaeproject.model.DoctorAndReceptionist;
 import javaeproject.dao.DoctorAndReceptionistDAO;
@@ -13,12 +15,13 @@ import javaeproject.dao.DoctorAndReceptionistDAO;
  * @author DELL
  */
 public class AssignToDepartmentGUI extends javax.swing.JPanel {
-
+    private Connection connection;
     /**
      * Creates new form AssignToDepartment
      */
     public AssignToDepartmentGUI() {
         initComponents();
+        connection = ConnectionDB.getConnection();
     }
 
     /**

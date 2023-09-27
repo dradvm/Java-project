@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import loc.ConnectionDB;
+import javaeproject.connection.ConnectionDB;
 import javaeproject.model.DoctorAndReceptionist;
 
 public class DoctorAndReceptionistDAO {

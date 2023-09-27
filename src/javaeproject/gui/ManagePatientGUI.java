@@ -5,6 +5,7 @@
 package javaeproject.gui;
 
 import java.sql.Connection;
+import javaeproject.connection.ConnectionDB;
 import javax.swing.JComponent;
 
 /**
@@ -16,6 +17,7 @@ public class ManagePatientGUI extends javax.swing.JPanel {
     private Connection connection;
     public ManagePatientGUI() {
         initComponents();
+        connection = ConnectionDB.getConnection();
     }
     
     private void changePanel(JComponent component) {

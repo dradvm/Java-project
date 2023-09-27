@@ -4,6 +4,8 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
+import javaeproject.connection.ConnectionDB;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javaeproject.model.Doctor;
@@ -14,12 +16,13 @@ import javaeproject.dao.DoctorDAO;
  * @author DELL
  */
 public class AssignLevelDoctorGUI extends javax.swing.JPanel {
-
+     private Connection connection;
     /**
      * Creates new form ManagePatientGUI
      */
     public AssignLevelDoctorGUI() {
         initComponents();
+        connection = ConnectionDB.getConnection();
     }  
     
     @SuppressWarnings("unchecked")

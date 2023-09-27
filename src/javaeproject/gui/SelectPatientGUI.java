@@ -6,6 +6,7 @@ package javaeproject.gui;
 
 import java.sql.Connection;
 import java.util.List;
+import javaeproject.connection.ConnectionDB;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javaeproject.model.Patient;
@@ -21,6 +22,7 @@ public class SelectPatientGUI extends javax.swing.JPanel {
     public SelectPatientGUI() {
         initComponents();
         setOpaque(false);
+        connection = ConnectionDB.getConnection();
     }
 
 

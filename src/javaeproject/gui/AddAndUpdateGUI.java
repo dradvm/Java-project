@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javaeproject.connection.ConnectionDB;
 import javax.swing.JOptionPane;
 import javaeproject.model.Patient;
 import javaeproject.dao.PatientDAO;
@@ -22,6 +23,8 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
     public AddAndUpdateGUI() {
         initComponents();
         setOpaque(false);
+        connection = ConnectionDB.getConnection();
+
     }
 
     /**

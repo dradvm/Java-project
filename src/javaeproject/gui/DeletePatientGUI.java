@@ -4,6 +4,8 @@
  */
 package javaeproject.gui;
 
+import java.sql.Connection;
+import javaeproject.connection.ConnectionDB;
 import javax.swing.JOptionPane;
 import javaeproject.dao.PatientDAO;
 
@@ -12,13 +14,14 @@ import javaeproject.dao.PatientDAO;
  * @author DELL
  */
 public class DeletePatientGUI extends javax.swing.JPanel {
-
+    private Connection connection;
     /**
      * Creates new form DeletePatientGUI
      */
     public DeletePatientGUI() {
         initComponents();
         setOpaque(false);
+        connection = ConnectionDB.getConnection();
     }
 
     /**

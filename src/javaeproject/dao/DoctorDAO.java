@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javaeproject.model.Doctor;
-import loc.ConnectionDB;
+import javaeproject.connection.ConnectionDB;
 public class DoctorDAO {
     private final Connection connection;
 

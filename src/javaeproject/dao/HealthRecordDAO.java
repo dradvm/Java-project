@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import loc.ConnectionDB;
+import javaeproject.connection.ConnectionDB;
 /**
  *
  * @author DELL
