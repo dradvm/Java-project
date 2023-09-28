@@ -308,6 +308,8 @@ public class ShiftDAO {
             statement.setString(1, shift1.getEmployeeID());
             statement.setString(2, shift2.getShiftID());
             statement.executeUpdate();
+            JOptionPane.showMessageDialog(new JButton("Confirm"),"Approved shift request", "", JOptionPane.INFORMATION_MESSAGE);
+
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);

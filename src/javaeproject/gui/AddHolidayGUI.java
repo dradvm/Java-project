@@ -242,7 +242,7 @@ public class AddHolidayGUI extends javax.swing.JPanel {
         }
         else {
             holidayDAO.add(new Holiday(holidayDAO.getNewID(), jTextField1.getText(), startDate, endDate, jTextArea1.getText()));
-            JOptionPane.showMessageDialog(new JButton("Confirm"), "Add new holiday successfully", "" ,JOptionPane.INFORMATION_MESSAGE);
+            
             jTextArea1.setText("");
             jTextField1.setText("");
             startDateInput.setText("");
