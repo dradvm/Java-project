@@ -33,11 +33,13 @@ public class DeleteHolidayGUI extends javax.swing.JPanel {
     public DeleteHolidayGUI() {
         initComponents();
         init();
+        jButton1.setVisible(false);
         addEventSelected(new EventSelected() {
             @Override
             public void setSelected(Object item) {
                 holidayDelete = listHoliday.get((int) item);
                 holidayDeleteIndex = (int) item;
+                jButton1.setVisible(true);
             }
         });
     }
@@ -128,7 +130,8 @@ public class DeleteHolidayGUI extends javax.swing.JPanel {
             model.removeRow(holidayDeleteIndex);
             model.fireTableDataChanged();
             this.listHoliday.remove(holidayDeleteIndex);
-            JOptionPane.showMessageDialog(new JButton("Confirm"), "Delete holiday successfully", "" ,JOptionPane.INFORMATION_MESSAGE);
+            jButton1.setVisible(false);
+            
         } else {
             
         }

@@ -113,7 +113,6 @@ public class GenerateShiftRequestGUI extends javax.swing.JPanel {
                     else {
                         ShiftRequest shiftRequest = new ShiftRequest(shiftRequestDAO.getNewID(), user.getEmployeeID(), shift1.getShiftID(), shift2.getShiftID(), jTextArea1.getText(), LocalDate.now());
                         shiftRequestDAO.add(shiftRequest);
-                        JOptionPane.showMessageDialog(new JButton("Confirm"), "Your change request has been successfully created", "" ,JOptionPane.INFORMATION_MESSAGE);
                         shiftList1.resetSelected();
                         shiftList2.resetSelected();
                         jTextArea1.setText("");

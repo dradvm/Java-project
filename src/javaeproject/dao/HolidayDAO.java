@@ -55,6 +55,7 @@ public class HolidayDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
             setStatement(statement, holiday);
             statement.executeUpdate();
+            JOptionPane.showMessageDialog(new JButton("Confirm"), "Add new holiday successfully", "" ,JOptionPane.INFORMATION_MESSAGE);
         }
         catch(Exception e) {
            JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
@@ -72,6 +73,7 @@ public class HolidayDAO {
             statement.setString(4, holiday.getDescription());
             statement.setString(5, holiday.getHolidayID());
             statement.executeUpdate();
+            JOptionPane.showMessageDialog(new JButton("Confirm"), "Update holiday successfully", "" ,JOptionPane.INFORMATION_MESSAGE);
         }
         catch(Exception e) {
             JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
@@ -85,6 +87,7 @@ public class HolidayDAO {
             statement.setString(1, holiday.getHolidayID());
             
             statement.executeUpdate();
+            JOptionPane.showMessageDialog(new JButton("Confirm"), "Delete holiday successfully", "" ,JOptionPane.INFORMATION_MESSAGE);
         }
         catch(Exception e) {
             JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);

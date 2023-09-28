@@ -36,7 +36,7 @@ public class AlterHolidayGUI extends javax.swing.JPanel {
     public AlterHolidayGUI() {
         initComponents();
         init();
-        
+        hide();
         addEventSelected(new EventSelected() {
             @Override
             public void setSelected(Object item) {
@@ -48,6 +48,7 @@ public class AlterHolidayGUI extends javax.swing.JPanel {
                 jTextArea1.setText(holidayAlter.getDescription());
                 startDate = holidayAlter.getStartDate();
                 endDate = holidayAlter.getEndDate();
+                show();
             }
         });
     }
@@ -57,6 +58,33 @@ public class AlterHolidayGUI extends javax.swing.JPanel {
         for (Holiday item : listHoliday) {
             myTable1.addRow(new Object[] {item.getHolidayName(), item.getStartDate().toString(), item.getEndDate().toString(), item.getDescription()});
         }
+    }
+    
+    public void hide() {
+        jLabel2.setVisible(false);
+        jLabel3.setVisible(false);
+        jLabel4.setVisible(false);
+        jLabel5.setVisible(false);
+        startDateInput.setVisible(false);
+        endDateInput.setVisible(false);
+        jTextArea1.setVisible(false);
+        jTextField1.setVisible(false);
+        jScrollPane2.setVisible(false);
+        jButton1.setVisible(false);
+    }
+    
+    public void show() {
+        jLabel2.setVisible(true);
+        jLabel3.setVisible(true);
+        jLabel4.setVisible(true);
+        jLabel5.setVisible(true);
+        startDateInput.setVisible(true);
+        endDateInput.setVisible(true);
+        jTextArea1.setVisible(true);
+        jTextField1.setVisible(true);
+        jScrollPane2.setVisible(true);
+        jButton1.setVisible(true);
+    
     }
     
     @SuppressWarnings("unchecked")
@@ -282,14 +310,14 @@ public class AlterHolidayGUI extends javax.swing.JPanel {
                 model.setValueAt( jTextArea1.getText(),holidayAlterIndex , 3);
                 
                 model.fireTableDataChanged();
-                JOptionPane.showMessageDialog(new JButton("Confirm"), "Update holiday successfully", "" ,JOptionPane.INFORMATION_MESSAGE);
+                
 
                 jTextArea1.setText("");
                 jTextField1.setText("");
                 startDateInput.setText("");
                 endDateInput.setText("");
                 
-                
+                hide();
                 myTable1.reset();
             } else {
 

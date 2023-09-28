@@ -130,6 +130,8 @@ public class ShiftRequestDAO {
             setStatement(statement, shiftRequest);
 
             statement.executeUpdate();
+            JOptionPane.showMessageDialog(new JButton("Confirm"), "Your change request has been successfully created", "" ,JOptionPane.INFORMATION_MESSAGE);
+
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
@@ -280,6 +282,8 @@ public class ShiftRequestDAO {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, shiftRequest.getRequestID());
             statement.executeUpdate();
+            JOptionPane.showMessageDialog(new JButton("Confirm"),"Rejected shift request", "", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
         }
