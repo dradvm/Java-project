@@ -111,9 +111,16 @@ public class SelectPatientGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-        String patientIDToSelect = selectIDtextfield.getText();
+        String patientIDToSelect = selectIDtextfield.getText().trim();
         PatientDAO dao = new PatientDAO();
         Patient patient = dao.getPatientByID(patientIDToSelect);
+         // Sử dụng trim() để loại bỏ khoảng trắng thừa
+
+        // Kiểm tra nếu patientIDToDelete rỗng
+        if (patientIDToSelect.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Dừng xử lý nếu ID trống
+        }
 
         if (patient == null) {
             JOptionPane.showMessageDialog(this, "Patient with ID " + patientIDToSelect + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);

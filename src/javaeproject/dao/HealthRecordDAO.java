@@ -32,7 +32,7 @@ public class HealthRecordDAO {
         PreparedStatement pstmt = null;
         try {
             // Kiểm tra xem patientID có tồn tại trong bảng Patient không
-            if (!CheckExist(patientID)) {
+            if (!CheckPatientExist(patientID)) {
                 JOptionPane.showMessageDialog(null, "Patient with ID " + patientID + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
@@ -98,7 +98,7 @@ public class HealthRecordDAO {
         return false;
     }
 
-    public boolean CheckExist(String patientID) throws SQLException {
+    public boolean CheckPatientExist(String patientID) throws SQLException {
         if (connection != null) {
             System.out.println("Checking connection status before executing isPatientExist: " + !connection.isClosed());
             PreparedStatement pstmt = null;
@@ -123,7 +123,7 @@ public class HealthRecordDAO {
     if (connection != null) {
         try {
             // Check if the record exists
-            if (!CheckExist(recordID)) {
+            if (!CheckHealthRecordExist(recordID)) {
                 JOptionPane.showMessageDialog(null, "Health record with RecordID " + recordID + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -150,7 +150,7 @@ public String getCreateDateByRecordID(String recordID) {
     if (connection != null) {
         try {
             // Check if the record exists
-            if (!CheckExist(recordID)) {
+            if (!CheckHealthRecordExist(recordID)) {
                 JOptionPane.showMessageDialog(null, "Health record with RecordID " + recordID + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -199,7 +199,7 @@ public String getCreateDateByRecordID(String recordID) {
     if (connection != null) {
         try {
             // Kiểm tra xem bản ghi tồn tại hay không
-            if (!CheckExist(recordID)) {
+            if (!CheckHealthRecordExist(recordID)) {
                 JOptionPane.showMessageDialog(null, "Health record with RecordID " + recordID + " does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
@@ -304,7 +304,27 @@ public String getCreateDateByRecordID(String recordID) {
     // Nếu có lỗi hoặc không tìm thấy, trả về false
     return false;
 }
+public boolean CheckHealthRecordExist(String RecordID) throws SQLException {
+        if (connection != null) {
+            System.out.println("Checking connection status before executing isPatientExist: " + !connection.isClosed());
+            PreparedStatement pstmt = null;
+            ResultSet resultSet = null;
+            try {
+                String query = "SELECT COUNT(*) FROM HealthRecord WHERE RecordID=?";
+                pstmt = connection.prepareStatement(query);
+                pstmt.setString(1, RecordID);
 
+                resultSet = pstmt.executeQuery();
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } 
+        }
+        return false;
+    }
 
 }
 

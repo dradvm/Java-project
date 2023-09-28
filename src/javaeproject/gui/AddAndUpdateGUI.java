@@ -294,7 +294,13 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void showbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showbuttonActionPerformed
-    String patientIDToShow = IDtextfield.getText();
+    String patientIDToShow = IDtextfield.getText().trim(); // Sử dụng trim() để loại bỏ khoảng trắng thừa
+
+    if (patientIDToShow.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter a Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Dừng xử lý nếu ID trống
+    }
+
     PatientDAO dao = new PatientDAO();
     Patient patient = dao.getPatientByID(patientIDToShow);
 

@@ -76,7 +76,13 @@ public class DeletePatientGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        String patientIDToDelete = deleteIDTextField.getText();
+        String patientIDToDelete = deleteIDTextField.getText().trim(); // Sử dụng trim() để loại bỏ khoảng trắng thừa
+
+        // Kiểm tra nếu patientIDToDelete rỗng
+        if (patientIDToDelete.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Dừng xử lý nếu ID trống
+        }
 
         // Tạo một đối tượng PatientDAO và gọi phương thức isPatientExist để kiểm tra tồn tại
         PatientDAO dao = new PatientDAO();
@@ -96,6 +102,7 @@ public class DeletePatientGUI extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Failed to delete patient.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_deleteButtonActionPerformed
 
 

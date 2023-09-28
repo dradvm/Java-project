@@ -6,6 +6,7 @@ package javaeproject.gui;
 
 import java.sql.Connection;
 import javaeproject.connection.ConnectionDB;
+import javaeproject.dao.DepartmentDAO;
 import javax.swing.JOptionPane;
 import javaeproject.model.DoctorAndReceptionist;
 import javaeproject.dao.DoctorAndReceptionistDAO;
@@ -48,9 +49,8 @@ public class AssignToDepartmentGUI extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         change = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
+        departmenttext = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setText("Assign Doctor and Receptionist to Department");
@@ -87,7 +87,7 @@ public class AssignToDepartmentGUI extends javax.swing.JPanel {
         currentDepartmentID.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
         jComboBox1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Doctor Department 1", "Doctor Department 2", "Doctor Department 3", "Reception Department" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Receptionist Department", "Radiology Department", "Outpatient Department", "Operating Theatre" }));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel7.setText("Assign to Department");
@@ -100,14 +100,8 @@ public class AssignToDepartmentGUI extends javax.swing.JPanel {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Reception Department D2\nDoctor Department 1 D3\nDoctor Department 2 D4\nDoctor Department 3 D5\n");
-        jScrollPane1.setViewportView(jTextArea1);
-
         jLabel8.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel8.setText("Note");
+        jLabel8.setText("Current Department");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,15 +115,6 @@ public class AssignToDepartmentGUI extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(positiontextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
@@ -138,15 +123,27 @@ public class AssignToDepartmentGUI extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(163, 163, 163)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 28, Short.MAX_VALUE)))
+                        .addGap(0, 28, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(positiontextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(departmenttext, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(gendertextfield)
-                        .addComponent(showBt)
-                        .addComponent(currentDepartmentID, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(gendertextfield)
+                    .addComponent(showBt)
+                    .addComponent(currentDepartmentID, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -154,152 +151,132 @@ public class AssignToDepartmentGUI extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(294, 294, 294)
-                        .addComponent(change)))
+                        .addComponent(change))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(289, 289, 289)
+                        .addComponent(jLabel7)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(289, 289, 289)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(143, 143, 143))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(emId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(showBt))
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(gendertextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(positiontextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(currentDepartmentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
-                                .addComponent(change))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(152, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel8)
-                        .addGap(244, 244, 244))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(emId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(showBt))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(nametextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(gendertextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(positiontextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(currentDepartmentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(departmenttext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(change)
+                .addContainerGap(157, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void showBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBtActionPerformed
         String employeeID = emId.getText();
 
-        // Kiểm tra nếu EmployeeID rỗng, hiển thị thông báo lỗi
-        if (employeeID.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter an Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    // Kiểm tra nếu EmployeeID rỗng, hiển thị thông báo lỗi
+    if (employeeID.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter an Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        // Gọi DAO để lấy thông tin nhân viên
-        DoctorAndReceptionistDAO dao = new DoctorAndReceptionistDAO();
-        DoctorAndReceptionist employeeInfo = dao.getEmployeeInformation(employeeID);
+    // Gọi DAO để lấy thông tin nhân viên
+    DoctorAndReceptionistDAO dao = new DoctorAndReceptionistDAO();
+    DoctorAndReceptionist employeeInfo = dao.getEmployeeInformation(employeeID);
 
-        // Kiểm tra xem thông tin có tồn tại
-        if (employeeInfo == null) {
-            JOptionPane.showMessageDialog(this, "No employee found with this Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    // Kiểm tra xem thông tin có tồn tại
+    if (employeeInfo == null) {
+        JOptionPane.showMessageDialog(this, "No employee found with this Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        // Kiểm tra xem position có phải là Doctor hoặc Receptionist
-        if (!"Doctor".equals(employeeInfo.getPosition()) && !"Receptionist".equals(employeeInfo.getPosition())) {
-            JOptionPane.showMessageDialog(this, "This employee is not a Doctor or Receptionist.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    // Lấy DepartmentID từ thông tin nhân viên
+    String departmentID = employeeInfo.getCurrentDepartment();
 
-        // Hiển thị thông tin lên các TextField
-        nametextfield.setText(employeeInfo.getName());
-        gendertextfield.setText(employeeInfo.getGender());
-        positiontextfield.setText(employeeInfo.getPosition());
-        currentDepartmentID.setText(employeeInfo.getCurrentDepartment());
+    // Gọi DAO để lấy thông tin DepartmentName dựa trên DepartmentID
+    DepartmentDAO departmentDAO = new DepartmentDAO();
+    String departmentName = departmentDAO.getNameByID(departmentID);
 
+    // Hiển thị thông tin lên các JTextField
+    nametextfield.setText(employeeInfo.getName());
+    gendertextfield.setText(employeeInfo.getGender());
+    positiontextfield.setText(employeeInfo.getPosition());
+    currentDepartmentID.setText(departmentID);
+    departmenttext.setText(departmentName);
     }//GEN-LAST:event_showBtActionPerformed
 
     private void changeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeActionPerformed
         String employeeID = emId.getText();
-        String selectedDepartment = (String) jComboBox1.getSelectedItem();
+    String selectedDepartmentName = (String) jComboBox1.getSelectedItem();
 
-        // Check if Employee ID is empty
-        if (employeeID.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    // Kiểm tra xem Employee ID có trống không
+    if (employeeID.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        // Check if Position is Doctor or Receptionist
-        DoctorAndReceptionistDAO dao = new DoctorAndReceptionistDAO();
-        DoctorAndReceptionist employeeInfo = dao.getEmployeeInformation(employeeID);
-        if (employeeInfo == null) {
-            JOptionPane.showMessageDialog(this, "No employee found with this Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        String currentPosition = employeeInfo.getPosition();
-        if (!("Doctor".equals(currentPosition) || "Receptionist".equals(currentPosition))) {
-            JOptionPane.showMessageDialog(this, "This employee is not a Doctor or Receptionist.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    // Kiểm tra xem Position có phải Doctor hoặc Receptionist không
+    DoctorAndReceptionistDAO dao = new DoctorAndReceptionistDAO();
+    DoctorAndReceptionist employeeInfo = dao.getEmployeeInformation(employeeID);
+    if (employeeInfo == null) {
+        JOptionPane.showMessageDialog(this, "No employee found with this Employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    String currentPosition = employeeInfo.getPosition();
+    if (!("Doctor".equals(currentPosition) || "Receptionist".equals(currentPosition))) {
+        JOptionPane.showMessageDialog(this, "This employee is not a Doctor or Receptionist.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        // Determine DepartmentID based on JComboBox selection
-        String departmentID = "";
-        switch (selectedDepartment) {
-            case "Doctor Department 1":
-            departmentID = "D3";
-            break;
-            case "Doctor Department 2":
-            departmentID = "D4";
-            break;
-            case "Doctor Department 3":
-            departmentID = "D5";
-            break;
-            case "Manager Department":
-            departmentID = "D1";
-            break;
-            case "Reception Department":
-            departmentID = "D2";
-            break;
-            default:
-            // Handle mismatched selection or display error message here
-            JOptionPane.showMessageDialog(this, "Invalid selection.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    // Gọi DAO để lấy DepartmentID dựa trên DepartmentName
+    DepartmentDAO departmentDAO = new DepartmentDAO();
+    String departmentID = departmentDAO.getDepartmentIDbyDepartmentName(selectedDepartmentName);
 
-        // Perform DepartmentID update
-        boolean success = dao.updateDoctorPosition(employeeID, departmentID);
+    if (departmentID == null) {
+        // Xử lý trường hợp không tìm thấy DepartmentID tương ứng
+        JOptionPane.showMessageDialog(this, "Department not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        if (success) {
-            // Display success message if the update is successful
-            JOptionPane.showMessageDialog(this, "Department ID updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            // Display error message if the update fails
-            JOptionPane.showMessageDialog(this, "Error updating Department ID.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    // Thực hiện cập nhật DepartmentID trong bảng Employee
+    boolean success = dao.updateDoctorPosition(employeeID, departmentID);
+
+    if (success) {
+        // Hiển thị thông báo thành công nếu cập nhật thành công
+        JOptionPane.showMessageDialog(this, "Department ID updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        // Hiển thị thông báo lỗi nếu cập nhật thất bại
+        JOptionPane.showMessageDialog(this, "Error updating Department ID.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_changeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton change;
     private javax.swing.JTextField currentDepartmentID;
+    private javax.swing.JTextField departmenttext;
     private javax.swing.JTextField emId;
     private javax.swing.JTextField gendertextfield;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -311,8 +288,6 @@ public class AssignToDepartmentGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField nametextfield;
     private javax.swing.JTextField positiontextfield;
     private javax.swing.JButton showBt;

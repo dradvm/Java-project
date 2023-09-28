@@ -56,4 +56,24 @@ public class DepartmentDAO {
         }
         return result;
     }
+    public String getDepartmentIDbyDepartmentName(String departmentName) {
+        if (connection != null) {
+            try {
+                String query = "SELECT DepartmentID FROM Department WHERE DepartmentName=?";
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setString(1, departmentName);
+
+                ResultSet resultSet = pstmt.executeQuery();
+                if (resultSet.next()) {
+                    String departmentID = resultSet.getString("DepartmentID");
+                    resultSet.close();
+                    pstmt.close();
+                    return departmentID;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }
