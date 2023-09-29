@@ -144,6 +144,7 @@ public class ManagePatientGUI extends javax.swing.JPanel {
 
     private void selectPerformActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectPerformActionPerformed
         changePanel(new SelectPatientGUI());
+        
     }//GEN-LAST:event_selectPerformActionPerformed
 
 

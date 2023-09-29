@@ -223,7 +223,7 @@ public class AddRecordGUI extends javax.swing.JPanel {
     }
 } else {
     // Xử lý trường hợp patientID không hợp lệ (rỗng hoặc null)
-    JOptionPane.showMessageDialog(this, "Invalid Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(this, "Please enter Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
 }
 
     }//GEN-LAST:event_showButtonActionPerformed
