@@ -77,11 +77,11 @@ public class DeleteRecordGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-       String patientIDToDelete = deleteID.getText();
+       String RecordIDToDelete = deleteID.getText();
 
     // Kiểm tra xem đã nhập ID bệnh nhân hay chưa
-    if (patientIDToDelete.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please enter Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
+    if (RecordIDToDelete.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter Record ID.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
@@ -89,7 +89,7 @@ public class DeleteRecordGUI extends javax.swing.JPanel {
     HealthRecordDAO dao = new HealthRecordDAO();
 
     // Kiểm tra xóa hồ sơ sức khỏe thành công hay không
-    boolean deleted = dao.deleteHealthRecord(patientIDToDelete);
+    boolean deleted = dao.deleteHealthRecord(RecordIDToDelete);
     if (deleted) {
         System.out.println("Health record deleted successfully.");
         JOptionPane.showMessageDialog(this, "Health record deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);

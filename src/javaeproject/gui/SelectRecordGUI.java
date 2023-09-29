@@ -104,10 +104,14 @@ public class SelectRecordGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-            String patientIDToSelect = selectID.getText();
+            String patientIDToSelect = selectID.getText().trim();
             HealthRecordDAO healthRecordDAO = new HealthRecordDAO();
             List<HealthRecord> healthRecords = healthRecordDAO.getHealthRecordsByPatientID(patientIDToSelect);
-
+            
+            if (patientIDToSelect.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Dừng xử lý nếu ID trống
+        }
             if (healthRecords.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No health records found for PatientID " + patientIDToSelect, "Error", JOptionPane.ERROR_MESSAGE);
             } else {

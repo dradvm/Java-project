@@ -194,13 +194,14 @@ public class AddRecordGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showButtonActionPerformed
-        String patientID = id.getText();
-
-if (patientID != null && !patientID.isEmpty()) {
-    // Truy vấn thông tin bệnh nhân từ bảng Patient
-    PatientDAO patientDAO = new PatientDAO();
-    Patient patient = patientDAO.getPatientByID(patientID);
-    System.out.println("Patient ID: " + patientID);
+        String patientID = id.getText().trim();
+        
+    
+    if (patientID != null && !patientID.isEmpty()) {
+        // Truy vấn thông tin bệnh nhân từ bảng Patient
+        PatientDAO patientDAO = new PatientDAO();
+        Patient patient = patientDAO.getPatientByID(patientID);
+        System.out.println("Patient ID: " + patientID);
 
     if (patient != null) {
         // Hiển thị thông tin bệnh nhân lên các JTextField
@@ -254,7 +255,7 @@ if (patientID != null && !patientID.isEmpty()) {
             recordid.setText("");
             recordArea.setText("");
         } else {
-            JOptionPane.showMessageDialog(this, "Failed to add record.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter PatientID.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_addNewActionPerformed
 

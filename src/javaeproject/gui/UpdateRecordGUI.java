@@ -13,6 +13,7 @@ import javaeproject.dao.HealthRecordDAO;
 import javaeproject.model.Patient;
 import javaeproject.dao.PatientDAO;
 
+
 /**
  *
  * @author DELL
@@ -194,54 +195,44 @@ public class UpdateRecordGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showButtonActionPerformed
-                                                   
-        String recordID = recordid.getText();
-
-    // Sử dụng biến flag để kiểm tra xem đã hiển thị thông báo lỗi chưa
-    boolean showError = false;
+  String recordID = recordid.getText();
 
     if (recordID != null && !recordID.isEmpty()) {
-        // Sử dụng HealthRecordDAO để lấy thông tin từ bảng HealthRecord
+        // Sử dụng HealthRecordDAO để kiểm tra xem RecordID có tồn tại trong bảng HealthRecord không
         HealthRecordDAO healthRecordDAO = new HealthRecordDAO();
+        
+        if (!healthRecordDAO.checkRecordIDExists(recordID)) {
+            // Hiển thị thông báo lỗi nếu RecordID không tồn tại
+            JOptionPane.showMessageDialog(this, "RecordID does not exist.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        // Lấy thông tin từ bảng HealthRecord, bao gồm cả PatientID và CreateDate
-        String patientID = healthRecordDAO.getPatientIDByRecordID(recordID);
+        // Nếu RecordID tồn tại, thực hiện truy vấn thông tin từ bảng HealthRecord
         String createDate = healthRecordDAO.getCreateDateByRecordID(recordID);
         String problem = healthRecordDAO.getHealthRecordByRecordID(recordID);
+        String patientID = healthRecordDAO.getPatientIDByRecordID(recordID);
 
-        if (patientID != null) {
-            // Hiển thị thông tin từ HealthRecord lên các trường tương ứng
+        // Tiếp tục xử lý dữ liệu như trong phiên bản trước
+        if (problem != null) {
             id.setText(patientID);
             date.setText(createDate);
             problemarea.setText(problem);
 
-            // Sử dụng PatientDAO để lấy thông tin bệnh nhân từ bảng Patient
             PatientDAO patientDAO = new PatientDAO();
-
-            // Lấy thông tin bệnh nhân từ bảng Patient
             Patient patient = patientDAO.getPatientByID(patientID);
 
             if (patient == null) {
-                // Hiển thị thông báo lỗi nếu không tìm thấy thông tin bệnh nhân
-                showError = true;
+                JOptionPane.showMessageDialog(this, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                // Hiển thị thông tin bệnh nhân lên các JTextField
                 name.setText(patient.getPatientName());
                 gender.setText(patient.getPatientGender());
                 dob.setText(patient.getPatientDoB().toString());
             }
         } else {
-            // Hiển thị thông báo lỗi nếu không tìm thấy thông tin từ HealthRecord
-            showError = true;
+            JOptionPane.showMessageDialog(this, "Health record not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     } else {
-        // Hiển thị thông báo lỗi nếu RecordID trống
-        showError = true;
-    }
-
-    // Kiểm tra biến showError và hiển thị thông báo lỗi nếu cần
-    if (showError) {
-        JOptionPane.showMessageDialog(this, "Patient or HealthRecord not found.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Please enter RecordID.", "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_showButtonActionPerformed
 

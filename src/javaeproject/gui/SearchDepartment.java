@@ -134,7 +134,7 @@ public class SearchDepartment extends javax.swing.JPanel {
 
         jLabel14.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel14.setText("Enter EmployeeID to show information");
+        jLabel14.setText("Enter DepartmentID to see information");
 
         jTextField9.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jTextField9.addActionListener(new java.awt.event.ActionListener() {
