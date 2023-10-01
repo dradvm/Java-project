@@ -23,6 +23,27 @@ public class SelectPatientGUI extends javax.swing.JPanel {
         initComponents();
         setOpaque(false);
         connection = ConnectionDB.getConnection();
+        PatientDAO dao = new PatientDAO();
+    List<Patient> patients = dao.getAllPatients();
+    
+    // Tạo mô hình dữ liệu cho bảng
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    
+    // Xóa tất cả các hàng hiện có trong bảng
+    model.setRowCount(0);
+    
+    // Thêm tất cả các bệnh nhân vào mô hình dữ liệu và cập nhật bảng
+    for (Patient patient : patients) {
+        model.addRow(new Object[]{
+            patient.getPatientID(),
+            patient.getPatientName(),
+            patient.getPatientGender(),
+            patient.getPatientPhone(),
+            patient.getPatientAddress(),
+            patient.getPatientDoB(),
+            patient.getNote()
+        });
+    }
     }
 
 
@@ -40,7 +61,6 @@ public class SelectPatientGUI extends javax.swing.JPanel {
         selectIDtextfield = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        selectall = new javax.swing.JButton();
 
         selectButton.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         selectButton.setText("Select");
@@ -58,21 +78,65 @@ public class SelectPatientGUI extends javax.swing.JPanel {
         table.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
                 "PatientID", "PatientName", "Gender", "PatientPhone", "PatientAddress", "PatientDoB", "Note"
             }
         ));
+        table.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(table);
-
-        selectall.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        selectall.setText("Select All");
-        selectall.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectallActionPerformed(evt);
-            }
-        });
+        table.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,9 +153,7 @@ public class SelectPatientGUI extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(selectIDtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(selectall)
-                            .addComponent(selectButton))))
+                        .addComponent(selectButton)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -102,9 +164,7 @@ public class SelectPatientGUI extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(selectIDtextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(selectButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(selectall)
-                .addGap(17, 17, 17)
+                .addGap(52, 52, 52)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(196, Short.MAX_VALUE))
         );
@@ -141,37 +201,12 @@ public class SelectPatientGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_selectButtonActionPerformed
 
-    private void selectallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectallActionPerformed
-        PatientDAO dao = new PatientDAO();
-    List<Patient> patients = dao.getAllPatients();
-    
-    // Tạo mô hình dữ liệu cho bảng
-    DefaultTableModel model = (DefaultTableModel) table.getModel();
-    
-    // Xóa tất cả các hàng hiện có trong bảng
-    model.setRowCount(0);
-    
-    // Thêm tất cả các bệnh nhân vào mô hình dữ liệu và cập nhật bảng
-    for (Patient patient : patients) {
-        model.addRow(new Object[]{
-            patient.getPatientID(),
-            patient.getPatientName(),
-            patient.getPatientGender(),
-            patient.getPatientPhone(),
-            patient.getPatientAddress(),
-            patient.getPatientDoB(),
-            patient.getNote()
-        });
-    }
-    }//GEN-LAST:event_selectallActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton selectButton;
     private javax.swing.JTextField selectIDtextfield;
-    private javax.swing.JButton selectall;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

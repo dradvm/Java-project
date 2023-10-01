@@ -194,7 +194,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
     String dobString = dobTextfield.getText();
 
     // Kiểm tra xem các trường bắt buộc đã được điền hay chưa
-    if (patientID.isEmpty() || patientName.isEmpty() || gender.isEmpty() || phone.isEmpty() || address.isEmpty() || dobString.isEmpty()) {
+    if (patientID.isEmpty() || patientName.isEmpty() || gender.isEmpty() || dobString.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
@@ -208,8 +208,8 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         patient.setPatientID(patientID);
         patient.setPatientName(patientName);
         patient.setpatientGender(gender);
-        patient.setpatientPhone(phone);
-        patient.setpatientAddress(address);
+        patient.setpatientPhone(phone.isEmpty() ? null : phone); // Cho phép trống PatientPhone
+        patient.setpatientAddress(address.isEmpty() ? null : address); // Cho phép trống PatientAddress
         patient.setPatientDoB(dob);
         patient.setNote(noteTextfield.getText());
 
@@ -249,7 +249,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
     String dobString = dobTextfield.getText();
 
     // Kiểm tra xem các trường bắt buộc đã được điền hay chưa
-    if (patientID.isEmpty() || patientName.isEmpty() || gender.isEmpty() || phone.isEmpty() || address.isEmpty() || dobString.isEmpty()) {
+    if (patientID.isEmpty() || patientName.isEmpty() || gender.isEmpty() || dobString.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
         return; // Dừng việc thực hiện phương thức nếu có trường bắt buộc trống
     }
@@ -263,8 +263,8 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         patient.setPatientID(patientID);
         patient.setPatientName(patientName);
         patient.setpatientGender(gender);
-        patient.setpatientPhone(phone);
-        patient.setpatientAddress(address);
+        patient.setpatientPhone(phone.isEmpty() ? null : phone); // Cho phép trống PatientPhone
+        patient.setpatientAddress(address.isEmpty() ? null : address); // Cho phép trống PatientAddress
         patient.setPatientDoB(dob);
         patient.setNote(noteTextfield.getText());
 
