@@ -198,6 +198,10 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
+    if (!gender.equalsIgnoreCase("male") && !gender.equalsIgnoreCase("female")) {
+        JOptionPane.showMessageDialog(this, "Gender must be 'male' or 'female'.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
     // Lấy giá trị từ JTextField dưới dạng chuỗi
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
