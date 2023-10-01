@@ -26,14 +26,6 @@ public class JavaEproject {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
-        ShiftDAO shiftDAO = new ShiftDAO();
-        LoginDAO userDAO = new LoginDAO();
-//        MenuGUI test = new MenuGUI(new User());
-        //LoginGUI test = new LoginGUI();
-//        ShiftRequestDAO shiftRequestDAO = new ShiftRequestDAO();
-//        ShiftDAO shiftDAO = new ShiftDAO();
-//        LoginDAO userDAO = new LoginDAO();
         LoginGUI myApp = new LoginGUI();
         
     }

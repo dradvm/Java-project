@@ -54,7 +54,7 @@ public class EmployeeDAO {
             }
             else {
                 query = "select * from Employee "
-                    + "where EmployeeID not in (select EmployeeID from [Shift] where [Date] = ? and Type = ? and EmployeeID is not null) "
+                    + "where EmployeeID not in (select EmployeeID from [Shift] where [Date] = ? and (Type = ? or Type = 'Fulltime') and EmployeeID is not null) "
                     + "and EmployeeSpecialty = ? "
                     + "and DepartmentID = ?";
                 statement = connection.prepareStatement(query);
