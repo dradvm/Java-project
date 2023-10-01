@@ -1,0 +1,2 @@
+ServerName/IP Address: localhost
+Port: 1433
