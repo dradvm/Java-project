@@ -30,7 +30,14 @@ public class EmployeeDAO {
             user.setEmail(result.getString(9));
             user.setEmployeeSpecialty(result.getString(10));
             user.setUsername(result.getString(11));
-            user.setPassword(result.getString(12));
+            String query = "select (convert(varchar(50), decryptbypassphrase('remedy', [Password]))) from Employee where "
+                + "EmployeeID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, user.getEmployeeID());
+            ResultSet password = statement.executeQuery();
+            while (password.next()) {
+                user.setPassword(password.getString(1));
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -68,6 +75,7 @@ public class EmployeeDAO {
                 User temp = new User();
                 setUser(temp, resultSet);
                 result.add(temp);
+                System.out.println(temp.getPassword());
             }
         }
         catch (Exception e) {

@@ -485,8 +485,14 @@ public class AssignShiftGUI extends javax.swing.JPanel {
             return;
         }
         long range = ChronoUnit.DAYS.between(startDate, endDate);
-        if (range < 0 || range > 6) {
-            errorMessage.setText("Date range must be greater than 0 and equal or less than 7");
+        if (range < 0) {
+            errorMessage.setText("The ending date must be equal to or after the starting date");
+            errorDialog.setLocationRelativeTo(null);
+            errorDialog.setVisible(true);
+            return;
+        }
+        if (range > 6) {
+            errorMessage.setText("The date range must be within 7 days");
             errorDialog.setLocationRelativeTo(null);
             errorDialog.setVisible(true);
             return;
