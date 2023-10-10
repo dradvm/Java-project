@@ -228,31 +228,10 @@ public class ShiftRequestDAO {
         }
         return name;
     }
-    
-//    public boolean checkIfThereAreTwoWayRequests(ShiftRequest shiftRequest) {
-//        String sql = "select * from ChangeRequest where CurrentShiftID = ? and DesiredShiftID = ?";
-//        boolean varReturn = false;
-//        try {
-//            PreparedStatement statement = connection.prepareStatement(sql);
-//            statement.setString(1, shiftRequest.getDesiredShiftID());
-//            statement.setString(2, shiftRequest.getCurrentShiftID());
-//            ResultSet rs = statement.executeQuery();
-//            if (rs.next()) {
-//                varReturn = true;
-//            }
-//            else {
-//                
-//            }
-//        } catch (SQLException e) {
-//            System.out.println("Error");
-//            e.printStackTrace();
-//        }
-//        return varReturn;
-//    }
-    
     public void ApproveRequest(ShiftRequest shiftRequest) {
         String sql = "Update ChangeRequest set Status = 'Approved' where (RequestID = ?) or (CurrentShiftID = ? and DesiredShiftID = ?) and Status = 'Pending' and (RequestDate >= ? and RequestDate <= ?)";
         String sql2 = "Update ChangeRequest set Status = 'Rejected' where ((CurrentShiftID = ?) or (CurrentShiftID = ?)) and RequestID != ? and Status = 'Pending' and (RequestDate >= ? and RequestDate <= ?)";
+        String sql3 = "Update ChangeRequest set Status = 'Rejected' where EmployeeID = ? and RequestID != ? and (RequestDate >= ? and RequestDate <= ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, shiftRequest.getRequestID());
@@ -269,6 +248,13 @@ public class ShiftRequestDAO {
             statement2.setString(4, startOfMonth.toString());
             statement2.setString(5, endOfMonth.toString());
             statement2.executeUpdate();
+            
+            PreparedStatement statement3 = connection.prepareStatement(sql3);
+            statement3.setString(1, shiftRequest.getEmployeeID());
+            statement3.setString(2, shiftRequest.getRequestID());
+            statement3.setString(3, startOfMonth.toString());
+            statement3.setString(4, endOfMonth.toString());
+            statement3.executeUpdate();
             shiftDAO.switchShift(shiftRequest.getCurrentShiftID(), shiftRequest.getDesiredShiftID());
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(new JButton("Confirm"),"Error System!! Please try again later", "", JOptionPane.WARNING_MESSAGE);
