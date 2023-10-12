@@ -235,6 +235,34 @@ public class PatientDAO {
         }
         return patients;
     }
+    public boolean checkPatientIDExists(String patientID) {
+    if (connection != null) {
+        PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
+        try {
+            String query = "SELECT COUNT(*) FROM HealthRecord WHERE PatientID=?";
+            pstmt = connection.prepareStatement(query);
+            pstmt.setString(1, patientID);
+            resultSet = pstmt.executeQuery();
+            resultSet.next();
+            int count = resultSet.getInt(1);
+
+            // Nếu count > 0, tức là PatientID đã tồn tại
+            return count > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (pstmt != null) pstmt.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    // Nếu có lỗi hoặc không tìm thấy, trả về false
+    return false;
+}
     
 }
 

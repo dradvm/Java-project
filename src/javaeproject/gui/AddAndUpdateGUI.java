@@ -57,17 +57,17 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
 
         jLabel1.setText("Add new or update patient information");
 
-        jLabel2.setText("Patient ID");
+        jLabel2.setText("Patient ID *");
 
-        jLabel3.setText("Patient Name");
+        jLabel3.setText("Patient Name *");
 
-        jLabel4.setText("Gender (male or female)");
+        jLabel4.setText("Gender (male or female) *");
 
         jLabel5.setText("Phone");
 
         jLabel6.setText("Address");
 
-        jLabel7.setText("Day of Birth (YYYY-MM-DD)");
+        jLabel7.setText("Day of Birth (YYYY-MM-DD) *");
 
         jLabel8.setText("Note");
 
@@ -104,7 +104,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(153, 153, 153)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addGap(160, 160, 160))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +134,7 @@ public class AddAndUpdateGUI extends javax.swing.JPanel {
                         .addComponent(addButton)
                         .addGap(26, 26, 26)
                         .addComponent(updateButton)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

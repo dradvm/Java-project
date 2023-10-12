@@ -60,7 +60,7 @@ public class AddRecordGUI extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(620, 420));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel2.setText("Patient ID");
+        jLabel2.setText("Patient ID *");
 
         id.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
@@ -93,7 +93,7 @@ public class AddRecordGUI extends javax.swing.JPanel {
         jScrollPane1.setViewportView(recordArea);
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel5.setText("Enter Health Record");
+        jLabel5.setText("Enter Health Record *");
 
         addNew.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         addNew.setText("Add new");
@@ -104,7 +104,7 @@ public class AddRecordGUI extends javax.swing.JPanel {
         });
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel6.setText("RecordID");
+        jLabel6.setText("RecordID *");
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel7.setText("Old Record");
